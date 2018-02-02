@@ -9,6 +9,7 @@ public class DiceRoll {
 	int total;
 	Random rand = new Random();
 	
+	
 	public DiceRoll()
 	{
 		//generating random dice roll number between 1 and 6
@@ -21,7 +22,7 @@ public class DiceRoll {
 	}
 	
 	//returning the dice total
-	public int gettotal()
+	public int getTotal()
 	{
 		return total;
 		

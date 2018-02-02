@@ -1,6 +1,16 @@
 
 public class Moving {
 	
+	int total;
+	
+	public Moving()
+	{
+		DiceRoll roll = new DiceRoll();
+		total = 0;
+		
+	}
+	
+	
 	public int moveUp(int y)
 	{
 		
@@ -23,6 +33,11 @@ public class Moving {
 	{
 		
 		return x+1;
+	}
+	
+	public void setTotal(int total) 
+	{
+		this.total = total;
 	}
 
 }

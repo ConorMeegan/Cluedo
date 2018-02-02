@@ -1,4 +1,3 @@
-import java.awt.image.BufferedImage;
 
 public class GameObject {
 	
@@ -6,16 +5,14 @@ public class GameObject {
 	int playerId;
 	boolean Active = false;
 	int x,y;  //co-ordinates (x, y)
-	BufferedImage representation;
 	
 	//constructor
-	public GameObject(int playerId, boolean Active, int x, int y, BufferedImage representation)
+	public GameObject(int playerId, boolean Active, int x, int y)
 	{
 		this.playerId = playerId;
 		this.Active = Active;
 		this.x = x;
 		this.y = y;
-		this.representation = representation;
 	}
 	
 	//accessors
@@ -39,8 +36,4 @@ public class GameObject {
 		return y;
 	}
 	
-	public BufferedImage getrepresentation()
-	{
-		return representation;
-	}
 }
