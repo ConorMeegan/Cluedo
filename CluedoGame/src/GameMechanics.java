@@ -27,6 +27,7 @@ public class GameMechanics {
 	locations loc;
 	
 	Dimensions dimensions = new Dimensions();
+	PlayerInput playerInput = new PlayerInput();
 	
 	public GameMechanics(int width,int height) {
 		this.width = width;
@@ -38,6 +39,7 @@ public class GameMechanics {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		playerInput.createAndShowGUI();
 		Image();
 		//Draw();
 		loop();
