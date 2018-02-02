@@ -7,8 +7,11 @@ public class PlayerInput extends JPanel implements ActionListener {
 	 private static JTextField textField;
     private static JTextArea textArea;
   
-    int CurrX = GameObject.getx();
-    int CurrY = GameObject.gety();
+    GameObject X = new GameObject(1, true, 0, 0);
+    int CurrX = X.getx();
+    
+    GameObject Y = new GameObject(1, true, 0, 0);
+    int CurrY = Y.getx();
     
     
     public PlayerInput() {
@@ -41,50 +44,54 @@ public class PlayerInput extends JPanel implements ActionListener {
         String text = textField.getText();
        
         
-        int CurrX = GameObject.getx();
-        int CurrY = GameObject.gety();
-        
+       
        
         	if(text.equals("u")){
         		textArea.append("up" + "\n");
         		
-                int PosUp = Moving.moveUp(CurrY);
+        		Moving Up = new Moving();
+                int PosUp = Up.moveUp(CurrY);
                 
-                GameObject.Sety(PosUp);
-                textArea.append(PosUp + "\n");
+                GameObject Y1 = new GameObject(1, true, CurrX, CurrY);
+                Y1.sety(PosUp);
+               
         	}
         
         	else if(text.equals("d")){
         		textArea.append("down" + "\n");
         		
-               int PosDown = Moving.moveDown(CurrY);
-               GameObject.Sety(PosDown);
-               textArea.append(PosDown + "\n");
+        		Moving Down = new Moving();
+                int PosDown = Down.moveUp(CurrY);
+                
+                GameObject Y2 = new GameObject(1, true, CurrX, CurrY);
+                Y2.sety(PosDown);
+               
         	}
         	
         	else if(text.equals("r")){
         		textArea.append("right" + "\n");
         		
-               int PosRight = Moving.moveRight(CurrX);
-               GameObject.Setx(PosRight);
-               textArea.append(PosRight + "\n");
+        		Moving Right = new Moving();
+                int PosRight = Right.moveUp(CurrX);
+                
+                GameObject X1 = new GameObject(1, true, CurrX, CurrY);
+                X1.setx(PosRight);
+              
         	}
         	else if(text.equals("l")){
         		textArea.append("left" + "\n");
         	
-               int PosLeft = Moving.moveLeft(CurrX);
-               GameObject.Setx(PosLeft);
-               textArea.append(PosLeft + "\n");
+        		Moving Left = new Moving();
+                int PosLeft = Left.moveUp(CurrX);
+              
+                GameObject X2 = new GameObject(1, true, CurrX, CurrY);
+                X2.setx(PosLeft);
+               
         	}
         	else{
         		textArea.append(text + "\n");
         	}
      
-        	int Xcord = GameObject.getx();
-        	int Ycord = GameObject.gety();
-        	
-        	textArea.append("("+Xcord +","+ Ycord+")" + "\n");
-        	
         textField.selectAll();
  
         
@@ -105,11 +112,6 @@ public class PlayerInput extends JPanel implements ActionListener {
         frame.pack();
         frame.setVisible(true);
     }
- 
-    public static void main(String[] args) {
-                	createAndShowGUI();
-                
-            }
-        
+         
     
 }
