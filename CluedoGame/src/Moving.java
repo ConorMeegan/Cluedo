@@ -6,7 +6,7 @@ public class Moving {
 		//leaving empty for now, possibly will put in moving code later
 	}
 	
-	
+	//accessors
 	public int moveUp(int y)
 	{
 		
