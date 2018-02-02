@@ -1,13 +1,9 @@
 
 public class Moving {
 	
-	int total;
-	
 	public Moving()
 	{
-		DiceRoll roll = new DiceRoll();
-		total = 0;
-		
+		//leaving empty for now, possibly will put in moving code later
 	}
 	
 	
@@ -33,11 +29,6 @@ public class Moving {
 	{
 		
 		return x+1;
-	}
-	
-	public void setTotal(int total) 
-	{
-		this.total = total;
 	}
 
 }

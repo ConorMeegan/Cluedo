@@ -36,4 +36,15 @@ public class GameObject {
 		return y;
 	}
 	
+	//mutators for the x and y co-ordinates
+	public void setx(int xValue)
+	{
+		x = xValue;
+	}
+	
+	public void sety(int yValue)
+	{
+		y = yValue;
+	}
+
 }
