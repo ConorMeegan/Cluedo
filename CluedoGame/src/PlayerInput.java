@@ -4,19 +4,17 @@ import java.awt.event.*;
 import javax.swing.*;
  
 public class PlayerInput extends JPanel implements ActionListener {
-	public JTextField textField;
-    public JTextArea textArea;
+	private static JTextField textField;
+    private static JTextArea textArea;
   
-    GameObject X = new GameObject(1, true, 0, 0);
-    int CurrX = X.getx();
-    
-    GameObject Y = new GameObject(1, true, 0, 0);
-    int CurrY = Y.getx();
+    GameMechanics mech;
+    String string = null;
     
     
-    public PlayerInput() {
+    public PlayerInput(GameMechanics mech) {
         super(new GridBagLayout());
  
+        this.mech = mech;
         textField = new JTextField(20);
         textField.addActionListener(this);
  
@@ -49,43 +47,31 @@ public class PlayerInput extends JPanel implements ActionListener {
         	if(text.equals("u")){
         		textArea.append("up" + "\n");
         		
-        		Moving Up = new Moving();
-                int PosUp = Up.moveUp(CurrY);
-                
-                GameObject Y1 = new GameObject(1, true, CurrX, CurrY);
-                Y1.sety(PosUp);
+        		string = "up";
+        		sendString(mech);
                
         	}
         
         	else if(text.equals("d")){
         		textArea.append("down" + "\n");
         		
-        		Moving Down = new Moving();
-                int PosDown = Down.moveUp(CurrY);
-                
-                GameObject Y2 = new GameObject(1, true, CurrX, CurrY);
-                Y2.sety(PosDown);
+        		string = "down";
+        		sendString(mech);
                
         	}
         	
         	else if(text.equals("r")){
         		textArea.append("right" + "\n");
         		
-        		Moving Right = new Moving();
-                int PosRight = Right.moveUp(CurrX);
-                
-                GameObject X1 = new GameObject(1, true, CurrX, CurrY);
-                X1.setx(PosRight);
+        		string = "right";
+        		sendString(mech);
               
         	}
         	else if(text.equals("l")){
         		textArea.append("left" + "\n");
         	
-        		Moving Left = new Moving();
-                int PosLeft = Left.moveUp(CurrX);
-              
-                GameObject X2 = new GameObject(1, true, CurrX, CurrY);
-                X2.setx(PosLeft);
+        		string = "left";
+        		sendString(mech);
                
         	}
         	else{
@@ -98,6 +84,14 @@ public class PlayerInput extends JPanel implements ActionListener {
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
     
+    public void sendString(GameMechanics mech){
+    	mech.setInput(string);
+    	string = "works";
+    }
+    public void setString(){
+    	string = "works";
+    }
+    
     
     public void createAndShowGUI() {
         //Create and set up the window.
@@ -105,7 +99,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         //Add contents to the window.
-        frame.add(new PlayerInput());
+        frame.add(new PlayerInput(mech));
        
  
         //Display the window.
