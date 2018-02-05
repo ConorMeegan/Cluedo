@@ -9,7 +9,6 @@ public class Moving {
 	
 	public int moveUp(int y)
 	{
-		
 		return y+1;
 	}
 	
