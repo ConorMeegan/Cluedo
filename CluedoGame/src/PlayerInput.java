@@ -47,7 +47,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         	if(text.equals("u")){
         		textArea.append("up" + "\n");
         		
-        		string = "up";
+        		string = "u";
         		sendString(mech);
                
         	}
@@ -55,7 +55,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         	else if(text.equals("d")){
         		textArea.append("down" + "\n");
         		
-        		string = "down";
+        		string = "d";
         		sendString(mech);
                
         	}
@@ -63,14 +63,14 @@ public class PlayerInput extends JPanel implements ActionListener {
         	else if(text.equals("r")){
         		textArea.append("right" + "\n");
         		
-        		string = "right";
+        		string = "r";
         		sendString(mech);
               
         	}
         	else if(text.equals("l")){
         		textArea.append("left" + "\n");
         	
-        		string = "left";
+        		string = "l";
         		sendString(mech);
                
         	}
