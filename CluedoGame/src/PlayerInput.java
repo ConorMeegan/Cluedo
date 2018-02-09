@@ -9,7 +9,7 @@ public class PlayerInput extends JPanel implements ActionListener {
   
     GameMechanics mech;
     String string = null;
-    
+
     
     public PlayerInput(GameMechanics mech) {
         super(new GridBagLayout());
@@ -25,10 +25,6 @@ public class PlayerInput extends JPanel implements ActionListener {
        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
- 
-        
- 
-       
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -42,91 +38,133 @@ public class PlayerInput extends JPanel implements ActionListener {
         String text = textField.getText();
         text = text.toLowerCase();
        
-             
-        if(text.equals("burns mansion")){
-        	
-        	string = "burnsMansion";
-    		sendString(mech);
-        }
-        else if(text.equals("comic book store")){
-        	
-        	string = "comicBookStore";
-    		sendString(mech);
-        }
-        else if(text.equals("kwik-e-mart")){
-        	
-        	string = "kwikEMart";
-    		sendString(mech);
-        }
-        else if(text.equals("school")){
-        	
-        	string = "school";
-    		sendString(mech);
-        }
-        else if(text.equals("flanders house")){
-        	
-        	string = "flandersHouse";
-    		sendString(mech);
-        }
-        else if(text.equals("simpsons house")){
-        	
-        	string = "simpsonsHouse";
-    		sendString(mech);
-        }
-        else if(text.equals("frying dutchman")){
-        	
-        	string = "fryingDutchman";
-    		sendString(mech);
-        }
-        else if(text.equals("krusty burger")){
-        	
-        	string = "krustyBurger";
-    		sendString(mech);
-        }
-        else if(text.equals("moes tavern")){
-        	
-        	string = "moesTavern";
-    		sendString(mech);
-        }
-       
-        	if(text.equals("u")){
-        		textArea.append("up" + "\n");
-        		
-        		string = "u";
-        		sendString(mech);
-               
-        	}
-        
-        	else if(text.equals("d")){
-        		textArea.append("down" + "\n");
-        		
-        		string = "d";
-        		sendString(mech);
-               
-        	}
-        	
-        	else if(text.equals("r")){
-        		textArea.append("right" + "\n");
-        		
-        		string = "r";
-        		sendString(mech);
-              
-        	}
-        	else if(text.equals("l")){
-        		textArea.append("left" + "\n");
-        	
-        		string = "l";
-        		sendString(mech);
-               
-        	}
-        	else{
-        		textArea.append(text + "\n");
-        	}
      
+        weaponMove(text);
+        
+      	playerMove(text);
+    	
+      	
         textField.selectAll();
  
         
         textArea.setCaretPosition(textArea.getDocument().getLength());
+    }
+    
+    
+    public void weaponMove(String text){
+    	if(text.equals("burns mansion")){
+        	
+    		textArea.append("burns mansion" + "\n");
+    		string = "burnsMansion";
+    		sendString(mech);
+    		textArea.append("moved weapon to burns mansion" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		}
+    	
+    	else if(text.equals("comic book store")){
+    	
+    		textArea.append("comic book store" + "\n");
+    		string = "comicBookStore";
+    		sendString(mech);
+    		textArea.append("moved weapon to comic book store" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	
+    	else if(text.equals("kwik-e-mart")){
+    	
+    		textArea.append("kwik-e-mart" + "\n");
+    		string = "kwikEMart";
+    		sendString(mech);
+    		textArea.append("moved weapon to kwik-e-mart" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	
+    	else if(text.equals("school")){
+    	
+    		textArea.append("school" + "\n");
+    		string = "school";
+    		sendString(mech);
+    		textArea.append("moved weapon to school" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	
+    	else if(text.equals("flanders house")){
+    	
+    		textArea.append("flanders house" + "\n");
+    		string = "flandersHouse";
+    		sendString(mech);
+    		textArea.append("moved weapon to flanders house" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	
+    	else if(text.equals("simpsons house")){
+    	
+    		textArea.append("simpsons house" + "\n");
+    		string = "simpsonsHouse";
+    		sendString(mech);
+    		textArea.append("moved weapon to simpsons house" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	
+    	else if(text.equals("frying dutchman")){
+    	
+    		textArea.append("frying dutchman" + "\n");
+    		string = "fryingDutchman";
+    		sendString(mech);
+    		textArea.append("moved weapon to frying dutchman" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	else if(text.equals("krusty burger")){
+    	
+    		textArea.append("krusty burger" + "\n");
+    		string = "krustyBurger";
+    		sendString(mech);
+    		textArea.append("moved weapon to krusty burger" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	else if(text.equals("moes tavern")){
+    	
+    		textArea.append("moes tavern" + "\n");
+    		string = "moesTavern";
+    		sendString(mech);
+    		textArea.append("moved weapon to moes tavern" + "\n");
+    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    	}
+    	
+    }
+    
+    public void playerMove(String text){
+    	if(text.equals("u")){
+    		textArea.append("Moved player up" + "\n");
+    		
+    		string = "u";
+    		sendString(mech);
+           
+    	}
+    
+    	else if(text.equals("d")){
+    		textArea.append("Moved player down" + "\n");
+    		
+    		string = "d";
+    		sendString(mech);
+           
+    	}
+    	
+    	else if(text.equals("r")){
+    		textArea.append("Moved player right" + "\n");
+    		
+    		string = "r";
+    		sendString(mech);
+          
+    	}
+    	else if(text.equals("l")){
+    		textArea.append("Moved player left" + "\n");
+    	
+    		string = "l";
+    		sendString(mech);
+           
+    	}
+    	
     }
     
     public void sendString(GameMechanics mech){
@@ -156,7 +194,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        textArea.append("move weapon to ______");
+        textArea.append("Move weapon to room" + "\n");
     }
          
     
