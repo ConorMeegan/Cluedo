@@ -40,9 +40,54 @@ public class PlayerInput extends JPanel implements ActionListener {
  
     public void actionPerformed(ActionEvent evt) {
         String text = textField.getText();
+        text = text.toLowerCase();
        
-        
-       
+             
+        if(text.equals("burns mansion")){
+        	
+        	string = "burnsMansion";
+    		sendString(mech);
+        }
+        else if(text.equals("comic book store")){
+        	
+        	string = "comicBookStore";
+    		sendString(mech);
+        }
+        else if(text.equals("kwik-e-mart")){
+        	
+        	string = "kwikEMart";
+    		sendString(mech);
+        }
+        else if(text.equals("school")){
+        	
+        	string = "school";
+    		sendString(mech);
+        }
+        else if(text.equals("flanders house")){
+        	
+        	string = "flandersHouse";
+    		sendString(mech);
+        }
+        else if(text.equals("simpsons house")){
+        	
+        	string = "simpsonsHouse";
+    		sendString(mech);
+        }
+        else if(text.equals("frying dutchman")){
+        	
+        	string = "fryingDutchman";
+    		sendString(mech);
+        }
+        else if(text.equals("krusty burger")){
+        	
+        	string = "krustyBurger";
+    		sendString(mech);
+        }
+        else if(text.equals("moes tavern")){
+        	
+        	string = "moesTavern";
+    		sendString(mech);
+        }
        
         	if(text.equals("u")){
         		textArea.append("up" + "\n");
@@ -111,6 +156,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        textArea.append("move weapon to ______");
     }
          
     
