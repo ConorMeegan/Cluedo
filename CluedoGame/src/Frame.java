@@ -17,6 +17,7 @@ public class Frame {
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width,height));
+		canvas.setFocusable(false);
 		
 		frame.add(canvas);
 		frame.pack();

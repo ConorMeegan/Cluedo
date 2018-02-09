@@ -57,10 +57,16 @@ public class GameMechanics {
 	PlayerInput playerInput = new PlayerInput(this);
 	Moving moving = new Moving();
 	
+	//input key variable
+	private KeyManager keyManager;
+	
 	public GameMechanics(int width,int height) {
 		this.width = width;
 		this.height = height;
 		frame = new Frame(width,height);
+		keyManager = new KeyManager();  //for arrow key movement
+		frame.getFrame().addKeyListener(keyManager);
+		
 		try {
 			background = ImageIO.read(new File("Assets/Images/NEWmap4.png"));
 
