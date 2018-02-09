@@ -25,6 +25,12 @@ public class GameMechanics {
 	GameObject PlayerFour;
 	GameObject PlayerFive;
 	GameObject PlayerSix;
+	GameObject weaponOne;
+	GameObject weaponTwo;
+	GameObject weaponThree;
+	GameObject weaponFour;
+	GameObject weaponFive;
+	GameObject weaponSix;
 	
 	BufferedImage background;
 	BufferedImage img1;
@@ -39,6 +45,13 @@ public class GameMechanics {
 	BufferedImage cardImage4;
 	BufferedImage cardImage5;
 	BufferedImage cardImage6;
+	
+	BufferedImage weaponImage1;
+	BufferedImage weaponImage2;
+	BufferedImage weaponImage3;
+	BufferedImage weaponImage4;
+	BufferedImage weaponImage5;
+	BufferedImage weaponImage6;
 	
 	Dimensions dimensions = new Dimensions();
 	PlayerInput playerInput = new PlayerInput(this);
@@ -91,6 +104,12 @@ public class GameMechanics {
 		g.drawImage(cardImage6, 15, 15, null);
 		g.drawImage(cardImage5, 15, 240, null);
 		g.drawImage(cardImage2, 15, 460, null);
+		g.drawImage(weaponImage6, (weaponSix.getx()*24) +180, weaponSix.gety()*24, null);
+		g.drawImage(weaponImage5, (weaponOne.getx()*24) +180, weaponOne.gety()*24, null);
+		g.drawImage(weaponImage2, (weaponTwo.getx()*24) +180, weaponTwo.gety()*24, null);
+		g.drawImage(weaponImage1, (weaponThree.getx()*24) +180, weaponThree.gety()*24, null);
+		g.drawImage(weaponImage3, (weaponFour.getx()*24) +180, weaponFour.gety()*24, null);
+		g.drawImage(weaponImage4, (weaponFive.getx()*24) +180, weaponFive.gety()*24, null);
 	}
 	
 	public void movement(int num) {
@@ -110,6 +129,51 @@ public class GameMechanics {
 			PlayerOne.setx(moving.moveLeft(PlayerOne.getx()));
 			playerInput.setString();
 			System.out.println("Left");
+		}else if(num == 5) {
+			weaponOne.sety(8);
+			weaponOne.setx(15);
+			playerInput.setString();
+			System.out.println("Burns Mansion");
+		}else if(num == 6) {
+			weaponOne.sety(8);
+			weaponOne.setx(5);
+			playerInput.setString();
+			System.out.println("Comic Book Store");
+		}else if(num == 7){
+			weaponOne.sety(6);
+			weaponOne.setx(23);
+			playerInput.setString();
+			System.out.println("Kwik-E Mart");
+		}else if(num == 8) {
+			weaponOne.sety(14);
+			weaponOne.setx(9);
+			playerInput.setString();
+			System.out.println("School");
+		}else if(num == 10){
+			weaponOne.sety(13);
+			weaponOne.setx(22);
+			playerInput.setString();
+			System.out.println("Flanders House");
+		}else if(num == 11) {
+			weaponOne.sety(19);
+			weaponOne.setx(22);
+			playerInput.setString();
+			System.out.println("Simpsons House");
+		}else if(num == 12) {
+			weaponOne.sety(24);
+			weaponOne.setx(20);
+			playerInput.setString();
+			System.out.println("Frying Dutchman");
+		}else if(num == 13){
+			weaponOne.sety(12);
+			weaponOne.setx(19);
+			playerInput.setString();
+			System.out.println("Krusty Burger");
+		}else if(num == 14){
+			weaponOne.sety(12);
+			weaponOne.setx(20);
+			playerInput.setString();
+			System.out.println("Moes Tavern");
 		}
 		
 		
@@ -130,6 +194,12 @@ public class GameMechanics {
 			cardImage4 = ImageIO.read(new File("Assets/Images/HomerCard.png"));
 			cardImage5 = ImageIO.read(new File("Assets/Images/maggieCardTest.png"));
 			cardImage6 = ImageIO.read(new File("Assets/Images/moeCardTest.png"));
+			weaponImage1 = ImageIO.read(new File("Assets/Images/axeToken.png"));
+			weaponImage2 = ImageIO.read(new File("Assets/Images/bombToken.png"));
+			weaponImage3 = ImageIO.read(new File("Assets/Images/chainsawToken.png"));
+			weaponImage4 = ImageIO.read(new File("Assets/Images/gunToken.png"));
+			weaponImage5 = ImageIO.read(new File("Assets/Images/knifeToken.png"));
+			weaponImage6 = ImageIO.read(new File("Assets/Images/slingShotToken.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -140,6 +210,13 @@ public class GameMechanics {
 		PlayerFour = new GameObject(18,false,25,7);
 		PlayerFive = new GameObject(19,false,9,25);
 		PlayerSix = new GameObject(20,false,16,1);
+		
+		weaponOne = new GameObject(20,false,0,1);
+		weaponTwo = new GameObject(25,false,0,2);
+		weaponThree = new GameObject(30,false,0,3);
+		weaponFour = new GameObject(40,false,0,4);
+		weaponFive = new GameObject(45,false,0,5);
+		weaponSix = new GameObject(50,false,0,6);
 	}
 	
 	public void setInput(String string) {
@@ -151,6 +228,24 @@ public class GameMechanics {
 			this.movement(3);
 		}else if(string.equals("r")){
 			this.movement(4);
+		}else if(string.equals("burnsMansion")){
+			this.movement(5);
+		}else if(string.equals("comicBookStore")){
+			this.movement(6);
+		}else if(string.equals("kwikEMart")){
+			this.movement(7);
+		}else if(string.equals("school")){
+			this.movement(8);
+		}else if(string.equals("flandersHouse")){
+			this.movement(10);
+		}else if(string.equals("simpsonsHouse")){
+			this.movement(11);
+		}else if(string.equals("fryingDutchman")){
+			this.movement(12);
+		}else if(string.equals("krustyBurger")){
+			this.movement(13);
+		}else if(string.equals("moesTavern")){
+			this.movement(13);
 		}
 	}
 }
