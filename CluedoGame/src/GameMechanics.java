@@ -16,7 +16,7 @@ public class GameMechanics {
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
-	
+	int[] gameState = {1,2,3};
 	int width, height;
 	
 	GameObject PlayerOne;
@@ -53,6 +53,10 @@ public class GameMechanics {
 	BufferedImage weaponImage5;
 	BufferedImage weaponImage6;
 	
+	BufferedImage startArea;
+	BufferedImage playButton;
+	BufferedImage HTPButton;
+	
 	Dimensions dimensions = new Dimensions();
 	PlayerInput playerInput = new PlayerInput(this);
 	Moving moving = new Moving();
@@ -60,6 +64,7 @@ public class GameMechanics {
 	//input key variable
 	private KeyManager keyManager;
 	
+	//constructor to get everything ready
 	public GameMechanics(int width,int height) {
 		this.width = width;
 		this.height = height;
@@ -77,6 +82,7 @@ public class GameMechanics {
 		Initialise();
 		loop();
 	}
+	//loop to continue the process of drawing the sprites and maps when updates happen 
 	public void loop() {
 		while(true) {
 			start();
@@ -95,10 +101,20 @@ public class GameMechanics {
 		g.drawImage(background,180, 0, null);
 		Draw();
 		
+		//futurecode for future game states
+		if(gameState[0] == 0) {
+			g.setColor(new Color(20,20,20,240));
+			g.fillRect(0, 0, width, height);
+			g.drawImage(startArea, (width/2)-250, (height/2)-300, null);
+			g.drawImage(playButton, 450, 100, null);
+			g.drawImage(HTPButton, 450, 160, null);
+		}
+		
 		buffer.show();
 		g.dispose();
 	}
 	
+	//handles all drawing of sprites
 	public void Draw() {
 		
 		g.drawImage(img6, (PlayerSix.getx()*24) +180, PlayerSix.gety()*24, null);
@@ -141,7 +157,7 @@ public class GameMechanics {
 			playerInput.setString();
 			System.out.println("Burns Mansion");
 		}else if(num == 6) {
-			weaponOne.sety(8);
+			weaponOne.sety(7);
 			weaponOne.setx(5);
 			playerInput.setString();
 			System.out.println("Comic Book Store");
@@ -171,13 +187,13 @@ public class GameMechanics {
 			playerInput.setString();
 			System.out.println("Frying Dutchman");
 		}else if(num == 13){
-			weaponOne.sety(12);
-			weaponOne.setx(19);
+			weaponOne.sety(19);
+			weaponOne.setx(12);
 			playerInput.setString();
 			System.out.println("Krusty Burger");
 		}else if(num == 14){
-			weaponOne.sety(12);
-			weaponOne.setx(20);
+			weaponOne.sety(21);
+			weaponOne.setx(6);
 			playerInput.setString();
 			System.out.println("Moes Tavern");
 		}
@@ -185,6 +201,7 @@ public class GameMechanics {
 		
 	}
 	
+	//recieves all images and sets all object to positions
 	public void Initialise() {
 		
 		try {
@@ -206,6 +223,9 @@ public class GameMechanics {
 			weaponImage4 = ImageIO.read(new File("Assets/Images/gunToken.png"));
 			weaponImage5 = ImageIO.read(new File("Assets/Images/knifeToken.png"));
 			weaponImage6 = ImageIO.read(new File("Assets/Images/slingShotToken.png"));
+			startArea = ImageIO.read(new File("Assets/Images/startArea.png"));
+			playButton = ImageIO.read(new File("Assets/Images/playButton.png"));
+			HTPButton = ImageIO.read(new File("Assets/Images/howToPlayButton.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -225,6 +245,7 @@ public class GameMechanics {
 		weaponSix = new GameObject(50,false,0,6);
 	}
 	
+	//used to control players and weapons, will be updated in the future to work for different input styles
 	public void setInput(String string) {
 		if(string.equals("u")) {
 			this.movement(1);
@@ -251,7 +272,7 @@ public class GameMechanics {
 		}else if(string.equals("krustyBurger")){
 			this.movement(13);
 		}else if(string.equals("moesTavern")){
-			this.movement(13);
+			this.movement(14);
 		}
 	}
 }

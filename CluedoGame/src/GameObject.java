@@ -1,6 +1,7 @@
 
 public class GameObject {
 	
+	//every sprite in the game is a GameObject
 	//variables to be used
 	int playerId;
 	boolean Active = false;

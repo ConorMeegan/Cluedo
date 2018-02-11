@@ -1,5 +1,7 @@
 public class Dimensions {
 	
+	//corresponds to the map, this allows for collision detection in future updates and allows 
+	//for players to move
 	private int[][] dimensions = {
 			
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
