@@ -5,9 +5,11 @@ public class KeyManager implements KeyListener{
 
 	private boolean[] keys;
 	public boolean up, down, left, right;
+	GameMechanics mech;
 	
-	public KeyManager()
+	public KeyManager(GameMechanics mech)
 	{
+		this.mech = mech;
 		keys = new boolean[256];
 	}
 	
@@ -24,6 +26,23 @@ public class KeyManager implements KeyListener{
 		// TODO Auto-generated method stub
 		keys[e.getKeyCode()] = true;
 		System.out.println("\nPressed");
+		
+		if(keys[KeyEvent.VK_UP] == true)
+		{
+			mech.setInput("u");
+		}
+		else if(keys[KeyEvent.VK_DOWN] == true)
+		{
+			mech.setInput("d");
+		}
+		else if(keys[KeyEvent.VK_LEFT] == true)
+		{
+			mech.setInput("l");
+		}
+		else if(keys[KeyEvent.VK_RIGHT] == true)
+		{
+			mech.setInput("r");
+		}
 	}
 
 	@Override

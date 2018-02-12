@@ -69,7 +69,7 @@ public class GameMechanics {
 		this.width = width;
 		this.height = height;
 		frame = new Frame(width,height);
-		keyManager = new KeyManager();  //for arrow key movement
+		keyManager = new KeyManager(this);  //for arrow key movement
 		frame.getFrame().addKeyListener(keyManager);
 		
 		try {
