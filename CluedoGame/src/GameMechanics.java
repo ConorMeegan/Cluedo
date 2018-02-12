@@ -73,7 +73,7 @@ public class GameMechanics {
 		frame.getFrame().addKeyListener(keyManager);
 		
 		try {
-			background = ImageIO.read(new File("Assets/Images/NEWmap4.png"));
+			background = ImageIO.read(new File("Images/NEWmap4.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -203,29 +203,29 @@ public class GameMechanics {
 	
 	//recieves all images and sets all object to positions
 	public void Initialise() {
-		
+
 		try {
-			img1 = ImageIO.read(new File("Assets/Images/catLadyToken2.png"));
-			img2 = ImageIO.read(new File("Assets/Images/fatTonyToken2.png"));
-			img3 = ImageIO.read(new File("Assets/Images/hanzToken2.png"));
-			img4 = ImageIO.read(new File("Assets/Images/HomerToken2.png"));
-			img5 = ImageIO.read(new File("Assets/Images/maggieToken2.png"));
-			img6 = ImageIO.read(new File("Assets/Images/moeToken2.png"));
-			cardImage1 = ImageIO.read(new File("Assets/Images/carzycatLady.png"));
-			cardImage2 = ImageIO.read(new File("Assets/Images/fatTonyCardTest.png"));
-			cardImage3 = ImageIO.read(new File("Assets/Images/hanzMoleManCard.png"));
-			cardImage4 = ImageIO.read(new File("Assets/Images/HomerCard.png"));
-			cardImage5 = ImageIO.read(new File("Assets/Images/maggieCardTest.png"));
-			cardImage6 = ImageIO.read(new File("Assets/Images/moeCardTest.png"));
-			weaponImage1 = ImageIO.read(new File("Assets/Images/axeToken.png"));
-			weaponImage2 = ImageIO.read(new File("Assets/Images/bombToken.png"));
-			weaponImage3 = ImageIO.read(new File("Assets/Images/chainsawToken.png"));
-			weaponImage4 = ImageIO.read(new File("Assets/Images/gunToken.png"));
-			weaponImage5 = ImageIO.read(new File("Assets/Images/knifeToken.png"));
-			weaponImage6 = ImageIO.read(new File("Assets/Images/slingShotToken.png"));
-			startArea = ImageIO.read(new File("Assets/Images/startArea.png"));
-			playButton = ImageIO.read(new File("Assets/Images/playButton.png"));
-			HTPButton = ImageIO.read(new File("Assets/Images/howToPlayButton.png"));
+			img1 = ImageIO.read(new File("Images/catLadyToken2.png"));
+			img2 = ImageIO.read(new File("Images/fatTonyToken2.png"));
+			img3 = ImageIO.read(new File("Images/hanzToken2.png"));
+			img4 = ImageIO.read(new File("Images/homerToken2.png"));
+			img5 = ImageIO.read(new File("Images/maggieToken2.png"));
+			img6 = ImageIO.read(new File("Images/moeToken2.png"));
+			cardImage1 = ImageIO.read(new File("Images/carzycatLady.png"));
+			cardImage2 = ImageIO.read(new File("Images/fatTonyCardTest.png"));
+			cardImage3 = ImageIO.read(new File("Images/hanzMoleManCard.png"));
+			cardImage4 = ImageIO.read(new File("Images/HomerCard.png"));
+			cardImage5 = ImageIO.read(new File("Images/maggieCardTest.png"));
+			cardImage6 = ImageIO.read(new File("Images/moeCardTest.png"));
+			weaponImage1 = ImageIO.read(new File("Images/axeToken.png"));
+			weaponImage2 = ImageIO.read(new File("Images/bombToken.png"));
+			weaponImage3 = ImageIO.read(new File("Images/chainsawToken.png"));
+			weaponImage4 = ImageIO.read(new File("Images/gunToken.png"));
+			weaponImage5 = ImageIO.read(new File("Images/knifeToken.png"));
+			weaponImage6 = ImageIO.read(new File("Images/slingShotToken.png"));
+			startArea = ImageIO.read(new File("Images/startArea.png"));
+			playButton = ImageIO.read(new File("Images/playButton.png"));
+			HTPButton = ImageIO.read(new File("Images/howToPlayButton.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
