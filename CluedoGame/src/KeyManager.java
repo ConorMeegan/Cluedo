@@ -6,10 +6,12 @@ public class KeyManager implements KeyListener{
 	private boolean[] keys;
 	public boolean up, down, left, right;
 	GameMechanics mech;
+	CollisonTesting cTest;
 	
 	public KeyManager(GameMechanics mech)
 	{
 		this.mech = mech;
+		cTest = new CollisonTesting(mech);
 		keys = new boolean[256];
 	}
 	
@@ -25,23 +27,38 @@ public class KeyManager implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		keys[e.getKeyCode()] = true;
-		System.out.println("\nPressed");
+		//System.out.println("\nPressed");
 		
 		if(keys[KeyEvent.VK_UP] == true)
 		{
-			mech.setInput("u");
+			if(cTest.testMove("u", mech.getOb())){
+				mech.setInput("u");
+			}
+			/*
+			if(cTest.testDoor("u", mech.getOb()) == "burnsmansion") {
+				mech.getOb().setx(15);
+				mech.getOb().sety(8);
+				System.out.println("setting");
+			}
+			*/
 		}
 		else if(keys[KeyEvent.VK_DOWN] == true)
 		{
-			mech.setInput("d");
+			if(cTest.testMove("d", mech.getOb())){
+				mech.setInput("d");
+			}
 		}
 		else if(keys[KeyEvent.VK_LEFT] == true)
 		{
-			mech.setInput("l");
+			if(cTest.testMove("l", mech.getOb())){
+				mech.setInput("l");
+			}
 		}
 		else if(keys[KeyEvent.VK_RIGHT] == true)
 		{
-			mech.setInput("r");
+			if(cTest.testMove("r", mech.getOb())){
+				mech.setInput("r");
+			}
 		}
 	}
 

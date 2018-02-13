@@ -73,7 +73,7 @@ public class GameMechanics {
 		frame.getFrame().addKeyListener(keyManager);
 		
 		try {
-			background = ImageIO.read(new File("Images/NEWmap4.png"));
+			background = ImageIO.read(getClass().getResource("NEWmap4.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -110,6 +110,89 @@ public class GameMechanics {
 			g.drawImage(HTPButton, 450, 160, null);
 		}
 		
+		for(int i=0;i<28;i++) {
+			for(int j=0;j<28;j++) {
+				if(dimensions.getVal(i, j) == 0) {
+					g.setColor(new Color(100,100,100,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 2) {
+					g.setColor(new Color(111,222,55,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 3) {
+					g.setColor(new Color(99,51,116,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 4) {
+					g.setColor(new Color(248,54,56,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 5) {
+					g.setColor(new Color(158,54,241,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 6) {
+					g.setColor(new Color(120,34,116,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 7) {
+					g.setColor(new Color(213,54,56,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 8) {
+					g.setColor(new Color(213,22,33,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 9) {
+					g.setColor(new Color(100,54,56,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 10) {
+					g.setColor(new Color(213,54,56,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 11) {
+					g.setColor(new Color(75,45,75,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 12) {
+					g.setColor(new Color(150,54,46,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 1) {
+					g.setColor(new Color(23,94,56,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 50) {
+					g.setColor(new Color(88,55,122));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 60) {
+					g.setColor(new Color(55,200,45));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 70) {
+					g.setColor(new Color(55,20,245));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 80) {
+					g.setColor(new Color(255,0,0));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 90) {
+					g.setColor(new Color(0,0,255));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 1000) {
+					g.setColor(new Color(255,255,0));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 20) {
+					g.setColor(new Color(11,55,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 30) {
+					g.setColor(new Color(75,75,75));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 40) {
+					g.setColor(new Color(80,55,1));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 55) {
+					g.setColor(new Color(0,200,100));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 17) {
+					g.setColor(new Color(150,150,150));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 15) {
+					g.setColor(new Color(50,50,50));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 50) {
+					g.setColor(new Color(75,80,210));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}
+			}
+		}
 		buffer.show();
 		g.dispose();
 	}
@@ -138,19 +221,15 @@ public class GameMechanics {
 		if(num == 1) {
 			PlayerOne.sety(moving.moveUp(PlayerOne.gety()));
 			playerInput.setString();
-			System.out.println("Up");
 		}else if(num == 2) {
 			PlayerOne.sety(moving.moveDown(PlayerOne.gety()));
 			playerInput.setString();
-			System.out.println("Down");
 		}else if(num == 3) {
 			PlayerOne.setx(moving.moveRight(PlayerOne.getx()));
 			playerInput.setString();
-			System.out.println("Right");
 		}else if(num == 4){
 			PlayerOne.setx(moving.moveLeft(PlayerOne.getx()));
 			playerInput.setString();
-			System.out.println("Left");
 		}else if(num == 5) {
 			weaponOne.sety(8);
 			weaponOne.setx(15);
@@ -201,35 +280,34 @@ public class GameMechanics {
 		
 	}
 	
-	//recieves all images and sets all object to positions
+	//receives all images and sets all object to positions
 	public void Initialise() {
-
 		try {
-			img1 = ImageIO.read(new File("Images/catLadyToken2.png"));
-			img2 = ImageIO.read(new File("Images/fatTonyToken2.png"));
-			img3 = ImageIO.read(new File("Images/hanzToken2.png"));
-			img4 = ImageIO.read(new File("Images/homerToken2.png"));
-			img5 = ImageIO.read(new File("Images/maggieToken2.png"));
-			img6 = ImageIO.read(new File("Images/moeToken2.png"));
-			cardImage1 = ImageIO.read(new File("Images/carzycatLady.png"));
-			cardImage2 = ImageIO.read(new File("Images/fatTonyCardTest.png"));
-			cardImage3 = ImageIO.read(new File("Images/hanzMoleManCard.png"));
-			cardImage4 = ImageIO.read(new File("Images/HomerCard.png"));
-			cardImage5 = ImageIO.read(new File("Images/maggieCardTest.png"));
-			cardImage6 = ImageIO.read(new File("Images/moeCardTest.png"));
-			weaponImage1 = ImageIO.read(new File("Images/axeToken.png"));
-			weaponImage2 = ImageIO.read(new File("Images/bombToken.png"));
-			weaponImage3 = ImageIO.read(new File("Images/chainsawToken.png"));
-			weaponImage4 = ImageIO.read(new File("Images/gunToken.png"));
-			weaponImage5 = ImageIO.read(new File("Images/knifeToken.png"));
-			weaponImage6 = ImageIO.read(new File("Images/slingShotToken.png"));
-			startArea = ImageIO.read(new File("Images/startArea.png"));
-			playButton = ImageIO.read(new File("Images/playButton.png"));
-			HTPButton = ImageIO.read(new File("Images/howToPlayButton.png"));
+			img1 = ImageIO.read(getClass().getResource("catLadyToken2.png"));
+			img2 = ImageIO.read(getClass().getResource("fatTonyToken2.png"));
+			img3 = ImageIO.read(getClass().getResource("hanzToken2.png"));
+			img4 = ImageIO.read(getClass().getResource("HomerToken2.png"));
+			img5 = ImageIO.read(getClass().getResource("maggieToken2.png"));
+			img6 = ImageIO.read(getClass().getResource("moeToken2.png"));
+			cardImage1 = ImageIO.read(getClass().getResource("carzyCatLady.png"));
+			cardImage2 = ImageIO.read(getClass().getResource("fatTonyCardTest.png"));
+			cardImage3 = ImageIO.read(getClass().getResource("hanzMoleManCard.png"));
+			cardImage4 = ImageIO.read(getClass().getResource("homerCard.png"));
+			cardImage5 = ImageIO.read(getClass().getResource("maggieCardTest.png"));
+			cardImage6 = ImageIO.read(getClass().getResource("moeCardTest.png"));
+			weaponImage1 = ImageIO.read(getClass().getResource("axeToken.png"));
+			weaponImage2 = ImageIO.read(getClass().getResource("bombToken.png"));
+			weaponImage3 = ImageIO.read(getClass().getResource("chainsawToken.png"));
+			weaponImage4 = ImageIO.read(getClass().getResource("gunToken.png"));
+			weaponImage5 = ImageIO.read(getClass().getResource("knifeToken.png"));
+			weaponImage6 = ImageIO.read(getClass().getResource("slingShotToken.png"));
+			startArea = ImageIO.read(getClass().getResource("startArea.png"));
+			playButton = ImageIO.read(getClass().getResource("playButton.png"));
+			HTPButton = ImageIO.read(getClass().getResource("howToPlayButton.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+		
 		PlayerOne = new GameObject(15,false,11,1);
 		PlayerTwo = new GameObject(16,false,25,20);
 		PlayerThree = new GameObject(17,false,2,18);
@@ -274,5 +352,13 @@ public class GameMechanics {
 		}else if(string.equals("moesTavern")){
 			this.movement(14);
 		}
+	}
+	
+	public Dimensions getDimensions() {
+		return dimensions;
+	}
+	
+	public GameObject getOb() {
+		return PlayerOne;
 	}
 }
