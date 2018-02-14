@@ -20,7 +20,7 @@ public class PlayerInput extends JPanel implements ActionListener {
  
         textArea = new JTextArea(5, 20);
         textArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        JScrollPane scrollPane = new JScrollPane(textArea);//adds a scroll bar on jtextarea
  
        
         GridBagConstraints gbc = new GridBagConstraints();
