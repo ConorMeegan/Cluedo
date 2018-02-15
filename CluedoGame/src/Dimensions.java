@@ -82,6 +82,6 @@ private int[][] dimensionsDraw = {
 	}
 	
 	public void setVal(int i, int j) {
-		dimensions[i][j] = 0;
+		dimensionsDraw[i][j] = 55;
 	}
 }

@@ -53,6 +53,7 @@ public class GameMechanics {
 	BufferedImage weaponImage5;
 	BufferedImage weaponImage6;
 	
+	BufferedImage accusations;
 	BufferedImage startArea;
 	BufferedImage playButton;
 	BufferedImage HTPButton;
@@ -108,8 +109,28 @@ public class GameMechanics {
 			g.drawImage(startArea, (width/2)-250, (height/2)-300, null);
 			g.drawImage(playButton, 450, 100, null);
 			g.drawImage(HTPButton, 450, 160, null);
+		}else if(gameState[2] == 2) {
+			//System.out.println("here");
+			g.setColor(new Color(20,20,20,240));
+			g.fillRect(0, 0, width, height);
+			g.drawImage(accusations,45, 0, null);
+			
+			g.drawImage(weaponImage1, 15, 230, null);
+			g.drawImage(weaponImage2, 175, 230, null);
+			g.drawImage(weaponImage3, 335, 230, null);
+			g.drawImage(weaponImage4, 15, 440, null);
+			g.drawImage(weaponImage5, 175, 440, null);
+			g.drawImage(weaponImage6, 335, 440, null);
+			
+			g.drawImage(cardImage1, 500, 15, null);
+			g.drawImage(cardImage2, 500, 230, null);
+			g.drawImage(cardImage3, 500, 445, null);
+			g.drawImage(cardImage4, 670, 15, null);
+			g.drawImage(cardImage5, 670, 230, null);
+			g.drawImage(cardImage6, 670, 445, null);
 		}
 		
+		/*
 		for(int i=0;i<28;i++) {
 			for(int j=0;j<28;j++) {
 				if(dimensions.getVal(i, j) == 0) {
@@ -193,6 +214,7 @@ public class GameMechanics {
 				}
 			}
 		}
+		*/
 		buffer.show();
 		g.dispose();
 	}
@@ -209,12 +231,14 @@ public class GameMechanics {
 		g.drawImage(cardImage6, 15, 15, null);
 		g.drawImage(cardImage5, 15, 240, null);
 		g.drawImage(cardImage2, 15, 460, null);
+		/*
 		g.drawImage(weaponImage6, (weaponSix.getx()*24) +180, weaponSix.gety()*24, null);
 		g.drawImage(weaponImage5, (weaponOne.getx()*24) +180, weaponOne.gety()*24, null);
 		g.drawImage(weaponImage2, (weaponTwo.getx()*24) +180, weaponTwo.gety()*24, null);
 		g.drawImage(weaponImage1, (weaponThree.getx()*24) +180, weaponThree.gety()*24, null);
 		g.drawImage(weaponImage3, (weaponFour.getx()*24) +180, weaponFour.gety()*24, null);
 		g.drawImage(weaponImage4, (weaponFive.getx()*24) +180, weaponFive.gety()*24, null);
+		*/
 	}
 	
 	public void movement(int num) {
@@ -295,12 +319,13 @@ public class GameMechanics {
 			cardImage4 = ImageIO.read(getClass().getResource("homerCard.png"));
 			cardImage5 = ImageIO.read(getClass().getResource("maggieCardTest.png"));
 			cardImage6 = ImageIO.read(getClass().getResource("moeCardTest.png"));
-			weaponImage1 = ImageIO.read(getClass().getResource("axeToken.png"));
-			weaponImage2 = ImageIO.read(getClass().getResource("bombToken.png"));
-			weaponImage3 = ImageIO.read(getClass().getResource("chainsawToken.png"));
-			weaponImage4 = ImageIO.read(getClass().getResource("gunToken.png"));
-			weaponImage5 = ImageIO.read(getClass().getResource("knifeToken.png"));
-			weaponImage6 = ImageIO.read(getClass().getResource("slingShotToken.png"));
+			weaponImage1 = ImageIO.read(getClass().getResource("axe.png"));
+			weaponImage2 = ImageIO.read(getClass().getResource("PlutoniumRod.png"));
+			weaponImage3 = ImageIO.read(getClass().getResource("chainsaw.png"));
+			weaponImage4 = ImageIO.read(getClass().getResource("gun.png"));
+			weaponImage5 = ImageIO.read(getClass().getResource("knife.png"));
+			weaponImage6 = ImageIO.read(getClass().getResource("slingshot.png"));
+			accusations = ImageIO.read(getClass().getResource("Accusations3.png"));
 			startArea = ImageIO.read(getClass().getResource("startArea.png"));
 			playButton = ImageIO.read(getClass().getResource("playButton.png"));
 			HTPButton = ImageIO.read(getClass().getResource("howToPlayButton.png"));
