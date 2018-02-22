@@ -1,30 +1,20 @@
+import java.awt.image.BufferedImage;
 
 public class GameObject {
 	
 	//every sprite in the game is a GameObject
 	//variables to be used
-	int playerId;
-	boolean Active = false;
 	int x,y;  //co-ordinates (x, y)
+	boolean accusation = false;
+	String name;
+	BufferedImage icon;
 	
 	//constructor
-	public GameObject(int playerId, boolean Active, int x, int y)
+	public GameObject(BufferedImage icon,int x, int y)
 	{
-		this.playerId = playerId;
-		this.Active = Active;
+		this.icon = icon;
 		this.x = x;
 		this.y = y;
-	}
-	
-	//accessors
-	public int getplayerId()
-	{
-		return playerId;
-	}
-	
-	public boolean getActive()
-	{
-		return Active;
 	}
 	
 	public int getx()
@@ -37,6 +27,12 @@ public class GameObject {
 		return y;
 	}
 	
+	public BufferedImage getImage()
+	{
+		return icon;
+	}
+	
+	
 	//mutators for the x and y co-ordinates
 	public void setx(int xValue)
 	{
@@ -46,6 +42,21 @@ public class GameObject {
 	public void sety(int yValue)
 	{
 		y = yValue;
+	}
+	
+	public void setAccusation(boolean bool)
+	{
+		accusation = bool;
+	}
+	
+	public void setImage(BufferedImage image)
+	{
+		icon = image;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 
 }

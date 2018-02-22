@@ -14,6 +14,8 @@ public class GameMechanics {
 	int num = 0;
 	int gameStateCurrent = 2;
 	
+	int current = 0;
+	
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
@@ -22,20 +24,26 @@ public class GameMechanics {
 	
 	Images images = new Images();
 	
+	GameObject[] Players = new Players[6];
+	GameObject[] Cards = new Cards[6];
+	GameObject[] Weapons = new weapons[6];
+	/*
 	GameObject PlayerOne;
 	GameObject PlayerTwo;
 	GameObject PlayerThree;
 	GameObject PlayerFour;
 	GameObject PlayerFive;
 	GameObject PlayerSix;
+	
 	GameObject weaponOne;
 	GameObject weaponTwo;
 	GameObject weaponThree;
 	GameObject weaponFour;
 	GameObject weaponFive;
 	GameObject weaponSix;
-	
+	*/
 	BufferedImage background;
+	/*
 	BufferedImage img1;
 	BufferedImage img2;
 	BufferedImage img3;
@@ -60,6 +68,7 @@ public class GameMechanics {
 	BufferedImage startArea;
 	BufferedImage playButton;
 	BufferedImage HTPButton;
+	*/
 	
 	Dimensions dimensions = new Dimensions();
 	PlayerInput playerInput = new PlayerInput(this);
@@ -227,12 +236,10 @@ public class GameMechanics {
 	//handles all drawing of sprites
 	public void Draw() {
 		
-		g.drawImage(images.getImage(6, "tokens"), (PlayerSix.getx()*24) +180, PlayerSix.gety()*24, null);
-		g.drawImage(images.getImage(1, "tokens"), (PlayerOne.getx()*24)+180, PlayerOne.gety()*24, null);
-		g.drawImage(images.getImage(3, "tokens"), (PlayerThree.getx()*24)+180, PlayerThree.gety()*24, null);
-		g.drawImage(images.getImage(4, "tokens"), (PlayerFour.getx()*24)+180, PlayerFour.gety()*24, null);
-		g.drawImage(images.getImage(2, "tokens"), (PlayerTwo.getx()*24)+180, PlayerTwo.gety()*24, null);
-		g.drawImage(images.getImage(5, "tokens"), (PlayerFive.getx()*24)+180, PlayerFive.gety()*24, null);
+		for(int i=0;i<6;i++) {
+			g.drawImage(Players[i].getImage(), (Players[i].getx()*24) +180, Players[i].gety()*24, null);
+		}
+
 		g.drawImage(images.getImage(6, "cards"), 15, 15, null);
 		g.drawImage(images.getImage(5, "cards"), 15, 240, null);
 		g.drawImage(images.getImage(2, "cards"), 15, 460, null);
@@ -240,18 +247,20 @@ public class GameMechanics {
 	
 	public void movement(int num) {
 		if(num == 1) {
-			PlayerOne.sety(moving.moveUp(PlayerOne.gety()));
+			Players[current].sety(moving.moveUp(Players[current].gety()));
 			playerInput.setString();
 		}else if(num == 2) {
-			PlayerOne.sety(moving.moveDown(PlayerOne.gety()));
+			Players[current].sety(moving.moveDown(Players[current].gety()));
 			playerInput.setString();
 		}else if(num == 3) {
-			PlayerOne.setx(moving.moveRight(PlayerOne.getx()));
+			Players[current].setx(moving.moveRight(Players[current].getx()));
 			playerInput.setString();
 		}else if(num == 4){
-			PlayerOne.setx(moving.moveLeft(PlayerOne.getx()));
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
 			playerInput.setString();
-		}else if(num == 5) {
+		}
+		/*
+		else if(num == 5) {
 			weaponOne.sety(8);
 			weaponOne.setx(15);
 			playerInput.setString();
@@ -297,26 +306,26 @@ public class GameMechanics {
 			playerInput.setString();
 			System.out.println("Moes Tavern");
 		}
-		
+		*/
 		
 	}
 	
 	//receives all images and sets all object to positions
 	public void Initialise() {
 		
-		PlayerOne = new GameObject(15,false,11,1);
-		PlayerTwo = new GameObject(16,false,25,20);
-		PlayerThree = new GameObject(17,false,2,18);
-		PlayerFour = new GameObject(18,false,25,7);
-		PlayerFive = new GameObject(19,false,9,25);
-		PlayerSix = new GameObject(20,false,16,1);
+		Players[0] = new Players(1,images.getImage(1, "tokens"),11,1);
+		Players[1] = new Players(2,images.getImage(2, "tokens"),25,20);
+		Players[2] = new Players(3,images.getImage(3, "tokens"),2,18);
+		Players[3] = new Players(4,images.getImage(4, "tokens"),25,7);
+		Players[4] = new Players(5,images.getImage(5, "tokens"),9,25);
+		Players[5] = new Players(6,images.getImage(6, "tokens"),16,1);
 		
-		weaponOne = new GameObject(20,false,0,1);
-		weaponTwo = new GameObject(25,false,0,2);
-		weaponThree = new GameObject(30,false,0,3);
-		weaponFour = new GameObject(40,false,0,4);
-		weaponFive = new GameObject(45,false,0,5);
-		weaponSix = new GameObject(50,false,0,6);
+		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
+		Weapons[1] = new weapons(2,images.getImage(2, "weapons"),0,2);
+		Weapons[2] = new weapons(3,images.getImage(3, "weapons"),0,3);
+		Weapons[3] = new weapons(4,images.getImage(4, "weapons"),0,4);
+		Weapons[4] = new weapons(5,images.getImage(5, "weapons"),0,5);
+		Weapons[5] = new weapons(6,images.getImage(6, "weapons"),0,6);
 	}
 	
 	//used to control players and weapons, will be updated in the future to work for different input styles
@@ -355,7 +364,7 @@ public class GameMechanics {
 	}
 	
 	public GameObject getOb() {
-		return PlayerOne;
+		return Players[current];
 	}
 	
 	public int getGameState() {
