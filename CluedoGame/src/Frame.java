@@ -13,6 +13,8 @@ public class Frame extends JFrame implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	JFrame frame;
 	Canvas canvas;
+	GameMechanics game;
+	Dimensions dim;
 	
 	public Frame(int width, int height) {
 		frame = new JFrame("Cluedo");
@@ -65,6 +67,25 @@ public class Frame extends JFrame implements MouseListener {
         int y = e.getY();
         System.out.println("Mouse Released at X: " + x + " - Y: " + y);
     } 
+    
+    public void checkPos(double x, double y) {
+    	if(game.getGameState() == 3) {
+    		x = Math.floor(x);
+    		y = Math.floor(y);
+    		if(x >= 15 && x <= 160 && y >= 230 && y <= 430) {
+    			
+    		}
+    	}else {
+    		if(x > 180) {
+    			x = Math.floor(((x - 180)/24));
+        		y = Math.floor((y/24));
+        	}
+    	}
+    }
+	public void setDimensionsAndGame(Dimensions dim, GameMechanics game) {
+		this.dim = dim;
+		this.game = game;
+	}
    
 	
 	public Canvas getCanvas() {

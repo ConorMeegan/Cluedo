@@ -12,12 +12,15 @@ import javax.imageio.ImageIO;
 public class GameMechanics {
 	
 	int num = 0;
+	int gameStateCurrent = 2;
 	
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
 	int[] gameState = {1,2,3};
 	int width, height;
+	
+	Images images = new Images();
 	
 	GameObject PlayerOne;
 	GameObject PlayerTwo;
@@ -97,37 +100,39 @@ public class GameMechanics {
 			return;
 		}
 		g = buffer.getDrawGraphics();
-		g.setColor(new Color(97,62,7));
-		g.fillRect(0, 0, width, height);
-		g.drawImage(background,180, 0, null);
-		Draw();
+
 		
 		//futurecode for future game states
-		if(gameState[0] == 0) {
+		if(gameState[0] == gameStateCurrent) {
 			g.setColor(new Color(20,20,20,240));
 			g.fillRect(0, 0, width, height);
-			g.drawImage(startArea, (width/2)-250, (height/2)-300, null);
-			g.drawImage(playButton, 450, 100, null);
-			g.drawImage(HTPButton, 450, 160, null);
-		}else if(gameState[2] == 2) {
+			g.drawImage(images.getImage(1, "screens"), (width/2)-250, (height/2)-300, null);
+			g.drawImage(images.getImage(2, "screens"), 450, 100, null);
+			g.drawImage(images.getImage(3, "screens"), 450, 160, null);
+		}else if(gameState[2] == gameStateCurrent) {
 			//System.out.println("here");
 			g.setColor(new Color(20,20,20,240));
 			g.fillRect(0, 0, width, height);
-			g.drawImage(accusations,45, 0, null);
+			g.drawImage(images.getImage(0, "screens"),45, 0, null);
 			
-			g.drawImage(weaponImage1, 15, 230, null);
-			g.drawImage(weaponImage2, 175, 230, null);
-			g.drawImage(weaponImage3, 335, 230, null);
-			g.drawImage(weaponImage4, 15, 440, null);
-			g.drawImage(weaponImage5, 175, 440, null);
-			g.drawImage(weaponImage6, 335, 440, null);
+			g.drawImage(images.getImage(1, "weapons"), 15, 230, null);
+			g.drawImage(images.getImage(2, "weapons"), 175, 230, null);
+			g.drawImage(images.getImage(3, "weapons"), 335, 230, null);
+			g.drawImage(images.getImage(4, "weapons"), 15, 440, null);
+			g.drawImage(images.getImage(5, "weapons"), 175, 440, null);
+			g.drawImage(images.getImage(6, "weapons"), 335, 440, null);
 			
-			g.drawImage(cardImage1, 500, 15, null);
-			g.drawImage(cardImage2, 500, 230, null);
-			g.drawImage(cardImage3, 500, 445, null);
-			g.drawImage(cardImage4, 670, 15, null);
-			g.drawImage(cardImage5, 670, 230, null);
-			g.drawImage(cardImage6, 670, 445, null);
+			g.drawImage(images.getImage(1, "cards"), 500, 15, null);
+			g.drawImage(images.getImage(2, "cards"), 500, 230, null);
+			g.drawImage(images.getImage(3, "cards"), 500, 445, null);
+			g.drawImage(images.getImage(4, "cards"), 670, 15, null);
+			g.drawImage(images.getImage(5, "cards"), 670, 230, null);
+			g.drawImage(images.getImage(6, "cards"), 670, 445, null);
+		}else if(gameState[1] == gameStateCurrent) {
+			g.setColor(new Color(97,62,7));
+			g.fillRect(0, 0, width, height);
+			g.drawImage(background,180, 0, null);
+			Draw();
 		}
 		
 		/*
@@ -222,23 +227,15 @@ public class GameMechanics {
 	//handles all drawing of sprites
 	public void Draw() {
 		
-		g.drawImage(img6, (PlayerSix.getx()*24) +180, PlayerSix.gety()*24, null);
-		g.drawImage(img1, (PlayerOne.getx()*24)+180, PlayerOne.gety()*24, null);
-		g.drawImage(img3, (PlayerThree.getx()*24)+180, PlayerThree.gety()*24, null);
-		g.drawImage(img4, (PlayerFour.getx()*24)+180, PlayerFour.gety()*24, null);
-		g.drawImage(img2, (PlayerTwo.getx()*24)+180, PlayerTwo.gety()*24, null);
-		g.drawImage(img5, (PlayerFive.getx()*24)+180, PlayerFive.gety()*24, null);
-		g.drawImage(cardImage6, 15, 15, null);
-		g.drawImage(cardImage5, 15, 240, null);
-		g.drawImage(cardImage2, 15, 460, null);
-		/*
-		g.drawImage(weaponImage6, (weaponSix.getx()*24) +180, weaponSix.gety()*24, null);
-		g.drawImage(weaponImage5, (weaponOne.getx()*24) +180, weaponOne.gety()*24, null);
-		g.drawImage(weaponImage2, (weaponTwo.getx()*24) +180, weaponTwo.gety()*24, null);
-		g.drawImage(weaponImage1, (weaponThree.getx()*24) +180, weaponThree.gety()*24, null);
-		g.drawImage(weaponImage3, (weaponFour.getx()*24) +180, weaponFour.gety()*24, null);
-		g.drawImage(weaponImage4, (weaponFive.getx()*24) +180, weaponFive.gety()*24, null);
-		*/
+		g.drawImage(images.getImage(6, "tokens"), (PlayerSix.getx()*24) +180, PlayerSix.gety()*24, null);
+		g.drawImage(images.getImage(1, "tokens"), (PlayerOne.getx()*24)+180, PlayerOne.gety()*24, null);
+		g.drawImage(images.getImage(3, "tokens"), (PlayerThree.getx()*24)+180, PlayerThree.gety()*24, null);
+		g.drawImage(images.getImage(4, "tokens"), (PlayerFour.getx()*24)+180, PlayerFour.gety()*24, null);
+		g.drawImage(images.getImage(2, "tokens"), (PlayerTwo.getx()*24)+180, PlayerTwo.gety()*24, null);
+		g.drawImage(images.getImage(5, "tokens"), (PlayerFive.getx()*24)+180, PlayerFive.gety()*24, null);
+		g.drawImage(images.getImage(6, "cards"), 15, 15, null);
+		g.drawImage(images.getImage(5, "cards"), 15, 240, null);
+		g.drawImage(images.getImage(2, "cards"), 15, 460, null);
 	}
 	
 	public void movement(int num) {
@@ -306,32 +303,6 @@ public class GameMechanics {
 	
 	//receives all images and sets all object to positions
 	public void Initialise() {
-		try {
-			img1 = ImageIO.read(getClass().getResource("catLadyToken2.png"));
-			img2 = ImageIO.read(getClass().getResource("fatTonyToken2.png"));
-			img3 = ImageIO.read(getClass().getResource("hanzToken2.png"));
-			img4 = ImageIO.read(getClass().getResource("HomerToken2.png"));
-			img5 = ImageIO.read(getClass().getResource("maggieToken2.png"));
-			img6 = ImageIO.read(getClass().getResource("moeToken2.png"));
-			cardImage1 = ImageIO.read(getClass().getResource("carzyCatLady.png"));
-			cardImage2 = ImageIO.read(getClass().getResource("fatTonyCardTest.png"));
-			cardImage3 = ImageIO.read(getClass().getResource("hanzMoleManCard.png"));
-			cardImage4 = ImageIO.read(getClass().getResource("homerCard.png"));
-			cardImage5 = ImageIO.read(getClass().getResource("maggieCardTest.png"));
-			cardImage6 = ImageIO.read(getClass().getResource("moeCardTest.png"));
-			weaponImage1 = ImageIO.read(getClass().getResource("axe.png"));
-			weaponImage2 = ImageIO.read(getClass().getResource("PlutoniumRod.png"));
-			weaponImage3 = ImageIO.read(getClass().getResource("chainsaw.png"));
-			weaponImage4 = ImageIO.read(getClass().getResource("gun.png"));
-			weaponImage5 = ImageIO.read(getClass().getResource("knife.png"));
-			weaponImage6 = ImageIO.read(getClass().getResource("slingshot.png"));
-			accusations = ImageIO.read(getClass().getResource("Accusations3.png"));
-			startArea = ImageIO.read(getClass().getResource("startArea.png"));
-			playButton = ImageIO.read(getClass().getResource("playButton.png"));
-			HTPButton = ImageIO.read(getClass().getResource("howToPlayButton.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		PlayerOne = new GameObject(15,false,11,1);
 		PlayerTwo = new GameObject(16,false,25,20);
@@ -385,5 +356,9 @@ public class GameMechanics {
 	
 	public GameObject getOb() {
 		return PlayerOne;
+	}
+	
+	public int getGameState() {
+		return gameStateCurrent;
 	}
 }
