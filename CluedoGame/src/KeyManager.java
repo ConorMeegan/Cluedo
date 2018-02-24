@@ -8,10 +8,10 @@ public class KeyManager implements KeyListener{
 	GameMechanics mech;
 	CollisonTesting cTest;
 	
-	public KeyManager(GameMechanics mech)
+	public KeyManager(GameMechanics mech,CollisonTesting testing)
 	{
 		this.mech = mech;
-		cTest = new CollisonTesting(mech);
+		cTest = testing;
 		keys = new boolean[256];
 	}
 	
@@ -34,13 +34,6 @@ public class KeyManager implements KeyListener{
 			if(cTest.testMove("u", mech.getOb())){
 				mech.setInput("u");
 			}
-			/*
-			if(cTest.testDoor("u", mech.getOb()) == "burnsmansion") {
-				mech.getOb().setx(15);
-				mech.getOb().sety(8);
-				System.out.println("setting");
-			}
-			*/
 		}
 		else if(keys[KeyEvent.VK_DOWN] == true)
 		{
@@ -75,6 +68,4 @@ public class KeyManager implements KeyListener{
 		
 	}
 	
-	
-
 }

@@ -28,12 +28,10 @@ public class GameStart {
 	GameObject PlayerFive;
 	GameObject PlayerSix;
 	
-	ImageIcon icon1;
-	ImageIcon icon2;
-	ImageIcon icon3;
-	ImageIcon icon4;
-	ImageIcon icon5;
-	ImageIcon icon6;
+	Images images = new Images();
+	
+	ImageIcon[] icons = new ImageIcon[6];
+	
 	
 	public GameStart()
 	{
@@ -73,67 +71,69 @@ public class GameStart {
 		
 		
 		
-		icon1 = new ImageIcon(GameStart.class.getResource("homerCard.png"));
-		icon2 = new ImageIcon(GameStart.class.getResource("maggieCardTest.png"));
-		icon3 = new ImageIcon(GameStart.class.getResource("moeCardTest.png"));
-		icon4 = new ImageIcon(GameStart.class.getResource("hanzMoleManCard.png"));
-		icon5 = new ImageIcon(GameStart.class.getResource("fatTonyCardTest.png"));
-		icon6 = new ImageIcon(GameStart.class.getResource("carzyCatLady.png"));
+		for(int i=0;i<6;i++) {
+			icons[i] = new ImageIcon(images.getImage(i+1, "cards"));
+		}
 		
 		String player = "";
 		
 		while(numberPlayer>0)
 		{
-			player = (String) JOptionPane.showInputDialog(null, icon1, "Character Selection",
+			int j = 1;
+			player = (String) JOptionPane.showInputDialog(null, icons[j], "Character Selection",
 					JOptionPane.QUESTION_MESSAGE, null, playerNames, playerNames[0]);
 			
 			for(int i=0; i<playerNames.length; i++)
 			{
 				if(playerNames[i].equals(player))
 				{
-					updateLabel(player, i);
+					j = updateLabel(player, i);
 				}
 			}
 			
 			numberPlayer--;
 		}
-		
-		
 	}
 	
-	public void updateLabel(String playerName, int index)
+	public int updateLabel(String playerName, int index)
 	{
 		if(index == 0)
 		{
 			playerName = "homerCard";
 			System.out.println("\nYou have selected Homer Simpson as your character.");
+			return 1;
 		}
 		else if(index == 1)
 		{
 			playerName = "maggieCardTest";
 			System.out.println("\nYou have selected Maggie Simpson as your character.");
+			return 2;
 		}
 		else if(index == 2)
 		{
 			playerName = "moeCardTest";
 			System.out.println("\nYou have selected Moe Szyslack as your character.");
+			return 3;
 		}
 		else if(index == 3)
 		{
 			playerName = "hanzMoleManCard";
 			System.out.println("\nYou have selected Hanz Moleman as your character.");
+			return 4;
 		}
 		else if(index == 4)
 		{
 			playerName = "fatTonyCardTest";
 			System.out.println("\nYou have selected Fat Tony as your character.");
+			return 5;
 		}
 		else if(index == 5)
 		{
 			playerName = "carzyCatLady";
 			System.out.println("\nYou have selected Crazy Cat Lady as your character.");
+			return 6;
 		}
-		
+		return 1;
 	}
 	
 	public void itemStateChanged(ItemEvent e) 

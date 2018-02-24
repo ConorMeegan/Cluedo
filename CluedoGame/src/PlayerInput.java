@@ -1,20 +1,23 @@
-import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
  
 public class PlayerInput extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static JTextField textField;
     private static JTextArea textArea;
   
     GameMechanics mech;
-    String string = null;
+    CollisonTesting cTest;
 
     
     public PlayerInput(GameMechanics mech) {
         super(new GridBagLayout());
- 
         this.mech = mech;
+        cTest = new CollisonTesting(mech);
         textField = new JTextField(20);
         textField.addActionListener(this);
  
@@ -37,8 +40,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         String text = textField.getText();
         text = text.toLowerCase();
-       
-     
+      
         weaponMove(text);
         
       	playerMove(text);
@@ -55,8 +57,6 @@ public class PlayerInput extends JPanel implements ActionListener {
     	if(text.equals("burns mansion")){
         	
     		textArea.append("burns mansion" + "\n");
-    		string = "burnsMansion";
-    		sendString(mech);
     		textArea.append("moved weapon to burns mansion" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     		}
@@ -64,8 +64,6 @@ public class PlayerInput extends JPanel implements ActionListener {
     	else if(text.equals("comic book store")){
     	
     		textArea.append("comic book store" + "\n");
-    		string = "comicBookStore";
-    		sendString(mech);
     		textArea.append("moved weapon to comic book store" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
@@ -73,8 +71,6 @@ public class PlayerInput extends JPanel implements ActionListener {
     	else if(text.equals("kwik-e-mart")){
     	
     		textArea.append("kwik-e-mart" + "\n");
-    		string = "kwikEMart";
-    		sendString(mech);
     		textArea.append("moved weapon to kwik-e-mart" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
@@ -82,8 +78,6 @@ public class PlayerInput extends JPanel implements ActionListener {
     	else if(text.equals("school")){
     	
     		textArea.append("school" + "\n");
-    		string = "school";
-    		sendString(mech);
     		textArea.append("moved weapon to school" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
@@ -91,8 +85,6 @@ public class PlayerInput extends JPanel implements ActionListener {
     	else if(text.equals("flanders house")){
     	
     		textArea.append("flanders house" + "\n");
-    		string = "flandersHouse";
-    		sendString(mech);
     		textArea.append("moved weapon to flanders house" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
@@ -100,8 +92,6 @@ public class PlayerInput extends JPanel implements ActionListener {
     	else if(text.equals("simpsons house")){
     	
     		textArea.append("simpsons house" + "\n");
-    		string = "simpsonsHouse";
-    		sendString(mech);
     		textArea.append("moved weapon to simpsons house" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
@@ -109,24 +99,18 @@ public class PlayerInput extends JPanel implements ActionListener {
     	else if(text.equals("frying dutchman")){
     	
     		textArea.append("frying dutchman" + "\n");
-    		string = "fryingDutchman";
-    		sendString(mech);
     		textArea.append("moved weapon to frying dutchman" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
     	else if(text.equals("krusty burger")){
     	
     		textArea.append("krusty burger" + "\n");
-    		string = "krustyBurger";
-    		sendString(mech);
     		textArea.append("moved weapon to krusty burger" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
     	else if(text.equals("moes tavern")){
     	
     		textArea.append("moes tavern" + "\n");
-    		string = "moesTavern";
-    		sendString(mech);
     		textArea.append("moved weapon to moes tavern" + "\n");
     		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
     	}
@@ -135,47 +119,34 @@ public class PlayerInput extends JPanel implements ActionListener {
     
     public void playerMove(String text){
     	if(text.equals("u")){
-    		textArea.append("Moved player up" + "\n");
-    		
-    		string = "u";
-    		sendString(mech);
-           
+    		if(cTest.testMove("u", mech.getOb())){
+				mech.setInput("u");
+				textArea.append("Moved player up" + "\n");
+			}
     	}
-    
+    	
     	else if(text.equals("d")){
-    		textArea.append("Moved player down" + "\n");
-    		
-    		string = "d";
-    		sendString(mech);
-           
+    		if(cTest.testMove(text, mech.getOb())){
+				mech.setInput("d");
+				textArea.append("Moved player down" + "\n");
+			}
     	}
     	
     	else if(text.equals("r")){
-    		textArea.append("Moved player right" + "\n");
-    		
-    		string = "r";
-    		sendString(mech);
-          
+    		if(cTest.testMove("r", mech.getOb())){
+				mech.setInput("r");
+				textArea.append("Moved player right" + "\n");
+			}
     	}
     	else if(text.equals("l")){
-    		textArea.append("Moved player left" + "\n");
-    	
-    		string = "l";
-    		sendString(mech);
-           
+    		if(cTest.testMove("l", mech.getOb())){
+				mech.setInput("l");
+				textArea.append("Moved player left" + "\n");
+			}
     	}
     	
     }
-    
-    public void sendString(GameMechanics mech){
-    	mech.setInput(string);
-    	string = "works";
-    }
-    public void setString(){
-    	string = "works";
-    }
-    
-    
+  
     public void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("PlayerInput");
@@ -196,6 +167,5 @@ public class PlayerInput extends JPanel implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         textArea.append("Move weapon to room" + "\n");
     }
-         
     
 }

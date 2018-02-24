@@ -1,10 +1,7 @@
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -27,52 +24,13 @@ public class GameMechanics {
 	GameObject[] Players = new Players[6];
 	GameObject[] Cards = new Cards[6];
 	GameObject[] Weapons = new weapons[6];
-	/*
-	GameObject PlayerOne;
-	GameObject PlayerTwo;
-	GameObject PlayerThree;
-	GameObject PlayerFour;
-	GameObject PlayerFive;
-	GameObject PlayerSix;
-	
-	GameObject weaponOne;
-	GameObject weaponTwo;
-	GameObject weaponThree;
-	GameObject weaponFour;
-	GameObject weaponFive;
-	GameObject weaponSix;
-	*/
+
 	BufferedImage background;
-	/*
-	BufferedImage img1;
-	BufferedImage img2;
-	BufferedImage img3;
-	BufferedImage img4;
-	BufferedImage img5;
-	BufferedImage img6;
-	BufferedImage cardImage1;
-	BufferedImage cardImage2;
-	BufferedImage cardImage3;
-	BufferedImage cardImage4;
-	BufferedImage cardImage5;
-	BufferedImage cardImage6;
-	
-	BufferedImage weaponImage1;
-	BufferedImage weaponImage2;
-	BufferedImage weaponImage3;
-	BufferedImage weaponImage4;
-	BufferedImage weaponImage5;
-	BufferedImage weaponImage6;
-	
-	BufferedImage accusations;
-	BufferedImage startArea;
-	BufferedImage playButton;
-	BufferedImage HTPButton;
-	*/
 	
 	Dimensions dimensions = new Dimensions();
 	PlayerInput playerInput = new PlayerInput(this);
 	Moving moving = new Moving();
+	CollisonTesting cTest = new CollisonTesting(this);
 	
 	//input key variable
 	private KeyManager keyManager;
@@ -82,7 +40,7 @@ public class GameMechanics {
 		this.width = width;
 		this.height = height;
 		frame = new Frame(width,height);
-		keyManager = new KeyManager(this);  //for arrow key movement
+		keyManager = new KeyManager(this,cTest);  //for arrow key movement
 		frame.getFrame().addKeyListener(keyManager);
 		
 		try {
@@ -143,48 +101,44 @@ public class GameMechanics {
 			g.drawImage(background,180, 0, null);
 			Draw();
 		}
-		
 		/*
 		for(int i=0;i<28;i++) {
 			for(int j=0;j<28;j++) {
 				if(dimensions.getVal(i, j) == 0) {
-					g.setColor(new Color(100,100,100,150));
+					g.setColor(new Color(100,100,100));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 2) {
-					g.setColor(new Color(111,222,55,150));
+					g.setColor(new Color(111,222,55));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 3) {
-					g.setColor(new Color(99,51,116,150));
+					g.setColor(new Color(99,51,116));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 4) {
-					g.setColor(new Color(248,54,56,150));
+					g.setColor(new Color(248,54,56));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 5) {
-					g.setColor(new Color(158,54,241,150));
+					g.setColor(new Color(158,54,241));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 6) {
-					g.setColor(new Color(120,34,116,150));
+					g.setColor(new Color(120,34,116));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 7) {
-					g.setColor(new Color(213,54,56,150));
+					g.setColor(new Color(213,54,56));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 8) {
-					g.setColor(new Color(213,22,33,150));
+					g.setColor(new Color(213,22,33));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 9) {
-					g.setColor(new Color(100,54,56,150));
+					g.setColor(new Color(100,54,56));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 10) {
-					g.setColor(new Color(213,54,56,150));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 11) {
-					g.setColor(new Color(75,45,75,150));
+					g.setColor(new Color(213,54,56));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 12) {
-					g.setColor(new Color(150,54,46,150));
+					g.setColor(new Color(150,54,46));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 1) {
-					g.setColor(new Color(23,94,56,150));
+					g.setColor(new Color(23,94,56));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 50) {
 					g.setColor(new Color(88,55,122));
@@ -201,7 +155,7 @@ public class GameMechanics {
 				}else if(dimensions.getVal(i, j) == 90) {
 					g.setColor(new Color(0,0,255));
 					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 1000) {
+				}else if(dimensions.getVal(i, j) == 100) {
 					g.setColor(new Color(255,255,0));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}else if(dimensions.getVal(i, j) == 20) {
@@ -222,8 +176,11 @@ public class GameMechanics {
 				}else if(dimensions.getVal(i, j) == 15) {
 					g.setColor(new Color(50,50,50));
 					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 50) {
-					g.setColor(new Color(75,80,210));
+				}else if(dimensions.getVal(i, j) == 110) {
+					g.setColor(new Color(75,0,10));
+					g.fillRect((i*24)+180, j*24, 24, 24);
+				}else if(dimensions.getVal(i, j) == 11) {
+					g.setColor(new Color(225,0,0));
 					g.fillRect((i*24)+180, j*24, 24, 24);
 				}
 			}
@@ -248,66 +205,48 @@ public class GameMechanics {
 	public void movement(int num) {
 		if(num == 1) {
 			Players[current].sety(moving.moveUp(Players[current].gety()));
-			playerInput.setString();
+			//playerInput.setString();
 		}else if(num == 2) {
 			Players[current].sety(moving.moveDown(Players[current].gety()));
-			playerInput.setString();
+			//playerInput.setString();
 		}else if(num == 3) {
 			Players[current].setx(moving.moveRight(Players[current].getx()));
-			playerInput.setString();
+			//playerInput.setString();
 		}else if(num == 4){
 			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			playerInput.setString();
+			//playerInput.setString();
+		}else if(num == 20) {
+			Players[current].setx(24);
+			Players[current].sety(14);
+			//playerInput.setString();
+		}else if(num == 30) {
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 40){
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 50) {
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 60){
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 70) {
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 80) {
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 90){
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 100){
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
+		}else if(num == 110){
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			//playerInput.setString();
 		}
-		/*
-		else if(num == 5) {
-			weaponOne.sety(8);
-			weaponOne.setx(15);
-			playerInput.setString();
-			System.out.println("Burns Mansion");
-		}else if(num == 6) {
-			weaponOne.sety(7);
-			weaponOne.setx(5);
-			playerInput.setString();
-			System.out.println("Comic Book Store");
-		}else if(num == 7){
-			weaponOne.sety(6);
-			weaponOne.setx(23);
-			playerInput.setString();
-			System.out.println("Kwik-E Mart");
-		}else if(num == 8) {
-			weaponOne.sety(14);
-			weaponOne.setx(9);
-			playerInput.setString();
-			System.out.println("School");
-		}else if(num == 10){
-			weaponOne.sety(13);
-			weaponOne.setx(22);
-			playerInput.setString();
-			System.out.println("Flanders House");
-		}else if(num == 11) {
-			weaponOne.sety(19);
-			weaponOne.setx(22);
-			playerInput.setString();
-			System.out.println("Simpsons House");
-		}else if(num == 12) {
-			weaponOne.sety(24);
-			weaponOne.setx(20);
-			playerInput.setString();
-			System.out.println("Frying Dutchman");
-		}else if(num == 13){
-			weaponOne.sety(19);
-			weaponOne.setx(12);
-			playerInput.setString();
-			System.out.println("Krusty Burger");
-		}else if(num == 14){
-			weaponOne.sety(21);
-			weaponOne.setx(6);
-			playerInput.setString();
-			System.out.println("Moes Tavern");
-		}
-		*/
-		
 	}
 	
 	//receives all images and sets all object to positions
