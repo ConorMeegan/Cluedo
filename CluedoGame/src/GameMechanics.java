@@ -21,9 +21,9 @@ public class GameMechanics {
 	
 	Images images = new Images();
 	
-	GameObject[] Players = new Players[6];
-	GameObject[] Cards = new Cards[6];
-	GameObject[] Weapons = new weapons[6];
+	Players[] Players = new Players[6];
+	Cards[] Cards = new Cards[6];
+	weapons[] Weapons = new weapons[6];
 
 	BufferedImage background;
 	
@@ -205,47 +205,12 @@ public class GameMechanics {
 	public void movement(int num) {
 		if(num == 1) {
 			Players[current].sety(moving.moveUp(Players[current].gety()));
-			//playerInput.setString();
 		}else if(num == 2) {
 			Players[current].sety(moving.moveDown(Players[current].gety()));
-			//playerInput.setString();
 		}else if(num == 3) {
 			Players[current].setx(moving.moveRight(Players[current].getx()));
-			//playerInput.setString();
 		}else if(num == 4){
 			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 20) {
-			Players[current].setx(24);
-			Players[current].sety(14);
-			//playerInput.setString();
-		}else if(num == 30) {
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 40){
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 50) {
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 60){
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 70) {
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 80) {
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 90){
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 100){
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
-		}else if(num == 110){
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			//playerInput.setString();
 		}
 	}
 	
@@ -277,24 +242,20 @@ public class GameMechanics {
 			this.movement(3);
 		}else if(string.equals("r")){
 			this.movement(4);
-		}else if(string.equals("burnsMansion")){
-			this.movement(5);
-		}else if(string.equals("comicBookStore")){
-			this.movement(6);
-		}else if(string.equals("kwikEMart")){
-			this.movement(7);
-		}else if(string.equals("school")){
-			this.movement(8);
-		}else if(string.equals("flandersHouse")){
-			this.movement(10);
-		}else if(string.equals("simpsonsHouse")){
-			this.movement(11);
-		}else if(string.equals("fryingDutchman")){
-			this.movement(12);
-		}else if(string.equals("krustyBurger")){
-			this.movement(13);
-		}else if(string.equals("moesTavern")){
-			this.movement(14);
+		}
+	}
+	
+	public void setDoor(int val) {
+		System.out.println(val);
+		if(val == 20) {
+			Players[current].sety(23);
+			Players[current].setx(15);
+		}else if(num == 30) {
+			Players[current].sety(moving.moveDown(Players[current].gety()));
+		}else if(num == 40) {
+			Players[current].setx(moving.moveRight(Players[current].getx()));
+		}else if(num == 50){
+			Players[current].setx(moving.moveLeft(Players[current].getx()));
 		}
 	}
 	

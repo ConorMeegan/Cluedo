@@ -3,7 +3,7 @@ public class CollisonTesting {
 	
 	GameMechanics mech;
 	Dimensions dim;
-	
+	int door;
 	int[] testingDoor = {20,30,40,50,60,70,80,90,100,110};
 	
 	public CollisonTesting(GameMechanics mech){
@@ -15,34 +15,30 @@ public class CollisonTesting {
 		switch(s){
 			case "u":
 				if(dim.getVal(ob.getx(), (ob.gety())-1) == 0 ) {
-					//dim.setVal(ob.getx(), ob.gety());
 					return true;
 				}else if(DoorTest(dim.getVal(ob.getx(), (ob.gety())-1))) {
-					System.out.println("Door");
+					mech.setDoor(door);
 				}
 				break;
 			case "d":
 				if(dim.getVal(ob.getx(), (ob.gety())+1) == 0 ) {
-					//dim.setVal(ob.getx(), ob.gety());
 					return true;
 				}else if(DoorTest(dim.getVal(ob.getx(), (ob.gety())+1))) {
-					System.out.println("Door");
+					mech.setDoor(door);
 				}
 				break;
 			case "r":
 				if(dim.getVal((ob.getx()) + 1, ob.gety()) == 0 ) {
-					//dim.setVal(ob.getx(), ob.gety());
 					return true;
 				}else if(DoorTest(dim.getVal((ob.getx()) + 1, ob.gety()))) {
-					System.out.println("Door");
+					mech.setDoor(door);
 				}
 				break;
 			case "l":
 				if(dim.getVal((ob.getx()) - 1, ob.gety()) == 0 ) {
-					//dim.setVal(ob.getx(), ob.gety());
 					return true;
 				}else if(DoorTest(dim.getVal((ob.getx()) - 1, ob.gety()))) {
-					System.out.println("Door");
+					mech.setDoor(door);
 				}
 				break;
 		}
@@ -51,7 +47,7 @@ public class CollisonTesting {
 	public boolean DoorTest(int doorNum) {
 			for(int i = 0;i<testingDoor.length;i++) {
 				if(doorNum == testingDoor[i]) {
-					System.out.println(testingDoor[i]);
+					door = testingDoor[i];
 					return true;
 				}
 			}
