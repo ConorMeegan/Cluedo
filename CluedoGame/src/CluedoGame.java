@@ -13,7 +13,6 @@ public class CluedoGame {
 	 * Student no:16391673
 	 */
 	public static void main(String[] args){
-		//new GameStart();
 		new GameMechanics(852,672);
 		
 	}

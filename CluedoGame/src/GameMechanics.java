@@ -5,14 +5,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class GameMechanics {
 	
-	int num = 0;
 	int gameStateCurrent = 2;
 	
 	int current = 0;
 	
+	int x=0,xOne = 852/2;
+	
+	int frames = 0 ;
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
@@ -42,7 +46,6 @@ public class GameMechanics {
 		frame = new Frame(width,height);
 		keyManager = new KeyManager(this,cTest);  //for arrow key movement
 		frame.getFrame().addKeyListener(keyManager);
-		
 		try {
 			background = ImageIO.read(getClass().getResource("NEWmap4.png"));
 
@@ -61,6 +64,7 @@ public class GameMechanics {
 	}
 	
 	public void start() {
+		frames++;
 		buffer = frame.getCanvas().getBufferStrategy();
 		if(buffer == null) {
 			frame.getCanvas().createBufferStrategy(2);
@@ -69,15 +73,15 @@ public class GameMechanics {
 		g = buffer.getDrawGraphics();
 
 		
-		//futurecode for future game states
+		//future code for future game states
 		if(gameState[0] == gameStateCurrent) {
-			g.setColor(new Color(20,20,20,240));
+			
+		}else if(gameState[1] == gameStateCurrent) {
+			g.setColor(new Color(97,62,7));
 			g.fillRect(0, 0, width, height);
-			g.drawImage(images.getImage(1, "screens"), (width/2)-250, (height/2)-300, null);
-			g.drawImage(images.getImage(2, "screens"), 450, 100, null);
-			g.drawImage(images.getImage(3, "screens"), 450, 160, null);
+			g.drawImage(background,180, 0, null);
+			Draw();
 		}else if(gameState[2] == gameStateCurrent) {
-			//System.out.println("here");
 			g.setColor(new Color(20,20,20,240));
 			g.fillRect(0, 0, width, height);
 			g.drawImage(images.getImage(0, "screens"),45, 0, null);
@@ -95,11 +99,6 @@ public class GameMechanics {
 			g.drawImage(images.getImage(4, "cards"), 670, 15, null);
 			g.drawImage(images.getImage(5, "cards"), 670, 230, null);
 			g.drawImage(images.getImage(6, "cards"), 670, 445, null);
-		}else if(gameState[1] == gameStateCurrent) {
-			g.setColor(new Color(97,62,7));
-			g.fillRect(0, 0, width, height);
-			g.drawImage(background,180, 0, null);
-			Draw();
 		}
 		/*
 		for(int i=0;i<28;i++) {
@@ -246,16 +245,37 @@ public class GameMechanics {
 	}
 	
 	public void setDoor(int val) {
-		System.out.println(val);
 		if(val == 20) {
+			//dimensions.checkPosAvailable(23,15);
 			Players[current].sety(23);
 			Players[current].setx(15);
-		}else if(num == 30) {
-			Players[current].sety(moving.moveDown(Players[current].gety()));
-		}else if(num == 40) {
-			Players[current].setx(moving.moveRight(Players[current].getx()));
-		}else if(num == 50){
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
+		}else if(val == 30) {
+			Players[current].sety(23);
+			Players[current].setx(5);
+		}else if(val == 40) {
+			Players[current].sety(15);
+			Players[current].setx(5);
+		}else if(val == 50){
+			Players[current].sety(5);
+			Players[current].setx(5);
+		}else if(val == 60){
+			Players[current].sety(5);
+			Players[current].setx(14);
+		}else if(val == 70){
+			Players[current].sety(5);
+			Players[current].setx(24);
+		}else if(val == 80){
+			Players[current].sety(12);
+			Players[current].setx(24);
+		}else if(val == 90){
+			Players[current].sety(17);
+			Players[current].setx(24);
+		}else if(val == 100){
+			Players[current].sety(24);
+			Players[current].setx(22);
+		}else if(val == 110){
+			Players[current].sety(14);
+			Players[current].setx(14);
 		}
 	}
 	
@@ -269,5 +289,15 @@ public class GameMechanics {
 	
 	public int getGameState() {
 		return gameStateCurrent;
+	}
+	
+	public void animation() {
+		g.setColor(Color.BLACK);
+		if(frames%15 == 0 && x < (852/2)+20) {
+			x += 20;
+			g.fillRect(0, 0, 852, 672);
+			g.setColor(Color.white);
+			g.fillRect((852/2)-20, x, 20, 20);
+		}
 	}
 }
