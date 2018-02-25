@@ -9,6 +9,8 @@ public class Images {
 	BufferedImage cards[] = new BufferedImage[6];
 	BufferedImage weapons[] = new BufferedImage[6];
 	BufferedImage screens[] = new BufferedImage[4];
+	BufferedImage numbers[] = new BufferedImage[6];
+	BufferedImage secret[] = new BufferedImage[2];
 	
 	/*
 	BufferedImage img1;
@@ -69,6 +71,16 @@ public class Images {
 			screens[2] = ImageIO.read(getClass().getResource("playButton.png"));
 			screens[3] = ImageIO.read(getClass().getResource("howToPlayButton.png"));
 			
+			numbers[0] = ImageIO.read(getClass().getResource("1.png"));
+			numbers[1] = ImageIO.read(getClass().getResource("2.png"));
+			numbers[2] = ImageIO.read(getClass().getResource("3.png"));
+			numbers[3] = ImageIO.read(getClass().getResource("4.png"));
+			numbers[4] = ImageIO.read(getClass().getResource("5.png"));
+			numbers[5] = ImageIO.read(getClass().getResource("6.png"));
+			
+			secret[0] = ImageIO.read(getClass().getResource("secret1.png"));
+			secret[1] = ImageIO.read(getClass().getResource("secret2.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -127,6 +139,26 @@ public class Images {
 				return screens[2];
 			}else if(val == 4) {
 				return screens[3];
+			}
+		}else if(str.equals("numbers")) {
+			if(val == 1) {
+				return numbers[0];
+			}else if(val == 2) {
+				return numbers[1];
+			}else if(val == 3) {
+				return numbers[2];
+			}else if(val == 4) {
+				return numbers[3];
+			}else if(val == 5) {
+				return numbers[4];
+			}else if(val == 6) {
+				return numbers[5];
+			}
+		}else if(str.equals("secret")) {
+			if(val == 1) {
+				return secret[0];
+			}else if(val == 2) {
+				return secret[1];
 			}
 		}
 		return null;

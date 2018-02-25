@@ -5,14 +5,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 public class GameMechanics {
 	
 	int gameStateCurrent = 2;
 	
 	int current = 0;
+	int exitNum = 0;
 	
 	int x=0,xOne = 852/2;
 	
@@ -80,6 +79,9 @@ public class GameMechanics {
 			g.setColor(new Color(97,62,7));
 			g.fillRect(0, 0, width, height);
 			g.drawImage(background,180, 0, null);
+			if(Players[current].getDoor() != 0) {
+				exit();
+			}
 			Draw();
 		}else if(gameState[2] == gameStateCurrent) {
 			g.setColor(new Color(20,20,20,240));
@@ -195,7 +197,43 @@ public class GameMechanics {
 		for(int i=0;i<6;i++) {
 			g.drawImage(Players[i].getImage(), (Players[i].getx()*24) +180, Players[i].gety()*24, null);
 		}
-
+		if(exit() || secretExit()) {
+			if(secretExit()) {
+				if(Players[current].getDoor() == 10 || Players[current].getDoor() == 5) {
+					g.drawImage(images.getImage(2, "secret"),(25*24) + 180, 22*24, null);
+					g.drawImage(images.getImage(1, "secret"),(7*24) + 180, 2*24, null);
+					//g.fillRect((25*24) + 180 ,22*24,24,24);
+					//g.fillRect((7*24) + 180,2*24,24,24);
+				}else if(Players[current].getDoor() == 3 || Players[current].getDoor() == 7){
+					g.drawImage(images.getImage(1, "secret"),(2*24) + 180, 20*24, null);
+					g.drawImage(images.getImage(2, "secret"),(21*24) + 180, 6*24, null);
+					//g.fillRect((2*24) + 180,20*24,24,24);
+					//g.fillRect((21*24) + 180,6*24,24,24);
+				}
+			}
+			if(exit()) {
+				int count =1;
+				for(int i=0;i<28;i++) {
+					for(int j=0;j<28;j++) {
+						if(dimensions.getVal(j,i) == (Players[current].getDoor())*10) {
+							g.drawImage(images.getImage(count, "numbers"),(j*24) + 180, i*24, null);
+							if(count == getExitNum()) {
+								if(dimensions.checkPosAvailable(i,j,0)) {
+									dimensions.setVal(i, j, Players[current].getDoor()/10);
+									Players[current].setx(dimensions.getX());
+									Players[current].sety(dimensions.getY());
+									dimensions.setVal(i, j, 47);
+									Players[current].setDoor(0);
+								}
+							}
+							count += 1;
+							//g.fillRect((j*24) + 180, i*24, 24, 24);
+						}
+					}
+				}
+				setExitNum(0);
+			}
+		}
 		g.drawImage(images.getImage(6, "cards"), 15, 15, null);
 		g.drawImage(images.getImage(5, "cards"), 15, 240, null);
 		g.drawImage(images.getImage(2, "cards"), 15, 460, null);
@@ -219,7 +257,6 @@ public class GameMechanics {
 			Players[current].setx(moving.moveLeft(Players[current].getx()));
 			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 		}
-		dimensions.print();
 	}
 	
 	//receives all images and sets all object to positions
@@ -334,7 +371,6 @@ public class GameMechanics {
 				Players[current].setx(14);
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 		}
-		dimensions.print();
 	}
 	
 	public Dimensions getDimensions() {
@@ -357,6 +393,13 @@ public class GameMechanics {
 		return gameStateCurrent;
 	}
 	
+	public void setExitNum(int val) {
+		exitNum = val;
+	}
+	public int getExitNum() {
+		return exitNum;
+	}
+	
 	public void animation() {
 		g.setColor(Color.BLACK);
 		if(frames%15 == 0 && x < (852/2)+20) {
@@ -365,5 +408,18 @@ public class GameMechanics {
 			g.setColor(Color.white);
 			g.fillRect((852/2)-20, x, 20, 20);
 		}
+	}
+	
+	public boolean secretExit() {
+		if(Players[current].getDoor() == 10 || Players[current].getDoor() == 7 || Players[current].getDoor() == 5 || Players[current].getDoor() == 3) {
+			return true;
+		}
+		return false;
+	}
+	public boolean exit() {
+		if(Players[current].getDoor() > 0) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -145,6 +145,26 @@ public class PlayerInput extends JPanel implements ActionListener {
 			}
     	}
     	
+    	else if(text.equals("1")){
+    		setExit(1);
+    		textArea.append("Player exited through exit 1" + "\n");
+    	}
+    	
+    	else if(text.equals("2")){
+    		setExit(2);
+    		textArea.append("Player exited through exit 2" + "\n");
+    	}
+    	
+    	else if(text.equals("3")){
+    		setExit(3);
+    		textArea.append("Player exited through exit 3" + "\n");
+    	}
+    	
+    	else if(text.equals("4")){
+    		setExit(4);
+    		textArea.append("Player exited through exit 4" + "\n");
+    	}
+    	
     }
   
     public void createAndShowGUI() {
@@ -168,4 +188,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         textArea.append("Move weapon to room" + "\n");
     }
     
+    public void setExit(int num) {
+    	mech.setExitNum(num);
+    }
 }

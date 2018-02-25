@@ -60,6 +60,7 @@ public class KeyManager implements KeyListener{
 			mech.getOb().setx(11);
 			mech.getOb().sety(1);
 			mech.getDimensions().setVal(mech.getOb().getx(), mech.getOb().gety(), 47);
+			mech.getOb().setDoor(0);
 		}
 		else if(keys[KeyEvent.VK_C] == true) {
 			mech.updateCurrent();

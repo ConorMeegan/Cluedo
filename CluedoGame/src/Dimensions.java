@@ -121,6 +121,7 @@ private int[][] dimensionsTwo = {
 		}
 		return false;
 	}
+	
 	public int getVal(int i, int j) {
 		return dimensions[i][j];
 	}
