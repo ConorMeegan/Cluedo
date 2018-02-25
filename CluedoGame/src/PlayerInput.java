@@ -165,6 +165,10 @@ public class PlayerInput extends JPanel implements ActionListener {
     		textArea.append("Player exited through exit 4" + "\n");
     	}
     	
+    	else if(text.equals("secret")) {
+    		setExit(5);
+    	}
+    	
     }
   
     public void createAndShowGUI() {

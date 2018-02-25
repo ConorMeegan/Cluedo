@@ -12,6 +12,7 @@ public class GameMechanics {
 	
 	int current = 0;
 	int exitNum = 0;
+	int secretExitNum = 0;
 	
 	int x=0,xOne = 852/2;
 	
@@ -210,6 +211,9 @@ public class GameMechanics {
 					//g.fillRect((2*24) + 180,20*24,24,24);
 					//g.fillRect((21*24) + 180,6*24,24,24);
 				}
+				if(getExitNum(5) == 5) {
+					
+				}
 			}
 			if(exit()) {
 				int count =1;
@@ -217,7 +221,7 @@ public class GameMechanics {
 					for(int j=0;j<28;j++) {
 						if(dimensions.getVal(j,i) == (Players[current].getDoor())*10) {
 							g.drawImage(images.getImage(count, "numbers"),(j*24) + 180, i*24, null);
-							if(count == getExitNum()) {
+							if(count == getExitNum(2)) {
 								if(dimensions.checkPosAvailable(i,j,0)) {
 									dimensions.setVal(i, j, Players[current].getDoor()/10);
 									Players[current].setx(dimensions.getX());
@@ -394,12 +398,20 @@ public class GameMechanics {
 	}
 	
 	public void setExitNum(int val) {
-		exitNum = val;
+		if(val < 5) {
+			exitNum = val;
+		}else{
+			secretExitNum = val;
+		}
 	}
-	public int getExitNum() {
-		return exitNum;
+	public int getExitNum(int val) {
+		if(val < 5) {
+			return exitNum;
+		}else {
+			return secretExitNum;
+		}
 	}
-	
+
 	public void animation() {
 		g.setColor(Color.BLACK);
 		if(frames%15 == 0 && x < (852/2)+20) {
