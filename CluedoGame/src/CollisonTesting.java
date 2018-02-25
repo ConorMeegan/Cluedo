@@ -14,28 +14,28 @@ public class CollisonTesting {
 	public boolean testMove(String s, GameObject ob) {
 		switch(s){
 			case "u":
-				if(dim.getVal(ob.getx(), (ob.gety())-1) == 0 ) {
+				if((dim.getVal(ob.getx(), (ob.gety())-1) == 0) && (dim.getValTwo(ob.getx(), (ob.gety())-1) == 0)) {
 					return true;
 				}else if(DoorTest(dim.getVal(ob.getx(), (ob.gety())-1))) {
 					mech.setDoor(door);
 				}
 				break;
 			case "d":
-				if(dim.getVal(ob.getx(), (ob.gety())+1) == 0 ) {
+				if((dim.getVal(ob.getx(), (ob.gety())+1) == 0) && (dim.getValTwo(ob.getx(), (ob.gety())+1) == 0)) {
 					return true;
 				}else if(DoorTest(dim.getVal(ob.getx(), (ob.gety())+1))) {
 					mech.setDoor(door);
 				}
 				break;
 			case "r":
-				if(dim.getVal((ob.getx()) + 1, ob.gety()) == 0 ) {
+				if((dim.getVal((ob.getx()) + 1, ob.gety()) == 0) && (dim.getValTwo((ob.getx()) + 1, ob.gety()) == 0)) {
 					return true;
 				}else if(DoorTest(dim.getVal((ob.getx()) + 1, ob.gety()))) {
 					mech.setDoor(door);
 				}
 				break;
 			case "l":
-				if(dim.getVal((ob.getx()) - 1, ob.gety()) == 0 ) {
+				if((dim.getVal((ob.getx()) - 1, ob.gety()) == 0) && (dim.getValTwo((ob.getx()) - 1, ob.gety()) == 0)) {
 					return true;
 				}else if(DoorTest(dim.getVal((ob.getx()) - 1, ob.gety()))) {
 					mech.setDoor(door);
