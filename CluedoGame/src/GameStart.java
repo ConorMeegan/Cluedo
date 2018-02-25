@@ -28,11 +28,13 @@ public class GameStart {
 	Images image = new Images();
 	
 	Players[] arr = new Players[6];
-	Players[] names;
+	String[] names = new String[6];
+	GameMechanics mech;
 	
-	public GameStart()
+	public GameStart(GameMechanics mech)
 	{
-		
+		this.mech = mech;
+
 		String[] numberOfPlayers = {"Two", "Three", "Four", "Five", "Six"};
 		
 		String number = "";
@@ -62,7 +64,7 @@ public class GameStart {
 		{
 			numberPlayer = 6;
 		}
-		
+		mech.setMax(numberPlayer);
 		
 		/*
 		for(int x=0; x<numberPlayer; x++)
@@ -97,7 +99,8 @@ public class GameStart {
 			player = (String) JOptionPane.showInputDialog(null, settingIcon(j),
 							"Character Selection for Player "+PlayerNumber, JOptionPane.QUESTION_MESSAGE, 
 							null, playerNames.toArray(), playerNames.get(0));
-			
+			//change the play to the names of the people themselves
+			names[PlayerNumber-1] = player;
 			j = updateLabel(player);
 			playerNames.remove(player);
 						
@@ -113,48 +116,48 @@ public class GameStart {
 		if(playerName.equals("Homer Simpson"))
 		{
 			playerName = "homerCard";
-			System.out.println("\nYou have selected Homer Simpson as your character.");
+			//System.out.println("\nYou have selected Homer Simpson as your character.");
 			return 4;
 		}
 		else if(playerName.equals("Maggie Simpson"))
 		{
 			playerName = "maggieCardTest";
-			System.out.println("\nYou have selected Maggie Simpson as your character.");
+			//System.out.println("\nYou have selected Maggie Simpson as your character.");
 			return 5;
 		}
 		else if(playerName.equals("Moe Syzlack"))
 		{
 			playerName = "moeCardTest";
-			System.out.println("\nYou have selected Moe Szyslack as your character.");
+			//System.out.println("\nYou have selected Moe Szyslack as your character.");
 			return 6;
 		}
 		else if(playerName.equals("Hanz Moleman"))
 		{
 			playerName = "hanzMoleManCard";
-			System.out.println("\nYou have selected Hanz Moleman as your character.");
+			//System.out.println("\nYou have selected Hanz Moleman as your character.");
 			return 3;
 		}
 		else if(playerName.equals("Fat Tony"))
 		{
 			playerName = "fatTonyCardTest";
-			System.out.println("\nYou have selected Fat Tony as your character.");
+			//System.out.println("\nYou have selected Fat Tony as your character.");
 			return 2;
 		}
 		else if(playerName.equals("Crazy Cat Lady"))
 		{
 			playerName = "carzyCatLady";
-			System.out.println("\nYou have selected Crazy Cat Lady as your character.");
+			//System.out.println("\nYou have selected Crazy Cat Lady as your character.");
 			
 			return 1;
 		}
 		return 1;
 	}
-	/*
-	public int index()
+	
+	public String getName(int i)
 	{
-		
+		return names[i];
 	}
-	*/
+	
 	public ImageIcon settingIcon(int j)
 	{
 		return new ImageIcon(image.getImage(j, "cards"));

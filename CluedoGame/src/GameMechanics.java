@@ -8,15 +8,16 @@ import javax.imageio.ImageIO;
 
 public class GameMechanics {
 	
-	int gameStateCurrent = 2;
+	int gameStateCurrent = 1;
 	
 	int current = 0;
 	int exitNum = 0;
 	int secretExitNum = 0;
 	
 	int x=0,xOne = 852/2;
-	
+	int numOfPlayers;
 	int frames = 0 ;
+	
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
@@ -75,7 +76,7 @@ public class GameMechanics {
 		
 		//future code for future game states
 		if(gameState[0] == gameStateCurrent) {
-			
+			gameStateCurrent += 1;
 		}else if(gameState[1] == gameStateCurrent) {
 			g.setColor(new Color(97,62,7));
 			g.fillRect(0, 0, width, height);
@@ -265,13 +266,18 @@ public class GameMechanics {
 	
 	//receives all images and sets all object to positions
 	public void Initialise() {
-		
+		GameStart start = new GameStart(this);
 		Players[0] = new Players(1,images.getImage(1, "tokens"),11,1);
 		Players[1] = new Players(2,images.getImage(2, "tokens"),25,20);
 		Players[2] = new Players(3,images.getImage(3, "tokens"),2,18);
 		Players[3] = new Players(4,images.getImage(4, "tokens"),25,7);
 		Players[4] = new Players(5,images.getImage(5, "tokens"),9,25);
 		Players[5] = new Players(6,images.getImage(6, "tokens"),16,1);
+
+		for(int i=0;i<numOfPlayers;i++) {
+			Players[i].setName(start.getName(i));
+		}
+		
 		
 		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
 		Weapons[1] = new weapons(2,images.getImage(2, "weapons"),0,2);
@@ -433,5 +439,9 @@ public class GameMechanics {
 			return true;
 		}
 		return false;
+	}
+	
+	public void setMax(int max) {
+		numOfPlayers= max;
 	}
 }

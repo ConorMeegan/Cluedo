@@ -4,6 +4,7 @@ public class Players extends GameObject{
 
 	int playerId;
 	int door;
+	String name;
 	
 	public Players(int playerId,BufferedImage icon, int x, int y) {
 		super(icon,x,y);
@@ -12,6 +13,14 @@ public class Players extends GameObject{
 	
 	public int getPlayerId() {
 		return playerId;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public void setDoor(int door) {
