@@ -203,14 +203,23 @@ public class GameMechanics {
 	
 	public void movement(int num) {
 		if(num == 1) {
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
 			Players[current].sety(moving.moveUp(Players[current].gety()));
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 		}else if(num == 2) {
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
 			Players[current].sety(moving.moveDown(Players[current].gety()));
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 		}else if(num == 3) {
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
 			Players[current].setx(moving.moveRight(Players[current].getx()));
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 		}else if(num == 4){
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
 			Players[current].setx(moving.moveLeft(Players[current].getx()));
+			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 		}
+		dimensions.print();
 	}
 	
 	//receives all images and sets all object to positions
@@ -246,45 +255,102 @@ public class GameMechanics {
 	
 	public void setDoor(int val) {
 		if(val == 20) {
-			//dimensions.checkPosAvailable(23,15);
-			Players[current].sety(23);
-			Players[current].setx(15);
+			if(dimensions.checkPosAvailable(23,15,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
+			
 		}else if(val == 30) {
-			Players[current].sety(23);
-			Players[current].setx(5);
+			if(dimensions.checkPosAvailable(23,5,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 40) {
-			Players[current].sety(15);
-			Players[current].setx(5);
+			if(dimensions.checkPosAvailable(13,5,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 50){
-			Players[current].sety(5);
-			Players[current].setx(5);
+			if(dimensions.checkPosAvailable(4,5,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 60){
-			Players[current].sety(5);
-			Players[current].setx(14);
+			if(dimensions.checkPosAvailable(5,14,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 70){
-			Players[current].sety(5);
-			Players[current].setx(24);
+			if(dimensions.checkPosAvailable(4,22,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 80){
-			Players[current].sety(12);
-			Players[current].setx(24);
+			if(dimensions.checkPosAvailable(11,24,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 90){
-			Players[current].sety(17);
-			Players[current].setx(24);
+			if(dimensions.checkPosAvailable(17,24,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 100){
-			Players[current].sety(24);
-			Players[current].setx(22);
+			if(dimensions.checkPosAvailable(24,22,(val/10))) {
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(dimensions.getY());
+				Players[current].setx(dimensions.getX());
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+			}
 		}else if(val == 110){
-			Players[current].sety(14);
-			Players[current].setx(14);
+				Players[current].setDoor(val/10);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(14);
+				Players[current].setx(14);
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 		}
+		dimensions.print();
 	}
 	
 	public Dimensions getDimensions() {
 		return dimensions;
 	}
 	
-	public GameObject getOb() {
+	public Players getOb() {
 		return Players[current];
+	}
+	
+	public void updateCurrent(){
+		if(current == 5) {
+			current = 0;
+		}else {
+			current+=1;
+		}
 	}
 	
 	public int getGameState() {

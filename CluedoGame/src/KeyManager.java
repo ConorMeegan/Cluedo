@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener{
 
 	private boolean[] keys;
-	public boolean up, down, left, right,reset;
+	public boolean up, down, left, right,reset,change;
 	GameMechanics mech;
 	CollisonTesting cTest;
 	
@@ -22,6 +22,7 @@ public class KeyManager implements KeyListener{
 		left = keys[KeyEvent.VK_LEFT];
 		right = keys[KeyEvent.VK_RIGHT];
 		reset = keys[KeyEvent.VK_R];
+		change = keys[KeyEvent.VK_C];
 	}
 	
 	@Override
@@ -55,8 +56,13 @@ public class KeyManager implements KeyListener{
 			}
 		}
 		else if(keys[KeyEvent.VK_R] == true) {
+			cTest.resetDoor();
 			mech.getOb().setx(11);
 			mech.getOb().sety(1);
+			mech.getDimensions().setVal(mech.getOb().getx(), mech.getOb().gety(), 47);
+		}
+		else if(keys[KeyEvent.VK_C] == true) {
+			mech.updateCurrent();
 		}
 	}
 

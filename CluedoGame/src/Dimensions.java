@@ -1,5 +1,7 @@
 public class Dimensions {
 	
+	
+	int x, y;
 	//corresponds to the map, this allows for collision detection in future updates and allows 
 	//for players to move
 	private int[][] dimensions = {
@@ -67,18 +69,58 @@ private int[][] dimensionsTwo = {
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	};
 	
-   /*
-	public void printDimensions() {
-		for(int i=0;i<dimensionsDraw.length;i++) {
-			for(int j=0;j<dimensionsDraw.length;j++) {
-				System.out.printf("%d",dimensionsDraw[i][j]);
+	/*
+	public void reset() {
+		for(int i=0;i<dimensionsTwo.length;i++) {
+			for(int j=0;j<dimensionsTwo.length;j++) {
+				setVal(i,j,0);
+			}
+		}
+	}
+	*/
+
+	public void print() {
+		for(int i=0;i<dimensionsTwo.length;i++) {
+			for(int j=0;j<dimensionsTwo.length;j++) {
+				System.out.printf("%d ",dimensionsTwo[i][j]);
 			}
 			System.out.println();
 		}
-		System.out.println(dimensions.length);
+		System.out.println();
 	}
-	*/
-	
+	public boolean checkPosAvailable(int x, int y,int door) {
+		
+		if(dimensionsTwo[y][x] != 47 && dimensions[y][x] == door) {
+			this.x = y;
+			this.y = x;
+			return true;
+		}else if(dimensionsTwo[y][x+1] != 47 && dimensions[y][x+1] == door) {
+			this.x = y;
+			this.y = x+1;
+			return true;
+		}else if(dimensionsTwo[y][x-1] != 47 && dimensions[y][x-1] == door) {
+			this.x = y;
+			this.y = x-1;
+			return true;
+		}else if(dimensionsTwo[y+1][x] != 47 && dimensions[y+1][x] == door) {
+			this.x = y+1;
+			this.y = x;
+			return true;
+		}else if(dimensionsTwo[y-1][x] != 47 && dimensions[y-1][x] == door) {
+			this.x = y-1;
+			this.y = x;
+			return true;
+		}else if(dimensionsTwo[y][x+2] != 47 && dimensions[y][x+2] == door) {
+			this.x = y;
+			this.y = x+2;
+			return true;
+		}else if(dimensionsTwo[y][x-2] != 47 && dimensions[y][x-2] == door) {
+			this.x = y;
+			this.y = x-2;
+			return true;
+		}
+		return false;
+	}
 	public int getVal(int i, int j) {
 		return dimensions[i][j];
 	}
@@ -86,7 +128,19 @@ private int[][] dimensionsTwo = {
 		return dimensionsTwo[i][j];
 	}
 	
-	public void setVal(int i, int j) {
-		dimensionsTwo[i][j] = 55;
+	public int getX() {
+		int x = this.x;
+		this.x = 0;
+		return x;
+	}
+	public int getY() {
+		int y = this.y;
+		this.y = 0;
+		return y;
+	}
+	
+	public void setVal(int i, int j,int change) {
+		dimensionsTwo[i][j] = change;
+		//print();
 	}
 }

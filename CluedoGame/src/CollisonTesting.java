@@ -53,4 +53,8 @@ public class CollisonTesting {
 			}
 			return false;
 	}
+	
+	public void resetDoor() {
+		dim.setVal(mech.getOb().getx(), mech.getOb().gety(), mech.getOb().getDoor());
+	}
 }
