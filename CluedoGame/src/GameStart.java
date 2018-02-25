@@ -94,7 +94,7 @@ public class GameStart {
 		
 		while(numberPlayer>0)
 		{
-			player = (String) JOptionPane.showInputDialog(null, new ImageIcon(image.getImage(j, "cards")),
+			player = (String) JOptionPane.showInputDialog(null, settingIcon(j),
 							"Character Selection for Player "+PlayerNumber, JOptionPane.QUESTION_MESSAGE, 
 							null, playerNames.toArray(), playerNames.get(0));
 			
@@ -155,16 +155,9 @@ public class GameStart {
 		
 	}
 	*/
-	public void itemStateChanged(ItemEvent e) 
+	public ImageIcon settingIcon(int j)
 	{
-		if(e.getStateChange() == ItemEvent.SELECTED)
-		{
-	        //label.setVisible(true);
-	    }
-		else
-		{
-	        //label.setVisible(false);
-	    }
+		return new ImageIcon(image.getImage(j, "cards"));
 	}
 	
 }
