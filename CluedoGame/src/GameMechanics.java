@@ -202,21 +202,66 @@ public class GameMechanics {
 		if(exit() || secretExit()) {
 			if(secretExit()) {
 				if(Players[current].getDoor() == 10 || Players[current].getDoor() == 5) {
-					g.drawImage(images.getImage(2, "secret"),(25*24) + 180, 22*24, null);
+					g.drawImage(images.getImage(1, "secret"),(25*24) + 180, 22*24, null);
 					g.drawImage(images.getImage(1, "secret"),(7*24) + 180, 2*24, null);
-					//g.fillRect((25*24) + 180 ,22*24,24,24);
-					//g.fillRect((7*24) + 180,2*24,24,24);
 				}else if(Players[current].getDoor() == 3 || Players[current].getDoor() == 7){
 					g.drawImage(images.getImage(1, "secret"),(2*24) + 180, 20*24, null);
-					g.drawImage(images.getImage(2, "secret"),(21*24) + 180, 6*24, null);
-					//g.fillRect((2*24) + 180,20*24,24,24);
-					//g.fillRect((21*24) + 180,6*24,24,24);
+					g.drawImage(images.getImage(1, "secret"),(21*24) + 180, 6*24, null);
 				}
+		
 				if(getExitNum(5) == 5) {
 					
+					if(Players[current].getDoor() == 10) {
+						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
+						
+						if(dimensions.checkPosAvailable(4,5,5)) {
+							Players[current].setx(dimensions.getX());
+							Players[current].sety(dimensions.getY());
+						}
+						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
+						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
+						
+						setExitNum(0);
+					}else if(Players[current].getDoor() == 5) {
+						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
+						
+						if(dimensions.checkPosAvailable(24,22,10)) {
+							Players[current].setx(dimensions.getX());
+							Players[current].sety(dimensions.getY());
+						}
+						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
+						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
+						
+						setExitNum(0);
+					}else if(Players[current].getDoor() == 3) {
+						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
+						
+						if(dimensions.checkPosAvailable(4,22,7)) {
+							Players[current].setx(dimensions.getX());
+							Players[current].sety(dimensions.getY());
+						}
+						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
+						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
+						
+						setExitNum(0);
+					}else if(Players[current].getDoor() == 7) {
+						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
+						;
+						if(dimensions.checkPosAvailable(23,5,3)) {
+							Players[current].setx(dimensions.getX());
+							Players[current].sety(dimensions.getY());
+						};
+						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
+						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
+					
+						setExitNum(0);
+					}
+		
 				}
+				
 			}
 			if(exit()) {
+			
 				int count =1;
 				for(int i=0;i<28;i++) {
 					for(int j=0;j<28;j++) {
@@ -285,6 +330,8 @@ public class GameMechanics {
 		Weapons[3] = new weapons(4,images.getImage(4, "weapons"),0,4);
 		Weapons[4] = new weapons(5,images.getImage(5, "weapons"),0,5);
 		Weapons[5] = new weapons(6,images.getImage(6, "weapons"),0,6);
+		playerInput.errorMessages(1);
+		playerInput.errorMessages(2);
 	}
 	
 	//used to control players and weapons, will be updated in the future to work for different input styles
@@ -404,10 +451,13 @@ public class GameMechanics {
 	}
 	
 	public void setExitNum(int val) {
-		if(val < 5) {
+		if(val == 0) {
+			exitNum = 0;
+			secretExitNum = 0;
+		}else if (val > 0 && val < 5){
 			exitNum = val;
-		}else{
-			secretExitNum = val;
+		}else {
+			secretExitNum = 5;
 		}
 	}
 	public int getExitNum(int val) {

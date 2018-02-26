@@ -10,7 +10,7 @@ public class Images {
 	BufferedImage weapons[] = new BufferedImage[6];
 	BufferedImage screens[] = new BufferedImage[4];
 	BufferedImage numbers[] = new BufferedImage[6];
-	BufferedImage secret[] = new BufferedImage[2];
+	BufferedImage secret;
 	
 	/*
 	BufferedImage img1;
@@ -78,8 +78,7 @@ public class Images {
 			numbers[4] = ImageIO.read(getClass().getResource("5.png"));
 			numbers[5] = ImageIO.read(getClass().getResource("6.png"));
 			
-			secret[0] = ImageIO.read(getClass().getResource("secret1.png"));
-			secret[1] = ImageIO.read(getClass().getResource("secret2.png"));
+			secret = ImageIO.read(getClass().getResource("secret1.png"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -156,9 +155,7 @@ public class Images {
 			}
 		}else if(str.equals("secret")) {
 			if(val == 1) {
-				return secret[0];
-			}else if(val == 2) {
-				return secret[1];
+				return secret;
 			}
 		}
 		return null;

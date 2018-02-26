@@ -167,6 +167,8 @@ public class PlayerInput extends JPanel implements ActionListener {
     	
     	else if(text.equals("secret")) {
     		setExit(5);
+    		textArea.append("Player exited through exit secret passage way" + "\n");
+
     	}
     	
     }
@@ -194,5 +196,18 @@ public class PlayerInput extends JPanel implements ActionListener {
     
     public void setExit(int num) {
     	mech.setExitNum(num);
+    }
+    
+    public void errorMessages(int num) {
+    	if(num == 1) {
+    		textArea.append("Player has a choice to exit by the door or to exit by the secret passage way\n");
+    		textArea.append("To exit by the door enter the value of the door you would liek to exit out off\n");
+    		textArea.append("Or to exit by the xecret passage way type 'secret'\n");
+    	}else if(num == 2) {
+    		textArea.append("Player has a choice to exit by the door\n");
+    		textArea.append("To exit by the door enter the value of the door you would liek to exit out off\n");
+    	}else if(num == 3) {
+    		textArea.append("Number of moves is more than the number rolled\n");
+    	}
     }
 }
