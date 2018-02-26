@@ -50,7 +50,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         	
              	if(text.equals("roll") && i == 0){
              		spaces = Roll();
-             		textArea.append("press u,d,l,r to move character" + "\n");
+             		textArea.append("press u,d,l,r to move character or \nclick on the board and use the arrow keys" + "\n");
              		i++;
              		mech.setRoll(spaces);
              		mech.setDone(0);
@@ -250,7 +250,7 @@ public class PlayerInput extends JPanel implements ActionListener {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        textArea.append("Move weapon to room" + "\n");
+      
     }
     
     public void setExit(int num) {
@@ -259,14 +259,18 @@ public class PlayerInput extends JPanel implements ActionListener {
     
     public void errorMessages(int num) {
     	if(num == 1) {
-    		textArea.append("Player has a choice to exit by the door or to exit by the secret passage way\n");
-    		textArea.append("To exit by the door enter the value of the door you would like to exit out of\n");
-    		textArea.append("Or to exit by the xecret passage way type 'passage'\n");
+    		textArea.append("Type 'quit' to end the game" + "\n");
+    		textArea.append("Player has a choice to exit by the door or to exit by \nthe secret passage way\n");
+    		textArea.append("To exit by the door enter the value of the door you \nwould like to exit out of\n");
+    		textArea.append("Or to exit by the secret passage way type 'passage'\n");
     	}else if(num == 2) {
     		textArea.append("Player has a choice to exit by the door\n");
     		textArea.append("To exit by the door enter the value of the door you would like to exit out of\n");
     	}else if(num == 3) {
-    		textArea.append("Number of moves is more than the number rolled\n");
+    		textArea.append("No more moves\n");
+    		textArea.append("Type 'done' to end your turn\n");
+    	}else if(num == 4) {
+    		 //textArea.append("Move weapon to room" + "\n");
     	}
     }
     

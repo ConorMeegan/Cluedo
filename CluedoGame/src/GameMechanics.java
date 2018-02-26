@@ -203,6 +203,10 @@ public class GameMechanics {
 		
 		for(int i=0;i<numOfPlayers;i++) {
 			g.drawImage(Players[i].getImage(), (Players[i].getx()*24) +180, Players[i].gety()*24, null);
+			
+		}
+		for(int i=0;i<6;i++){
+			g.drawImage(Weapons[i].getImage(), (Weapons[i].getx()*24) +180, Weapons[i].gety()*24, null);
 		}
 		if(exit() || secretExit()) {
 			if(secretExit()) {
@@ -389,6 +393,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 			
 		}else if(val == 30) {
@@ -398,6 +403,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 40) {
 			if(dimensions.checkPosAvailable(13,5,(val/10))) {
@@ -406,6 +412,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 50){
 			if(dimensions.checkPosAvailable(4,5,(val/10))) {
@@ -414,6 +421,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 60){
 			if(dimensions.checkPosAvailable(5,14,(val/10))) {
@@ -422,6 +430,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 70){
 			if(dimensions.checkPosAvailable(4,22,(val/10))) {
@@ -430,6 +439,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 80){
 			if(dimensions.checkPosAvailable(11,24,(val/10))) {
@@ -438,6 +448,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 90){
 			if(dimensions.checkPosAvailable(17,24,(val/10))) {
@@ -446,6 +457,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 100){
 			if(dimensions.checkPosAvailable(24,22,(val/10))) {
@@ -454,6 +466,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 			}
 		}else if(val == 110){
 				Players[current].setDoor(val/10);
@@ -461,6 +474,7 @@ public class GameMechanics {
 				Players[current].sety(14);
 				Players[current].setx(14);
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				playerInput.errorMessages(4);
 		}
 	}
 	

@@ -12,32 +12,6 @@ public class Images {
 	BufferedImage numbers[] = new BufferedImage[6];
 	BufferedImage secret;
 	
-	/*
-	BufferedImage img1;
-	BufferedImage img2;
-	BufferedImage img3;
-	BufferedImage img4;
-	BufferedImage img5;
-	BufferedImage img6;
-	BufferedImage cardImage1;
-	BufferedImage cardImage2;
-	BufferedImage cardImage3;
-	BufferedImage cardImage4;
-	BufferedImage cardImage5;
-	BufferedImage cardImage6;
-	
-	BufferedImage weaponImage1;
-	BufferedImage weaponImage2;
-	BufferedImage weaponImage3;
-	BufferedImage weaponImage4;
-	BufferedImage weaponImage5;
-	BufferedImage weaponImage6;
-	
-	BufferedImage accusations;
-	BufferedImage startArea;
-	BufferedImage playButton;
-	BufferedImage HTPButton;
-	*/
 	public Images() {
 		Initialise();
 	}
@@ -59,12 +33,12 @@ public class Images {
 			cards[4] = ImageIO.read(getClass().getResource("maggieCardTest.png"));
 			cards[5] = ImageIO.read(getClass().getResource("moeCardTest.png"));
 			
-			weapons[0] = ImageIO.read(getClass().getResource("axe.png"));
-			weapons[1] = ImageIO.read(getClass().getResource("PlutoniumRod.png"));
-			weapons[2] = ImageIO.read(getClass().getResource("chainsaw.png"));
-			weapons[3] = ImageIO.read(getClass().getResource("gun.png"));
-			weapons[4] = ImageIO.read(getClass().getResource("knife.png"));
-			weapons[5] = ImageIO.read(getClass().getResource("slingshot.png"));
+			weapons[0] = ImageIO.read(getClass().getResource("axeToken.png"));
+			weapons[1] = ImageIO.read(getClass().getResource("bombToken.png"));
+			weapons[2] = ImageIO.read(getClass().getResource("chainsawToken.png"));
+			weapons[3] = ImageIO.read(getClass().getResource("gunToken.png"));
+			weapons[4] = ImageIO.read(getClass().getResource("knifeToken.png"));
+			weapons[5] = ImageIO.read(getClass().getResource("slingShotToken.png"));
 			
 			screens[0] = ImageIO.read(getClass().getResource("Accusations3.png"));
 			screens[1] = ImageIO.read(getClass().getResource("startArea.png"));
