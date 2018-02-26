@@ -39,7 +39,8 @@ public class GameStart {
 		
 		String number = "";
 		
-		number = (String) JOptionPane.showInputDialog(null, "Players:", "Number of PLayers",
+		//getting the number of players that will be playing between 2-6
+		number = (String) JOptionPane.showInputDialog(null, "Players:", "Number of Players",
 				JOptionPane.QUESTION_MESSAGE, null, numberOfPlayers, numberOfPlayers[0]);
 		
 		int numberPlayer = 0;
@@ -66,12 +67,12 @@ public class GameStart {
 		}
 		mech.setMax(numberPlayer);
 		
-		/*
+		//getting the player's names
 		for(int x=0; x<numberPlayer; x++)
 		{
-			names[x].setName("");
+			String PlayerInputNames = JOptionPane.showInputDialog(null, "Player "+(x+1) +" enter your name:");
+			names[x] = PlayerInputNames;
 		}
-		*/
 		
 		ArrayList<String> playerNames = new ArrayList<String>();
 		playerNames.add("Homer Simpson");
@@ -81,23 +82,15 @@ public class GameStart {
 		playerNames.add("Fat Tony");
 		playerNames.add("Crazy Cat Lady");
 		
-		
-		/*
-		icon1 = new ImageIcon(GameStart.class.getResource("homerCard.png"));
-		icon2 = new ImageIcon(GameStart.class.getResource("maggieCardTest.png"));
-		icon3 = new ImageIcon(GameStart.class.getResource("moeCardTest.png"));
-		icon4 = new ImageIcon(GameStart.class.getResource("hanzMoleManCard.png"));
-		icon5 = new ImageIcon(GameStart.class.getResource("fatTonyCardTest.png"));
-		icon6 = new ImageIcon(GameStart.class.getResource("carzyCatLady.png"));
-		*/
 		String player = "";
 		int j = 4;
 		int PlayerNumber = 1;
 		
+		//getting the players to select their characters
 		while(numberPlayer>0)
 		{
-			player = (String) JOptionPane.showInputDialog(null, settingIcon(j),
-							"Character Selection for Player "+PlayerNumber, JOptionPane.QUESTION_MESSAGE, 
+			player = (String) JOptionPane.showInputDialog(null, //settingIcon(j),
+							"Characters",""+names[PlayerNumber-1]+"'s Character Selection for Player "+PlayerNumber, JOptionPane.QUESTION_MESSAGE, 
 							null, playerNames.toArray(), playerNames.get(0));
 			//change the play to the names of the people themselves
 			names[PlayerNumber-1] = player;
