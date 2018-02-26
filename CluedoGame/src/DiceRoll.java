@@ -10,7 +10,7 @@ public class DiceRoll {
 	Random rand = new Random();
 	
 	
-	public DiceRoll()
+	public void DiceRoll()
 	{
 		//generating random dice roll number between 1 and 6
 		dice1 = rand.nextInt(6)+1;

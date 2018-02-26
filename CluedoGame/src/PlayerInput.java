@@ -12,6 +12,10 @@ public class PlayerInput extends JPanel implements ActionListener {
   
     GameMechanics mech;
     CollisonTesting cTest;
+    int spaces = 0;
+    int i = 0;
+    
+    DiceRoll roll = new DiceRoll();
 
     
     public PlayerInput(GameMechanics mech) {
@@ -38,12 +42,27 @@ public class PlayerInput extends JPanel implements ActionListener {
     }
  
     public void actionPerformed(ActionEvent evt) {
-        String text = textField.getText();
+    	String text = textField.getText();
         text = text.toLowerCase();
-      
-        weaponMove(text);
+        text = text.trim();
         
-      	playerMove(text);
+        	 weaponMove(text);
+        	
+             	if(text.equals("roll") && i == 0){
+             		spaces = Roll();
+             		textArea.append("press u,d,l,r to move character" + "\n");
+             		i++;
+             	}
+             	if(text.equals("quit")){
+             		System.exit(0);
+             	}
+        
+        characterMove(text);
+      	
+        	textField.selectAll();
+ 
+        
+        textArea.setCaretPosition(textArea.getDocument().getLength());
     	
       	
         textField.selectAll();
@@ -52,67 +71,88 @@ public class PlayerInput extends JPanel implements ActionListener {
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
     
+	public int Roll(){
+		roll.DiceRoll();
+		spaces = roll.getTotal();
+		textArea.append("you got " + spaces + "\n");
+		return spaces;
+	}
+	public void characterMove(String text){
+		if(spaces <= 0 ){
+			textArea.append("Type 'done' to end your turn" + "\n");
+			if(text.equals("done")&& i == 1){
+			mech.updateCurrent();
+			textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
+			System.out.println("hi");
+			i = 0;
+			}
+		}
+		else{
+			playerMove(text);
+			}
+	}
+    
     
     public void weaponMove(String text){
     	if(text.equals("burns mansion")){
         	
     		textArea.append("burns mansion" + "\n");
     		textArea.append("moved weapon to burns mansion" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     		}
     	
     	else if(text.equals("comic book store")){
     	
     		textArea.append("comic book store" + "\n");
     		textArea.append("moved weapon to comic book store" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	
     	else if(text.equals("kwik-e-mart")){
     	
     		textArea.append("kwik-e-mart" + "\n");
     		textArea.append("moved weapon to kwik-e-mart" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	
     	else if(text.equals("school")){
     	
     		textArea.append("school" + "\n");
     		textArea.append("moved weapon to school" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	
     	else if(text.equals("flanders house")){
     	
     		textArea.append("flanders house" + "\n");
     		textArea.append("moved weapon to flanders house" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	
     	else if(text.equals("simpsons house")){
     	
     		textArea.append("simpsons house" + "\n");
     		textArea.append("moved weapon to simpsons house" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	
     	else if(text.equals("frying dutchman")){
     	
     		textArea.append("frying dutchman" + "\n");
     		textArea.append("moved weapon to frying dutchman" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	else if(text.equals("krusty burger")){
     	
     		textArea.append("krusty burger" + "\n");
     		textArea.append("moved weapon to krusty burger" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	else if(text.equals("moes tavern")){
     	
     		textArea.append("moes tavern" + "\n");
     		textArea.append("moved weapon to moes tavern" + "\n");
-    		textArea.append("move player by pressing (u, d, l ,r)" + "\n");
+    		textArea.append("roll dice by typing roll" + "\n");
     	}
     	
     }
@@ -122,6 +162,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     		if(cTest.testMove("u", mech.getOb())){
 				mech.setInput("u");
 				textArea.append("Moved player up" + "\n");
+				spaces--;
 			}
     	}
     	
@@ -129,6 +170,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     		if(cTest.testMove(text, mech.getOb())){
 				mech.setInput("d");
 				textArea.append("Moved player down" + "\n");
+				spaces--;
 			}
     	}
     	
@@ -136,38 +178,45 @@ public class PlayerInput extends JPanel implements ActionListener {
     		if(cTest.testMove("r", mech.getOb())){
 				mech.setInput("r");
 				textArea.append("Moved player right" + "\n");
+				spaces--;
 			}
     	}
     	else if(text.equals("l")){
     		if(cTest.testMove("l", mech.getOb())){
 				mech.setInput("l");
 				textArea.append("Moved player left" + "\n");
+				spaces--;
 			}
     	}
     	
     	else if(text.equals("1")){
     		setExit(1);
     		textArea.append("Player exited through exit 1" + "\n");
+    		spaces--;
     	}
     	
     	else if(text.equals("2")){
     		setExit(2);
     		textArea.append("Player exited through exit 2" + "\n");
+    		spaces--;
     	}
     	
     	else if(text.equals("3")){
     		setExit(3);
     		textArea.append("Player exited through exit 3" + "\n");
+    		spaces--;
     	}
     	
     	else if(text.equals("4")){
     		setExit(4);
     		textArea.append("Player exited through exit 4" + "\n");
+    		spaces--;
     	}
     	
     	else if(text.equals("passage")) {
     		setExit(5);
     		textArea.append("Player exited through exit secret passage way" + "\n");
+    		spaces--;
 
     	}
     	
@@ -201,11 +250,11 @@ public class PlayerInput extends JPanel implements ActionListener {
     public void errorMessages(int num) {
     	if(num == 1) {
     		textArea.append("Player has a choice to exit by the door or to exit by the secret passage way\n");
-    		textArea.append("To exit by the door enter the value of the door you would liek to exit out off\n");
-    		textArea.append("Or to exit by the xecret passage way type 'secret'\n");
+    		textArea.append("To exit by the door enter the value of the door you would like to exit out of\n");
+    		textArea.append("Or to exit by the xecret passage way type 'passage'\n");
     	}else if(num == 2) {
     		textArea.append("Player has a choice to exit by the door\n");
-    		textArea.append("To exit by the door enter the value of the door you would liek to exit out off\n");
+    		textArea.append("To exit by the door enter the value of the door you would like to exit out of\n");
     	}else if(num == 3) {
     		textArea.append("Number of moves is more than the number rolled\n");
     	}
