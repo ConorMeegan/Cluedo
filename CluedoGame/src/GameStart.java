@@ -1,26 +1,6 @@
-import java.awt.BorderLayout;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.xml.soap.Text;
 
 public class GameStart {
 
@@ -29,6 +9,7 @@ public class GameStart {
 	
 	Players[] arr = new Players[6];
 	String[] names = new String[6];
+	String[] playerNamesOb = new String[6];
 	GameMechanics mech;
 	
 	public GameStart(GameMechanics mech)
@@ -65,6 +46,7 @@ public class GameStart {
 		{
 			numberPlayer = 6;
 		}
+		
 		mech.setMax(numberPlayer);
 		
 		//getting the player's names
@@ -93,7 +75,7 @@ public class GameStart {
 							"Characters",""+names[PlayerNumber-1]+"'s Character Selection for Player "+PlayerNumber, JOptionPane.QUESTION_MESSAGE, 
 							null, playerNames.toArray(), playerNames.get(0));
 			//change the play to the names of the people themselves
-			names[PlayerNumber-1] = player;
+			playerNamesOb[PlayerNumber-1] = player;
 			j = updateLabel(player);
 			playerNames.remove(player);
 						
@@ -146,7 +128,12 @@ public class GameStart {
 		return 1;
 	}
 	
-	public String getName(int i)
+	public String getPlayerNames(int i)
+	{
+		return playerNamesOb[i];
+	}
+	
+	public String getNames(int i)
 	{
 		return names[i];
 	}

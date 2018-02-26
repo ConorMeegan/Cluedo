@@ -52,12 +52,16 @@ public class PlayerInput extends JPanel implements ActionListener {
              		spaces = Roll();
              		textArea.append("press u,d,l,r to move character" + "\n");
              		i++;
+             		mech.setRoll(spaces);
+             		mech.setDone(0);
              	}
-             	if(text.equals("quit")){
+             	else if(text.equals("quit")){
              		System.exit(0);
+             	}else {
+             		playerMove(text);
              	}
         
-        characterMove(text);
+        //characterMove(text);
       	
         	textField.selectAll();
  
@@ -81,10 +85,10 @@ public class PlayerInput extends JPanel implements ActionListener {
 		if(spaces <= 0 ){
 			textArea.append("Type 'done' to end your turn" + "\n");
 			if(text.equals("done")&& i == 1){
-			mech.updateCurrent();
-			textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
-			System.out.println("hi");
-			i = 0;
+				mech.checkCurrent();
+				textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
+				mech.setDone(1);
+				i = 0;
 			}
 		}
 		else{
@@ -162,7 +166,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     		if(cTest.testMove("u", mech.getOb())){
 				mech.setInput("u");
 				textArea.append("Moved player up" + "\n");
-				spaces--;
+
 			}
     	}
     	
@@ -170,7 +174,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     		if(cTest.testMove(text, mech.getOb())){
 				mech.setInput("d");
 				textArea.append("Moved player down" + "\n");
-				spaces--;
+
 			}
     	}
     	
@@ -178,14 +182,21 @@ public class PlayerInput extends JPanel implements ActionListener {
     		if(cTest.testMove("r", mech.getOb())){
 				mech.setInput("r");
 				textArea.append("Moved player right" + "\n");
-				spaces--;
+
 			}
+    	}
+    	
+    	else if(text.equals("done")){
+    		//mech.updateCurrent();
+			textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
+			mech.setDone(1);
+			i = 0;
     	}
     	else if(text.equals("l")){
     		if(cTest.testMove("l", mech.getOb())){
 				mech.setInput("l");
 				textArea.append("Moved player left" + "\n");
-				spaces--;
+
 			}
     	}
     	
@@ -198,26 +209,25 @@ public class PlayerInput extends JPanel implements ActionListener {
     	else if(text.equals("2")){
     		setExit(2);
     		textArea.append("Player exited through exit 2" + "\n");
-    		spaces--;
+
     	}
     	
     	else if(text.equals("3")){
     		setExit(3);
     		textArea.append("Player exited through exit 3" + "\n");
-    		spaces--;
+
     	}
     	
     	else if(text.equals("4")){
     		setExit(4);
     		textArea.append("Player exited through exit 4" + "\n");
-    		spaces--;
+
     	}
     	
     	else if(text.equals("passage")) {
     		setExit(5);
     		textArea.append("Player exited through exit secret passage way" + "\n");
-    		spaces--;
-
+    
     	}
     	
     }
@@ -258,5 +268,12 @@ public class PlayerInput extends JPanel implements ActionListener {
     	}else if(num == 3) {
     		textArea.append("Number of moves is more than the number rolled\n");
     	}
+    }
+    
+    public int getSpaces() {
+    	return spaces;
+    }
+    public void setSpaces() {
+    	spaces = 0;
     }
 }

@@ -18,6 +18,9 @@ public class GameMechanics {
 	int numOfPlayers;
 	int frames = 0 ;
 	
+	int rollNum = 0;
+	int done = 0;
+	
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
@@ -84,7 +87,9 @@ public class GameMechanics {
 			if(Players[current].getDoor() != 0) {
 				exit();
 			}
+			checkDone();
 			Draw();
+			
 		}else if(gameState[2] == gameStateCurrent) {
 			g.setColor(new Color(20,20,20,240));
 			g.fillRect(0, 0, width, height);
@@ -196,7 +201,7 @@ public class GameMechanics {
 	//handles all drawing of sprites
 	public void Draw() {
 		
-		for(int i=0;i<6;i++) {
+		for(int i=0;i<numOfPlayers;i++) {
 			g.drawImage(Players[i].getImage(), (Players[i].getx()*24) +180, Players[i].gety()*24, null);
 		}
 		if(exit() || secretExit()) {
@@ -290,38 +295,67 @@ public class GameMechanics {
 	}
 	
 	public void movement(int num) {
-		if(num == 1) {
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
-			Players[current].sety(moving.moveUp(Players[current].gety()));
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-		}else if(num == 2) {
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
-			Players[current].sety(moving.moveDown(Players[current].gety()));
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-		}else if(num == 3) {
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
-			Players[current].setx(moving.moveRight(Players[current].getx()));
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-		}else if(num == 4){
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
-			Players[current].setx(moving.moveLeft(Players[current].getx()));
-			dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+		if(rollNum != 0 && done == 0) {
+			if(num == 1) {
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(moving.moveUp(Players[current].gety()));
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				rollNum--;
+			}else if(num == 2) {
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].sety(moving.moveDown(Players[current].gety()));
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				rollNum--;
+			}else if(num == 3) {
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].setx(moving.moveRight(Players[current].getx()));
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				rollNum--;
+			}else if(num == 4){
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 0);
+				Players[current].setx(moving.moveLeft(Players[current].getx()));
+				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
+				rollNum--;
+			}
+		}else if(rollNum == 0) {
+			setDone(0);
+			playerInput.setSpaces();
+			playerInput.errorMessages(3);
 		}
 	}
 	
 	//receives all images and sets all object to positions
 	public void Initialise() {
 		GameStart start = new GameStart(this);
-		Players[0] = new Players(1,images.getImage(1, "tokens"),11,1);
-		Players[1] = new Players(2,images.getImage(2, "tokens"),25,20);
-		Players[2] = new Players(3,images.getImage(3, "tokens"),2,18);
-		Players[3] = new Players(4,images.getImage(4, "tokens"),25,7);
-		Players[4] = new Players(5,images.getImage(5, "tokens"),9,25);
-		Players[5] = new Players(6,images.getImage(6, "tokens"),16,1);
-
-		for(int i=0;i<numOfPlayers;i++) {
-			Players[i].setName(start.getName(i));
+		
+		for(int j=0;j<numOfPlayers;j++) {
+			if(start.getPlayerNames(j) == "Crazy Cat Lady") {
+				Players[j] = new Players(j,images.getImage(1, "tokens"), 11, 1);
+				Players[j].setName(start.getNames(j));
+				Players[j].setPlayerName(start.getPlayerNames(j));
+			}else if(start.getPlayerNames(j) == "Hanz Moleman") {
+				Players[j] = new Players(j,images.getImage(3, "tokens"), 2, 18);
+				Players[j].setName(start.getNames(j));
+				Players[j].setPlayerName(start.getPlayerNames(j));
+			}else if(start.getPlayerNames(j) == "Fat Tony") {
+				Players[j] = new Players(j,images.getImage(2, "tokens"), 25, 20);
+				Players[j].setName(start.getNames(j));
+				Players[j].setPlayerName(start.getPlayerNames(j));
+			}else if(start.getPlayerNames(j) == "Moe Syzlack") {
+				Players[j] = new Players(j,images.getImage(6, "tokens"), 16, 1);
+				Players[j].setName(start.getNames(j));
+				Players[j].setPlayerName(start.getPlayerNames(j));
+			}else if(start.getPlayerNames(j) == "Maggie Simpson") {
+				Players[j] = new Players(j,images.getImage(5, "tokens"), 9, 25);
+				Players[j].setName(start.getNames(j));
+				Players[j].setPlayerName(start.getPlayerNames(j));
+			}else if(start.getPlayerNames(j) == "Homer Simpson") {
+				Players[j] = new Players(j,images.getImage(4, "tokens"), 25, 7);
+				Players[j].setName(start.getNames(j));
+				Players[j].setPlayerName(start.getPlayerNames(j));
+			}
 		}
+		
 		
 		
 		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
@@ -438,14 +472,6 @@ public class GameMechanics {
 		return Players[current];
 	}
 	
-	public void updateCurrent(){
-		if(current == 5) {
-			current = 0;
-		}else {
-			current+=1;
-		}
-	}
-	
 	public int getGameState() {
 		return gameStateCurrent;
 	}
@@ -493,5 +519,30 @@ public class GameMechanics {
 	
 	public void setMax(int max) {
 		numOfPlayers= max;
+	}
+	
+	public void setRoll(int val) {
+		rollNum = val;
+	}
+	
+	public void setDone(int val) {
+		done = val;
+	}
+	
+	public void checkCurrent() {
+		if(current < (numOfPlayers-1)) {
+			
+			current++;
+		}else {
+			
+			current = 0;
+		}
+	}
+	
+	public void checkDone() {
+		if(done == 1) {
+			checkCurrent();
+			setDone(0);
+		}
 	}
 }
