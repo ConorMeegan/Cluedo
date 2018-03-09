@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Frame extends JFrame implements MouseListener {
+public class Frame implements MouseListener {
 	
 	private static final long serialVersionUID = 1L;
 	JFrame frame;

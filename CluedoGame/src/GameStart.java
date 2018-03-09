@@ -6,8 +6,7 @@ public class GameStart {
 
 	ImageIcon[] icons = new ImageIcon[6];
 	Images image = new Images();
-	
-	Players[] arr = new Players[6];
+	int numberPlayer = 0;
 	String[] names = new String[6];
 	String[] playerNamesOb = new String[6];
 	GameMechanics mech;
@@ -23,8 +22,6 @@ public class GameStart {
 		//getting the number of players that will be playing between 2-6
 		number = (String) JOptionPane.showInputDialog(null, "Players:", "Number of Players",
 				JOptionPane.QUESTION_MESSAGE, null, numberOfPlayers, numberOfPlayers[0]);
-		
-		int numberPlayer = 0;
 		
 		if(number.equals("Two"))
 		{
@@ -71,8 +68,8 @@ public class GameStart {
 		//getting the players to select their characters
 		while(numberPlayer>0)
 		{
-			player = (String) JOptionPane.showInputDialog(null, //settingIcon(j),
-							"Characters",""+names[PlayerNumber-1]+"'s Character Selection for Player "+PlayerNumber, JOptionPane.QUESTION_MESSAGE, 
+			player = (String) JOptionPane.showInputDialog(null, settingIcon(j),
+							/*"Characters",*/""+names[PlayerNumber-1]+"'s Character Selection for Player "+PlayerNumber, JOptionPane.QUESTION_MESSAGE, 
 							null, playerNames.toArray(), playerNames.get(0));
 			//change the play to the names of the people themselves
 			playerNamesOb[PlayerNumber-1] = player;
@@ -82,8 +79,6 @@ public class GameStart {
 			numberPlayer--;
 			PlayerNumber++;
 		}
-		
-		
 	}
 	
 	public int updateLabel(String playerName)

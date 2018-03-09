@@ -359,6 +359,22 @@ public class GameMechanics {
 				Players[j].setPlayerName(start.getPlayerNames(j));
 			}
 		}
+			
+		//beginning dice roll here
+		//for loop to roll the dice
+		//check who gets the highest
+		//put the player id value into an array of the player who rolled the highest number
+		//if equal we roll again
+		
+		DiceRoll roll = new DiceRoll();
+		
+					
+		for(int i=0; i<numOfPlayers; i++)
+		{
+			roll.DiceRoll();
+			int num = roll.getTotal();
+			Players[i].setstartingRoll(num);				
+		}
 		
 		
 		

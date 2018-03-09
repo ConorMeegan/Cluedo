@@ -13,6 +13,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     GameMechanics mech;
     CollisonTesting cTest;
     int spaces = 0;
+    int firstRoll = 0;
     int i = 0;
     
     DiceRoll roll = new DiceRoll();
@@ -73,7 +74,7 @@ public class PlayerInput extends JPanel implements ActionListener {
  
         
         textArea.setCaretPosition(textArea.getDocument().getLength());
-    }
+    }   
     
 	public int Roll(){
 		roll.DiceRoll();
@@ -272,6 +273,10 @@ public class PlayerInput extends JPanel implements ActionListener {
     	}else if(num == 4) {
     		 //textArea.append("Move weapon to room" + "\n");
     	}
+    }
+    
+    public void Messages(String name) {
+    	textArea.append(name + ":please roll" + "\n");
     }
     
     public int getSpaces() {

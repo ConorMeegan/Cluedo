@@ -4,6 +4,7 @@ public class Players extends GameObject{
 
 	int playerId;
 	int door;
+	int startingRoll;
 	String name;
 	String playerName;
 	
@@ -23,9 +24,11 @@ public class Players extends GameObject{
 	public String getPlayerName() {
 		return playerName;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public void setPlayerName(String name) {
 		this.playerName = name;
 	}
@@ -36,5 +39,13 @@ public class Players extends GameObject{
 	
 	public int getDoor() {
 		return door;
+	}
+	
+	public void setstartingRoll(int startingRoll) {
+		this.startingRoll = startingRoll;
+	}
+	
+	public int getstartingRoll(){
+		return startingRoll;
 	}
 }
