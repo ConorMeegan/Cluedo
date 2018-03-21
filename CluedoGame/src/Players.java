@@ -5,6 +5,7 @@ public class Players extends GameObject{
 	int playerId;
 	int door;
 	int startingRoll;
+	int duplicateRoll;
 	String name;
 	String playerName;
 	
@@ -47,5 +48,13 @@ public class Players extends GameObject{
 	
 	public int getstartingRoll(){
 		return startingRoll;
+	}
+	
+	public void setduplicateRoll(int duplicateRoll) {
+		this.duplicateRoll = duplicateRoll;
+	}
+	
+	public int getduplicateRoll(){
+		return duplicateRoll;
 	}
 }

@@ -75,7 +75,7 @@ public class GameStart {
 			playerNamesOb[PlayerNumber-1] = player;
 			j = updateLabel(player);
 			playerNames.remove(player);
-						
+				
 			numberPlayer--;
 			PlayerNumber++;
 		}

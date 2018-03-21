@@ -368,14 +368,74 @@ public class GameMechanics {
 		
 		DiceRoll roll = new DiceRoll();
 		
-					
+		//the starting roll for all players	
 		for(int i=0; i<numOfPlayers; i++)
 		{
 			roll.DiceRoll();
 			int num = roll.getTotal();
-			Players[i].setstartingRoll(num);				
+			Players[i].setstartingRoll(num);
+			System.out.println(Players[i].getName() + " rolled a " +Players[i].getstartingRoll());
 		}
 		
+		//checking for duplicate starting rolls
+		for(int i=0; i<numOfPlayers; i++)
+		{
+			for(int j=i+1; j<numOfPlayers; j++)
+			{
+				if(Players[i].getstartingRoll() == Players[j].getstartingRoll())
+				{
+					//players keep rolling until they roll different totals
+					while(Players[i].getduplicateRoll() == Players[j].getduplicateRoll())
+					{
+						roll.DiceRoll();
+						int num1 = roll.getTotal();
+						Players[i].setduplicateRoll(num1);
+						System.out.println(Players[i].getName() + " must roll again to decide their tie. "+
+										Players[i].getName()+" rolled a " +Players[i].getduplicateRoll());
+							
+						roll.DiceRoll();
+						int num2 = roll.getTotal();
+						Players[j].setduplicateRoll(num2);
+						System.out.println(Players[j].getName() + " must roll again to decide their tie. "+
+								Players[j].getName()+" rolled a " +Players[j].getduplicateRoll());
+					}
+				}
+			}
+		}
+		
+		Players temp;
+		
+		//ordering players by their starting dice roll
+		for(int i=0; i<numOfPlayers; i++)
+		{
+			for(int j=1; j<(numOfPlayers-i); j++) 
+			{
+	            if(Players[j - 1].getstartingRoll() < Players[j].getstartingRoll()) 
+	            {
+	            	//swapping player's positions if one has a higher starting roll
+	                temp = Players[j - 1];
+	                Players[j - 1] = Players[j];
+	                Players[j] = temp;
+	            }
+	            //checking the case in which players rolled the same number to start
+	            else if(Players[j - 1].getstartingRoll() == Players[j].getstartingRoll()) 
+	            {
+	            	//checks the duplicate roll total to see who'd go first between the players
+	            	if(Players[j - 1].getduplicateRoll() < Players[j].getduplicateRoll()) 
+	            	{
+	            		temp = Players[j - 1];
+		                Players[j - 1] = Players[j];
+		                Players[j] = temp;
+	            	}
+	            }
+	        }
+		}
+		
+		//printing out the order of the players by their starting roll(s)
+		for(int i=0; i<numOfPlayers; i++)
+		{
+			System.out.println(Players[i].getName()+": "+Players[i].getstartingRoll());
+		}
 		
 		
 		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
