@@ -24,7 +24,7 @@ public class GameMechanics {
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
-	int[] gameState = {1,2,3};
+	int[] gameState = {1,2,3,4};
 	int width, height;
 	
 	Images images = new Images();
@@ -34,6 +34,7 @@ public class GameMechanics {
 	weapons[] Weapons = new weapons[6];
 
 	BufferedImage background;
+	BufferedImage murder[] = new BufferedImage[3];
 	
 	Dimensions dimensions = new Dimensions();
 	PlayerInput playerInput = new PlayerInput(this);
@@ -108,6 +109,17 @@ public class GameMechanics {
 			g.drawImage(images.getImage(4, "cards"), 670, 15, null);
 			g.drawImage(images.getImage(5, "cards"), 670, 230, null);
 			g.drawImage(images.getImage(6, "cards"), 670, 445, null);
+		}
+		else if(gameState[3] == gameStateCurrent) {
+			g.setColor(new Color(20,20,20,240));
+			g.fillRect(0, 0, width, height);
+			g.drawImage(images.getImage(0, "screens"),45, 0, null);
+			
+			g.drawImage(images.getImage(5, "screens"), 200, 130, null);
+			g.drawImage(images.getImage(1, "cards"), 25, 230, null);
+			g.drawImage(images.getImage(2, "weapons"), 235, 230, null);
+			g.drawImage(images.getImage(3, "cards"), 400, 230, null);
+			
 		}
 		/*
 		for(int i=0;i<28;i++) {
@@ -564,6 +576,10 @@ public class GameMechanics {
 	
 	public int getGameState() {
 		return gameStateCurrent;
+	}
+	
+	public void setCurrentGameState(int num) {
+		gameStateCurrent = num;
 	}
 	
 	public void setExitNum(int val) {

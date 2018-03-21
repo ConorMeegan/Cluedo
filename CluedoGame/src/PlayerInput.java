@@ -200,6 +200,9 @@ public class PlayerInput extends JPanel implements ActionListener {
 
 			}
     	}
+    	else if(text.equals("cheat")){
+    		mech.setCurrentGameState(4);
+    	}
     	
     	else if(text.equals("1")){
     		setExit(1);

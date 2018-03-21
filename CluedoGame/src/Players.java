@@ -8,6 +8,7 @@ public class Players extends GameObject{
 	int duplicateRoll;
 	String name;
 	String playerName;
+	boolean active = false;
 	
 	public Players(int playerId,BufferedImage icon, int x, int y) {
 		super(icon,x,y);
@@ -56,5 +57,9 @@ public class Players extends GameObject{
 	
 	public int getduplicateRoll(){
 		return duplicateRoll;
+	}
+	
+	public boolean getactive() {
+		return active;
 	}
 }

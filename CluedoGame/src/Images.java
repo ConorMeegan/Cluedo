@@ -6,9 +6,10 @@ import javax.imageio.ImageIO;
 public class Images {
 	
 	BufferedImage tokens[] = new BufferedImage[6];
+	BufferedImage tokensH[] = new BufferedImage[6];
 	BufferedImage cards[] = new BufferedImage[6];
 	BufferedImage weapons[] = new BufferedImage[6];
-	BufferedImage screens[] = new BufferedImage[4];
+	BufferedImage screens[] = new BufferedImage[5];
 	BufferedImage numbers[] = new BufferedImage[6];
 	BufferedImage secret;
 	
@@ -25,6 +26,13 @@ public class Images {
 			tokens[3] = ImageIO.read(getClass().getResource("HomerToken2.png"));
 			tokens[4] = ImageIO.read(getClass().getResource("maggieToken2.png"));
 			tokens[5] = ImageIO.read(getClass().getResource("moeToken2.png"));
+			
+			tokensH[0] = ImageIO.read(getClass().getResource("catLadyToken2.png"));
+			tokensH[1] = ImageIO.read(getClass().getResource("fatTonyToken2.png"));
+			tokensH[2] = ImageIO.read(getClass().getResource("hanzToken2.png"));
+			tokensH[3] = ImageIO.read(getClass().getResource("HomerToken2H.png"));
+			tokensH[4] = ImageIO.read(getClass().getResource("maggieToken2.png"));
+			tokensH[5] = ImageIO.read(getClass().getResource("moeToken2.png"));
 			
 			cards[0] = ImageIO.read(getClass().getResource("carzyCatLady.png"));
 			cards[1] = ImageIO.read(getClass().getResource("fatTonyCardTest.png"));
@@ -44,6 +52,7 @@ public class Images {
 			screens[1] = ImageIO.read(getClass().getResource("startArea.png"));
 			screens[2] = ImageIO.read(getClass().getResource("playButton.png"));
 			screens[3] = ImageIO.read(getClass().getResource("howToPlayButton.png"));
+			screens[4] = ImageIO.read(getClass().getResource("Murder.png"));
 			
 			numbers[0] = ImageIO.read(getClass().getResource("1.png"));
 			numbers[1] = ImageIO.read(getClass().getResource("2.png"));
@@ -103,6 +112,20 @@ public class Images {
 			}else if(val == 6) {
 				return weapons[5];
 			}
+		}else if(str.equals("highlight")) {
+			if(val == 1) {
+				return tokensH[0];
+			}else if(val == 2) {
+				return tokensH[1];
+			}else if(val == 3) {
+				return tokensH[2];
+			}else if(val == 4) {
+				return tokensH[3];
+			}else if(val == 5) {
+				return tokensH[4];
+			}else if(val == 6) {
+				return tokensH[5];
+			}
 		}else if(str.equals("screens")) {
 			if(val == 1) {
 				return screens[0];
@@ -112,6 +135,8 @@ public class Images {
 				return screens[2];
 			}else if(val == 4) {
 				return screens[3];
+			}else if(val == 5) {
+				return screens[4];
 			}
 		}else if(str.equals("numbers")) {
 			if(val == 1) {
