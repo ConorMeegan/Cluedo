@@ -9,8 +9,10 @@ public class Images {
 	BufferedImage tokensH[] = new BufferedImage[6];
 	BufferedImage cards[] = new BufferedImage[6];
 	BufferedImage weapons[] = new BufferedImage[6];
+	BufferedImage weaponsCard[] = new BufferedImage[6];
 	BufferedImage screens[] = new BufferedImage[5];
 	BufferedImage numbers[] = new BufferedImage[6];
+	BufferedImage rooms[] = new BufferedImage[9];
 	BufferedImage secret;
 	
 	public Images() {
@@ -27,13 +29,6 @@ public class Images {
 			tokens[4] = ImageIO.read(getClass().getResource("maggieToken2.png"));
 			tokens[5] = ImageIO.read(getClass().getResource("moeToken2.png"));
 			
-			tokensH[0] = ImageIO.read(getClass().getResource("catLadyToken2.png"));
-			tokensH[1] = ImageIO.read(getClass().getResource("fatTonyToken2.png"));
-			tokensH[2] = ImageIO.read(getClass().getResource("hanzToken2.png"));
-			tokensH[3] = ImageIO.read(getClass().getResource("HomerToken2H.png"));
-			tokensH[4] = ImageIO.read(getClass().getResource("maggieToken2.png"));
-			tokensH[5] = ImageIO.read(getClass().getResource("moeToken2.png"));
-			
 			cards[0] = ImageIO.read(getClass().getResource("carzyCatLady.png"));
 			cards[1] = ImageIO.read(getClass().getResource("fatTonyCardTest.png"));
 			cards[2] = ImageIO.read(getClass().getResource("hanzMoleManCard.png"));
@@ -47,6 +42,13 @@ public class Images {
 			weapons[3] = ImageIO.read(getClass().getResource("gunToken.png"));
 			weapons[4] = ImageIO.read(getClass().getResource("knifeToken.png"));
 			weapons[5] = ImageIO.read(getClass().getResource("slingShotToken.png"));
+			
+			weaponsCard[0] = ImageIO.read(getClass().getResource("axe.png"));
+			weaponsCard[1] = ImageIO.read(getClass().getResource("PlutoniumRod.png"));
+			weaponsCard[2] = ImageIO.read(getClass().getResource("chainsaw.png"));
+			weaponsCard[3] = ImageIO.read(getClass().getResource("gun.png"));
+			weaponsCard[4] = ImageIO.read(getClass().getResource("knife.png"));
+			weaponsCard[5] = ImageIO.read(getClass().getResource("slingShot.png"));
 			
 			screens[0] = ImageIO.read(getClass().getResource("Accusations3.png"));
 			screens[1] = ImageIO.read(getClass().getResource("startArea.png"));
@@ -62,6 +64,16 @@ public class Images {
 			numbers[5] = ImageIO.read(getClass().getResource("6.png"));
 			
 			secret = ImageIO.read(getClass().getResource("secret1.png"));
+			
+			rooms[0] = ImageIO.read(getClass().getResource("Broom.png"));
+			rooms[1] = ImageIO.read(getClass().getResource("SEroom.png"));
+			rooms[2] = ImageIO.read(getClass().getResource("FDroom.png"));
+			rooms[3] = ImageIO.read(getClass().getResource("Froom.png"));
+			rooms[4] = ImageIO.read(getClass().getResource("KBroom.png"));
+			rooms[5] = ImageIO.read(getClass().getResource("CBSroom.png"));
+			rooms[6] = ImageIO.read(getClass().getResource("Kroom.png"));
+			rooms[7] = ImageIO.read(getClass().getResource("Sroom.png"));
+			rooms[8] = ImageIO.read(getClass().getResource("SEroom.png"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -112,6 +124,20 @@ public class Images {
 			}else if(val == 6) {
 				return weapons[5];
 			}
+		}else if(str.equals("weaponsCard")) {
+			if(val == 1) {
+				return weaponsCard[0];
+			}else if(val == 2) {
+				return weaponsCard[1];
+			}else if(val == 3) {
+				return weaponsCard[2];
+			}else if(val == 4) {
+				return weaponsCard[3];
+			}else if(val == 5) {
+				return weaponsCard[4];
+			}else if(val == 6) {
+				return weaponsCard[5];
+			}
 		}else if(str.equals("highlight")) {
 			if(val == 1) {
 				return tokensH[0];
@@ -125,6 +151,26 @@ public class Images {
 				return tokensH[4];
 			}else if(val == 6) {
 				return tokensH[5];
+			}
+		}else if(str.equals("room")) {
+			if(val == 1) {
+				return rooms[0];
+			}else if(val == 2) {
+				return rooms[1];
+			}else if(val == 3) {
+				return rooms[2];
+			}else if(val == 4) {
+				return rooms[3];
+			}else if(val == 5) {
+				return rooms[4];
+			}else if(val == 6) {
+				return rooms[5];
+			}else if(val == 7) {
+				return rooms[6];
+			}else if(val == 8) {
+				return rooms[7];
+			}else if(val == 9) {
+				return rooms[8];
 			}
 		}else if(str.equals("screens")) {
 			if(val == 1) {

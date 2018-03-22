@@ -3,10 +3,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 public class GameMechanics {
+	
+	Random rand = new Random();
+	int[] murderEnvelope = new int[3];
 	
 	int gameStateCurrent = 1;
 	
@@ -116,9 +120,9 @@ public class GameMechanics {
 			g.drawImage(images.getImage(0, "screens"),45, 0, null);
 			
 			g.drawImage(images.getImage(5, "screens"), 200, 130, null);
-			g.drawImage(images.getImage(1, "cards"), 25, 230, null);
-			g.drawImage(images.getImage(2, "weapons"), 235, 230, null);
-			g.drawImage(images.getImage(3, "cards"), 400, 230, null);
+			g.drawImage(images.getImage(murderEnvelope[0], "cards"), 25, 230, null);
+			g.drawImage(images.getImage(murderEnvelope[1], "room"), 235, 230, null);
+			g.drawImage(images.getImage(murderEnvelope[2], "weaponsCard"), 400, 230, null);
 			
 		}
 		/*
@@ -305,7 +309,7 @@ public class GameMechanics {
 				setExitNum(0);
 			}
 		}
-		g.drawImage(images.getImage(6, "cards"), 15, 15, null);
+		g.drawImage(images.getImage(6, "room"), 15, 15, null);
 		g.drawImage(images.getImage(5, "cards"), 15, 240, null);
 		g.drawImage(images.getImage(2, "cards"), 15, 460, null);
 	}
@@ -449,6 +453,9 @@ public class GameMechanics {
 			System.out.println(Players[i].getName()+": "+Players[i].getstartingRoll());
 		}
 		
+		murderEnvelope[0] = rand.nextInt(6)+1;
+		murderEnvelope[1] = rand.nextInt(9)+1;
+		murderEnvelope[2] = rand.nextInt(6)+1;
 		
 		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
 		Weapons[1] = new weapons(2,images.getImage(2, "weapons"),0,2);
@@ -643,6 +650,12 @@ public class GameMechanics {
 			
 			current = 0;
 		}
+	}
+	
+	public void newMClass() {
+		murderEnvelope[0] = rand.nextInt(6)+1;
+		murderEnvelope[1] = rand.nextInt(9)+1;
+		murderEnvelope[2] = rand.nextInt(6)+1;
 	}
 	
 	public void checkDone() {
