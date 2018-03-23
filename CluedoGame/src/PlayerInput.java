@@ -232,6 +232,8 @@ public class PlayerInput extends JPanel implements ActionListener {
     		setExit(5);
     		textArea.append("Player exited through exit secret passage way" + "\n");
     
+    	}else if(text.equals("n")) {
+    		mech.newMClass();
     	}
     	
     }

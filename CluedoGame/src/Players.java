@@ -1,4 +1,5 @@
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Players extends GameObject{
 
@@ -9,6 +10,7 @@ public class Players extends GameObject{
 	String name;
 	String playerName;
 	boolean active = false;
+	ArrayList<Integer> cards = new ArrayList<Integer>();
 	
 	public Players(int playerId,BufferedImage icon, int x, int y) {
 		super(icon,x,y);
@@ -61,5 +63,13 @@ public class Players extends GameObject{
 	
 	public boolean getactive() {
 		return active;
+	}
+	
+	public int getCards(int num) {
+		return cards.indexOf(num);
+	}
+	
+	public void addCards(int num) {
+		 cards.add(num);
 	}
 }

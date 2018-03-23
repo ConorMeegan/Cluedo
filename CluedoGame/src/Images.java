@@ -73,7 +73,7 @@ public class Images {
 			rooms[5] = ImageIO.read(getClass().getResource("CBSroom.png"));
 			rooms[6] = ImageIO.read(getClass().getResource("Kroom.png"));
 			rooms[7] = ImageIO.read(getClass().getResource("Sroom.png"));
-			rooms[8] = ImageIO.read(getClass().getResource("SEroom.png"));
+			rooms[8] = ImageIO.read(getClass().getResource("Mroom.png"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -125,17 +125,17 @@ public class Images {
 				return weapons[5];
 			}
 		}else if(str.equals("weaponsCard")) {
-			if(val == 1) {
+			if(val == 21) {
 				return weaponsCard[0];
-			}else if(val == 2) {
+			}else if(val == 22) {
 				return weaponsCard[1];
-			}else if(val == 3) {
+			}else if(val == 23) {
 				return weaponsCard[2];
-			}else if(val == 4) {
+			}else if(val == 24) {
 				return weaponsCard[3];
-			}else if(val == 5) {
+			}else if(val == 25) {
 				return weaponsCard[4];
-			}else if(val == 6) {
+			}else if(val == 26) {
 				return weaponsCard[5];
 			}
 		}else if(str.equals("highlight")) {
@@ -153,23 +153,23 @@ public class Images {
 				return tokensH[5];
 			}
 		}else if(str.equals("room")) {
-			if(val == 1) {
+			if(val == 11) {
 				return rooms[0];
-			}else if(val == 2) {
+			}else if(val == 12) {
 				return rooms[1];
-			}else if(val == 3) {
+			}else if(val == 13) {
 				return rooms[2];
-			}else if(val == 4) {
+			}else if(val == 14) {
 				return rooms[3];
-			}else if(val == 5) {
+			}else if(val == 15) {
 				return rooms[4];
-			}else if(val == 6) {
+			}else if(val == 16) {
 				return rooms[5];
-			}else if(val == 7) {
+			}else if(val == 17) {
 				return rooms[6];
-			}else if(val == 8) {
+			}else if(val == 18) {
 				return rooms[7];
-			}else if(val == 9) {
+			}else if(val == 19) {
 				return rooms[8];
 			}
 		}else if(str.equals("screens")) {
