@@ -305,25 +305,39 @@ public class GameMechanics {
 								}
 							}
 							count += 1;
-							//g.fillRect((j*24) + 180, i*24, 24, 24);
 						}
 					}
 				}
 				setExitNum(0);
 			}
 		}
-		//g.drawImage(images.getImage(val, ""), 15, 15, null);
+		
 		int yValue = 15;
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<diff;i++) {
 			if(Players[current].cards.get(i) < 6) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 15, yValue, null);
-				yValue += 225;
+				yValue += 30*numOfPlayers;
 			}else if(Players[current].cards.get(i) > 6 && Players[current].cards.get(i) < 20) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "room"), 15, yValue, null);
-				yValue += 225;
+				yValue += 30*numOfPlayers;
 			}else if(Players[current].cards.get(i) > 19 && Players[current].cards.get(i) < 27) {
-				g.drawImage(images.getImage(Players[current].cards.get(i), "weapons"), 15, yValue, null);
-				yValue += 225;
+				g.drawImage(images.getImage(Players[current].cards.get(i), "weaponsCard"), 15, yValue, null);
+				yValue += 30*numOfPlayers;
+			}
+		}
+		
+		if(CList.size() != 0) {
+			for(int i=0;i<CList.size();i++) {
+				if(CList.get(i) < 6) {
+					g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 80, 155, null);
+					
+				}else if(CList.get(i) > 6 && CList.get(i) < 20) {
+					g.drawImage(images.getImage(Players[current].cards.get(i), "room"), 80, 230, null);
+					
+				}else if(CList.get(i) > 19 && CList.get(i) < 27) {
+					g.drawImage(images.getImage(Players[current].cards.get(i), "weaponsCard"), 80, 50, null);
+					
+				}
 			}
 		}
 	}
@@ -362,7 +376,8 @@ public class GameMechanics {
 	public void Initialise() {
 		
 		GameStart start = new GameStart(this);
-		diff = 21 / numOfPlayers;
+		diff = 18 / numOfPlayers;
+		System.out.println(diff);
 		CList.add(1);
 		CList.add(2);
 		CList.add(3);
@@ -491,7 +506,7 @@ public class GameMechanics {
 		{
 			System.out.println(Players[i].getName()+": "+Players[i].getstartingRoll());
 		}
-		
+		System.out.println(CList.toString());
 		int suspect = rand.nextInt(6)+1;
 		int room = rand.nextInt(9)+11;
 		int weapon = rand.nextInt(6)+21;
@@ -504,11 +519,13 @@ public class GameMechanics {
 		CList.remove(CList.indexOf(room));
 		CList.remove(CList.indexOf(weapon));
 		
+		System.out.println(CList.toString());
+		
 		System.out.println("cards:" + murderEnvelope[0]);
 		System.out.println("room:" + murderEnvelope[1]);
 		System.out.println("weaponCard:" +murderEnvelope[2]+ "\n");
 		setPlayerCards();
-		
+
 		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
 		Weapons[1] = new weapons(2,images.getImage(2, "weapons"),0,2);
 		Weapons[2] = new weapons(3,images.getImage(3, "weapons"),0,3);
@@ -517,6 +534,11 @@ public class GameMechanics {
 		Weapons[5] = new weapons(6,images.getImage(6, "weapons"),0,6);
 		playerInput.errorMessages(1);
 		playerInput.errorMessages(2);
+		
+		for(int i=0;i<numOfPlayers;i++) {
+			System.out.println("Player:" + i + ":");
+			Players[i].getCards();
+		}
 	}
 	
 	//used to control players and weapons, will be updated in the future to work for different input styles
@@ -723,13 +745,14 @@ public class GameMechanics {
 	}
 	
 	public void setPlayerCards() {
-		System.out.println("Size:" + CList.size());
+		System.out.println("Diff:" + diff);
 		for(int i=0;i<numOfPlayers;i++){
-			for(int j=0;j<CList.size();j++) {
+			for(int j=0;j<diff;j++) {
 				int ran = rand.nextInt(CList.size());
 				Players[i].cards.add(CList.get(ran));
 				CList.remove(ran);
 			}
 		}
+		System.out.println(CList.toString());
 	}
 }

@@ -65,8 +65,10 @@ public class Players extends GameObject{
 		return active;
 	}
 	
-	public int getCards(int num) {
-		return cards.indexOf(num);
+	public void getCards() {
+		for(int i =0;i<cards.size();i++) {
+			System.out.println(cards.get(i));
+		}
 	}
 	
 	public void addCards(int num) {
