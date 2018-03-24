@@ -36,7 +36,9 @@ public class Frame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        //System.out.println("Mouse Clicked at X: " + x + " - Y: " + y);
+        if(x < 175 && x > 15 && y) {
+        	
+        }
     }
 
     @Override

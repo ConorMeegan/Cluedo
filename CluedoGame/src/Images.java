@@ -10,7 +10,7 @@ public class Images {
 	BufferedImage cards[] = new BufferedImage[6];
 	BufferedImage weapons[] = new BufferedImage[6];
 	BufferedImage weaponsCard[] = new BufferedImage[6];
-	BufferedImage screens[] = new BufferedImage[5];
+	BufferedImage screens[] = new BufferedImage[6];
 	BufferedImage numbers[] = new BufferedImage[6];
 	BufferedImage rooms[] = new BufferedImage[9];
 	BufferedImage secret;
@@ -55,6 +55,7 @@ public class Images {
 			screens[2] = ImageIO.read(getClass().getResource("playButton.png"));
 			screens[3] = ImageIO.read(getClass().getResource("howToPlayButton.png"));
 			screens[4] = ImageIO.read(getClass().getResource("Murder.png"));
+			screens[5] = ImageIO.read(getClass().getResource("where.png"));
 			
 			numbers[0] = ImageIO.read(getClass().getResource("1.png"));
 			numbers[1] = ImageIO.read(getClass().getResource("2.png"));
@@ -183,6 +184,8 @@ public class Images {
 				return screens[3];
 			}else if(val == 5) {
 				return screens[4];
+			}else if(val == 6) {
+				return screens[5];
 			}
 		}else if(str.equals("numbers")) {
 			if(val == 1) {

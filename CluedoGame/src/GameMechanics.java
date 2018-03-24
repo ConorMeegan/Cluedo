@@ -340,6 +340,8 @@ public class GameMechanics {
 				}
 			}
 		}
+		
+		g.drawImage(images.getImage(6, "screens"),15, 600, null);
 	}
 	
 	public void movement(int num) {
