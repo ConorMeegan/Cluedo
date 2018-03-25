@@ -67,7 +67,7 @@ public class Players extends GameObject{
 	
 	public void getCards() {
 		for(int i =0;i<cards.size();i++) {
-			System.out.println(cards.get(i));
+			System.out.printf("%d ",cards.get(i));
 		}
 	}
 	

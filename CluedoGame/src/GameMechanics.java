@@ -102,6 +102,21 @@ public class GameMechanics {
 			}
 			checkDone();
 			Draw();
+			if(CList.size() != 0) {
+				for(int i=0;i<CList.size();i++) {
+					//System.out.println(i);
+					if(CList.get(i) <= 6) {
+						g.drawImage(images.getImage(CList.get(i), "cards"), 160, 632, null);
+						
+					}else if(CList.get(i) >= 11 && CList.get(i) < 20) {
+						g.drawImage(images.getImage(CList.get(i), "room"), 260, 632, null);
+						
+					}else if(CList.get(i) >= 21 && CList.get(i) < 27) {
+						g.drawImage(images.getImage(CList.get(i), "weaponsCard"), 360, 632, null);
+						
+					}
+				}
+			}
 			
 		}else if(gameState[2] == gameStateCurrent) {
 			g.setColor(new Color(20,20,20,240));
@@ -318,34 +333,22 @@ public class GameMechanics {
 		
 		int yValue = 15;
 		for(int i=0;i<diff;i++) {
-			if(Players[current].cards.get(i) < 6) {
+			if(Players[current].cards.get(i) <= 6) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 15, yValue, null);
+				//System.out.println(current + ":" + Players[current].cards.get(i));
 				yValue += 30*numOfPlayers;
-			}else if(Players[current].cards.get(i) > 6 && Players[current].cards.get(i) < 20) {
+			}else if(Players[current].cards.get(i) >= 11 && Players[current].cards.get(i) < 20) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "room"), 15, yValue, null);
+				//System.out.println(current + ":" + Players[current].cards.get(i));
 				yValue += 30*numOfPlayers;
-			}else if(Players[current].cards.get(i) > 19 && Players[current].cards.get(i) < 27) {
+			}else if(Players[current].cards.get(i) >= 21 && Players[current].cards.get(i) < 27) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "weaponsCard"), 15, yValue, null);
+				//System.out.println(current + ":" + Players[current].cards.get(i));
 				yValue += 30*numOfPlayers;
 			}
 		}
 		
-		if(CList.size() != 0) {
-			for(int i=0;i<CList.size();i++) {
-				if(CList.get(i) < 6) {
-					g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 80, 155, null);
-					
-				}else if(CList.get(i) > 6 && CList.get(i) < 20) {
-					g.drawImage(images.getImage(Players[current].cards.get(i), "room"), 80, 230, null);
-					
-				}else if(CList.get(i) > 19 && CList.get(i) < 27) {
-					g.drawImage(images.getImage(Players[current].cards.get(i), "weaponsCard"), 80, 50, null);
-					
-				}
-			}
-		}
-		
-		g.drawImage(images.getImage(6, "screens"),15, 600, null);
+		//g.drawImage(images.getImage(6, "screens"),15, 600, null);
 	}
 	
 	public void movement(int num) {
@@ -512,7 +515,7 @@ public class GameMechanics {
 		{
 			System.out.println(Players[i].getName()+": "+Players[i].getstartingRoll());
 		}
-		System.out.println(CList.toString());
+		
 		int suspect = rand.nextInt(6)+1;
 		int room = rand.nextInt(9)+11;
 		int weapon = rand.nextInt(6)+21;
@@ -544,7 +547,9 @@ public class GameMechanics {
 		for(int i=0;i<numOfPlayers;i++) {
 			System.out.println("Player:" + i + ":");
 			Players[i].getCards();
+			System.out.println();
 		}
+		System.out.println("CList:" + CList.toString());
 	}
 	
 	//used to control players and weapons, will be updated in the future to work for different input styles
@@ -731,8 +736,9 @@ public class GameMechanics {
 			current = 0;
 		}
 	}
-	public int getcurrent(){
-		return current;
+	
+	public Players getcurrent(){
+		return Players[current];
 	}
 	public void newMClass() {
 		murderEnvelope[0] = rand.nextInt(6)+1;
