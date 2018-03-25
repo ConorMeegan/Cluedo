@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -7,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class GameMechanics {
 	
@@ -727,7 +731,9 @@ public class GameMechanics {
 			current = 0;
 		}
 	}
-	
+	public int getcurrent(){
+		return current;
+	}
 	public void newMClass() {
 		murderEnvelope[0] = rand.nextInt(6)+1;
 		murderEnvelope[1] = rand.nextInt(9)+11;
@@ -757,4 +763,65 @@ public class GameMechanics {
 		}
 		System.out.println(CList.toString());
 	}
+	
+	public String getCards(int num){
+		for(int i = 0; i<Players[current].cards.size(); i++){
+			if( Players[current].cards.get(i) == num){
+				return "X";
+			}
+			else if(CList.size() > 0){
+				for(int j = 0; j<CList.size(); j++){
+					if(CList.get(j) == num){
+						return "A";
+					}
+				}
+			}
+		}
+		return "";
+	}
+	
+	public void table() {
+	    JFrame frame = new JFrame();
+	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    
+	    Object rows[] = {"carzyCatLady", "fatTony", "hanzMoleMan", "homer", "maggie", "moe", "axe",
+	    		"PlutoniumRod","chainsaw", "gun", "knife", "slingShot", "Burn's Mansion", "Springfield elementary",
+	    		"Frying Dutchman", "Flander's house", "krusty burger", "comic book store", "kwik-e-mart", "simpson's house",
+	    		"moe's tavern"};
+	    Object columnNames[] = { "All Cards", "Your Cards"};
+	   
+	    Object rowData[][] = { { rows[0], getCards(1) },
+	    		{ rows[1], getCards(2) },
+	    		{ rows[2], getCards(3) },
+	    		{ rows[3], getCards(4) },
+	    		{ rows[4], getCards(5) },
+	    		{ rows[5], getCards(6) },
+	    		{ rows[6], getCards(21) },
+	    		{ rows[7], getCards(22) },
+	    		{ rows[8], getCards(23) },
+	    		{ rows[9], getCards(24) },
+	    		{ rows[10], getCards(25) },
+	    		{ rows[11], getCards(26) },
+	    		{ rows[12], getCards(11) },
+	    		{ rows[13], getCards(12) },
+	    		{ rows[14], getCards(13) },
+	    		{ rows[15], getCards(14) },
+	    		{ rows[16], getCards(15) },
+	    		{ rows[17], getCards(16) },
+	    		{ rows[18], getCards(17) },
+	    		{ rows[19], getCards(18) },
+	    		{ rows[20], getCards(19) },
+	    		};
+	    
+	      
+	    JTable table = new JTable(rowData, columnNames);
+	    table.setEnabled(false);
+
+	    JScrollPane scrollPane = new JScrollPane(table);
+	    frame.add(scrollPane, BorderLayout.CENTER);
+	    frame.setSize(700, 150);
+	    frame.setVisible(true);
+
+	  }
+	 
 }

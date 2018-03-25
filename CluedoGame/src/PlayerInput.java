@@ -58,7 +58,12 @@ public class PlayerInput extends JPanel implements ActionListener {
              	}
              	else if(text.equals("quit")){
              		System.exit(0);
-             	}else {
+             	}
+             	else if(text.equals("notes")){
+            		mech.table();
+             	
+             	}
+             	else {
              		playerMove(text);
              	}
         
