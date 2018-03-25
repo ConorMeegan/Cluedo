@@ -63,6 +63,12 @@ public class PlayerInput extends JPanel implements ActionListener {
             		mech.table();
              	
              	}
+             	else if(text.equals("help")){
+             		help();
+             	}
+             	else if(text.equals("rules")){
+             		rules();
+             	}
              	else {
              		playerMove(text);
              	}
@@ -294,5 +300,35 @@ public class PlayerInput extends JPanel implements ActionListener {
     }
     public void setSpaces() {
     	spaces = 0;
+    }
+    
+    public void help(){
+    	textArea.append("--------------------------------------------------------------------------------------------\n'DONE' ends your turn\n"
+    			+ "'QUIT' closes the game\n'ROLL' rolls the dice\n'RULES' shows game rules\n"
+    			+ "'U','D','L','R' moves player up down left or right(must ROLL first)\n"
+    			+"'NUMBER e.g(1)' to leave by that door(must be in room)\n"
+    			+"'PASSAGE' to leave through secret passage(must be in room)\n"
+    			+ "-----------------------------------------------------------------------------------------");
+		
+    }
+    public void rules(){
+        if( !java.awt.Desktop.isDesktopSupported() ) {
+            System.err.println( "Desktop is not supported (fatal)" );
+            System.exit( 1 );
+        }   
+        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+        if( !desktop.isSupported( java.awt.Desktop.Action.BROWSE ) ) {
+            System.err.println( "Desktop doesn't support the browse action (fatal)" );
+            System.exit( 1 );
+        }
+        
+            try {
+                java.net.URI uri = new java.net.URI( "https://www.hasbro.com/common/instruct/Clue_(2002).pdf" );
+                desktop.browse( uri );
+            }
+            catch ( Exception e ) {
+                System.err.println( e.getMessage() );
+            }
+        
     }
 }
