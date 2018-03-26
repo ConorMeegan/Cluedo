@@ -856,7 +856,7 @@ public class GameMechanics {
 
 	    JScrollPane scrollPane = new JScrollPane(table);
 	    frame.add(scrollPane, BorderLayout.CENTER);
-	    frame.setSize(700, 150);
+	    frame.setSize(700, 398);
 	    frame.setVisible(true);
 
 	  }
