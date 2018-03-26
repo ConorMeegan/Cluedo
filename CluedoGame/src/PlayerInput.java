@@ -296,7 +296,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     }
     
     public void message(String message) {
-    	textArea.append("\n" + message + "\n");
+    	textArea.append(message + "\n");
     }
     
     public int getSpaces() {

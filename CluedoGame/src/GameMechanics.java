@@ -469,21 +469,52 @@ public class GameMechanics {
 						roll.DiceRoll();
 						int num1 = roll.getTotal();
 						Players[i].setduplicateRoll(num1);
-						System.out.println(Players[i].getName() + " must roll again to decide their tie. "+
-										Players[i].getName()+" rolled a " +Players[i].getduplicateRoll());
-							
+						playerInput.message(Players[i].getName() + " must roll again to decide their tie. "+
+								Players[i].getName()+" rolled a " +Players[i].getduplicateRoll());
+						
 						roll.DiceRoll();
 						int num2 = roll.getTotal();
 						Players[j].setduplicateRoll(num2);
-						System.out.println(Players[j].getName() + " must roll again to decide their tie. "+
+						playerInput.message(Players[j].getName() + " must roll again to decide their tie. "+
 								Players[j].getName()+" rolled a " +Players[j].getduplicateRoll());
 					}
 				}
 			}
 		}
 		
-		Players temp;
+		//Players temp;
+		boolean biggestRoll;
 		
+		for(int i=0; i<numOfPlayers; i++)
+		{
+			for(int j=1; j<(numOfPlayers-i); j++) 
+			{
+	            if(Players[j - 1].getstartingRoll() < Players[j].getstartingRoll()) 
+	            {
+	            	Players[j].setbiggestRoll(true);
+	            	Players[j - 1].setbiggestRoll(false);
+	            }
+	            //checking the case in which players rolled the same number to start
+	            else if(Players[j - 1].getstartingRoll() == Players[j].getstartingRoll()) 
+	            {
+	            	//checks the duplicate roll total to see who'd go first between the players
+	            	if(Players[j - 1].getduplicateRoll() < Players[j].getduplicateRoll()) 
+	            	{
+	            		Players[j].setbiggestRoll(true);
+		            	Players[j - 1].setbiggestRoll(false);
+	            	}
+	            }
+	        }
+		}
+		
+		for(int i=0; i<numOfPlayers; i++)
+		{
+			if(Players[i].getbiggestRoll() == true)
+			{
+				current = i;
+			}
+		}
+		/*
 		//ordering players by their starting dice roll
 		for(int i=0; i<numOfPlayers; i++)
 		{
@@ -513,9 +544,9 @@ public class GameMechanics {
 		//printing out the order of the players by their starting roll(s)
 		for(int i=0; i<numOfPlayers; i++)
 		{
-			System.out.println(Players[i].getName()+": "+Players[i].getstartingRoll());
+			playerInput.message(Players[i].getName()+": "+Players[i].getstartingRoll());
 		}
-		
+		*/
 		int suspect = rand.nextInt(6)+1;
 		int room = rand.nextInt(9)+11;
 		int weapon = rand.nextInt(6)+21;

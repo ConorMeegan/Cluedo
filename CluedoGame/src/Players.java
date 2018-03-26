@@ -10,6 +10,7 @@ public class Players extends GameObject{
 	String name;
 	String playerName;
 	boolean active = false;
+	boolean biggestRoll;
 	ArrayList<Integer> cards = new ArrayList<Integer>();
 	
 	public Players(int playerId,BufferedImage icon, int x, int y) {
@@ -63,6 +64,14 @@ public class Players extends GameObject{
 	
 	public boolean getactive() {
 		return active;
+	}
+	
+	public boolean getbiggestRoll() {
+		return biggestRoll;
+	}
+	
+	public void setbiggestRoll(boolean biggestRoll) {
+		this.biggestRoll = biggestRoll;
 	}
 	
 	public void getCards() {
