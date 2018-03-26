@@ -386,7 +386,7 @@ public class GameMechanics {
 		
 		GameStart start = new GameStart(this);
 		diff = 18 / numOfPlayers;
-		System.out.println(diff);
+		
 		CList.add(1);
 		CList.add(2);
 		CList.add(3);
@@ -453,7 +453,7 @@ public class GameMechanics {
 			roll.DiceRoll();
 			int num = roll.getTotal();
 			Players[i].setstartingRoll(num);
-			System.out.println(Players[i].getName() + " rolled a " +Players[i].getstartingRoll());
+			playerInput.message(Players[i].getName() + " rolled a " +Players[i].getstartingRoll());
 		}
 		
 		//checking for duplicate starting rolls

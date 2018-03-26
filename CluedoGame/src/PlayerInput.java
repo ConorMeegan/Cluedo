@@ -295,6 +295,10 @@ public class PlayerInput extends JPanel implements ActionListener {
     	textArea.append(name + ":please roll" + "\n");
     }
     
+    public void message(String message) {
+    	textArea.append("\n" + message + "\n");
+    }
+    
     public int getSpaces() {
     	return spaces;
     }
