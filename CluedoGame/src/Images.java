@@ -48,7 +48,7 @@ public class Images {
 			weaponsCard[2] = ImageIO.read(getClass().getResource("chainsaw.png"));
 			weaponsCard[3] = ImageIO.read(getClass().getResource("gun.png"));
 			weaponsCard[4] = ImageIO.read(getClass().getResource("knife.png"));
-			weaponsCard[5] = ImageIO.read(getClass().getResource("slingShot.png"));
+			weaponsCard[5] = ImageIO.read(getClass().getResource("slingshot.png"));
 			
 			screens[0] = ImageIO.read(getClass().getResource("Accusations3.png"));
 			screens[1] = ImageIO.read(getClass().getResource("startArea.png"));

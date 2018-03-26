@@ -88,7 +88,7 @@ public class PlayerInput extends JPanel implements ActionListener {
     }   
     
 	public int Roll(){
-		roll.DiceRoll();
+		roll.Diceroll();
 		spaces = roll.getTotal();
 		textArea.append("you got " + spaces + "\n");
 		return spaces;

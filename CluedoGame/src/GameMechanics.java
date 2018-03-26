@@ -450,7 +450,7 @@ public class GameMechanics {
 		//the starting roll for all players	
 		for(int i=0; i<numOfPlayers; i++)
 		{
-			roll.DiceRoll();
+			roll.Diceroll();
 			int num = roll.getTotal();
 			Players[i].setstartingRoll(num);
 			playerInput.message(Players[i].getName() + " rolled a " +Players[i].getstartingRoll());
@@ -466,13 +466,13 @@ public class GameMechanics {
 					//players keep rolling until they roll different totals
 					while(Players[i].getduplicateRoll() == Players[j].getduplicateRoll())
 					{
-						roll.DiceRoll();
+						roll.Diceroll();
 						int num1 = roll.getTotal();
 						Players[i].setduplicateRoll(num1);
 						playerInput.message(Players[i].getName() + " must roll again to decide their tie. "+
 								Players[i].getName()+" rolled a " +Players[i].getduplicateRoll());
 						
-						roll.DiceRoll();
+						roll.Diceroll();
 						int num2 = roll.getTotal();
 						Players[j].setduplicateRoll(num2);
 						playerInput.message(Players[j].getName() + " must roll again to decide their tie. "+
@@ -483,7 +483,6 @@ public class GameMechanics {
 		}
 		
 		//Players temp;
-		boolean biggestRoll;
 		
 		for(int i=0; i<numOfPlayers; i++)
 		{
