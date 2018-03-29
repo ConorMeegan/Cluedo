@@ -42,7 +42,7 @@ public class GameMechanics {
 	Images images = new Images();
 	
 	Players[] Players = new Players[6];
-	Cards[] Cards = new Cards[6];
+	Card[] Cards = new Card[6];
 	weapons[] Weapons = new weapons[6];
 
 	BufferedImage background;
@@ -62,14 +62,16 @@ public class GameMechanics {
 		this.height = height;
 		frame = new Frame(width,height);
 		keyManager = new KeyManager(this,cTest);  //for arrow key movement
-		frame.getFrame().addKeyListener(keyManager);
+		playerInput.addKeyListener(keyManager);
 		try {
 			background = ImageIO.read(getClass().getResource("NEWmap4.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		playerInput.createAndShowGUI();
+		
+		frame.setPlayerInput(playerInput);
+		
 		Initialise();
 		loop();
 	}
@@ -595,7 +597,7 @@ public class GameMechanics {
 		}
 	}
 	
-	public void setDoor(int val) {
+	public void setDoor(int val) {	
 		if(val == 20) {
 			if(dimensions.checkPosAvailable(23,15,(val/10))) {
 				Players[current].setDoor(val/10);

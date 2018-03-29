@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -24,11 +25,18 @@ public class Frame implements MouseListener {
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width,height));
-		canvas.setFocusable(false);
+		canvas.setFocusable(true);
 		canvas.addMouseListener(this);
 		
+		frame.getContentPane().setLayout(new BorderLayout());
+		
 		//MouseHandling.MouseHandling(frame);
-		frame.add(canvas);
+		frame.add(canvas, BorderLayout.CENTER);
+		frame.pack();
+	}
+	
+	public void setPlayerInput(PlayerInput playerInput) {
+		frame.add(playerInput, BorderLayout.LINE_END);
 		frame.pack();
 	}
 	

@@ -1,11 +1,11 @@
 import java.awt.image.BufferedImage;
 
-public class Cards extends GameObject{
+public class Card extends GameObject{
 	
 	int cardId;
 	int choosenId;
 	
-	public Cards(int cardId,BufferedImage icon, int x, int y) {
+	public Card(int cardId,BufferedImage icon, int x, int y) {
 		super(icon,x,y);
 		this.cardId = cardId;
 	}
