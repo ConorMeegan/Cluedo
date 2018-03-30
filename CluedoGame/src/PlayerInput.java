@@ -234,26 +234,6 @@ public class PlayerInput extends JPanel implements ActionListener {
 
 	}
 
-	public void createAndShowGUI() {
-		// Create and set up the window.
-		JFrame frame = new JFrame("PlayerInput");
-
-		// setting size of the player input panel
-		frame.setPreferredSize(new Dimension(400, 710));
-
-		// setting the player input screen to be beside the board
-		frame.setLocation(853, 0); // set y co-ordinate to be 568 if you want it to appear at the bottom
-
-		// Add contents to the window.
-		frame.add(new PlayerInput(mech));
-
-		// Display the window.
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	}
-
 	public void setExit(int num) {
 		mech.setExitNum(num);
 	}

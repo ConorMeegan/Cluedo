@@ -62,7 +62,7 @@ public class GameMechanics {
 		this.height = height;
 		frame = new Frame(width,height);
 		keyManager = new KeyManager(this,cTest);  //for arrow key movement
-		playerInput.addKeyListener(keyManager);
+		frame.getCanvas().addKeyListener(keyManager);
 		try {
 			background = ImageIO.read(getClass().getResource("NEWmap4.png"));
 
@@ -106,7 +106,6 @@ public class GameMechanics {
 			Draw();
 			if(CList.size() != 0) {
 				for(int i=0;i<CList.size();i++) {
-					//System.out.println(i);
 					if(CList.get(i) <= 6) {
 						g.drawImage(images.getImage(CList.get(i), "cards"), 160, 632, null);
 						
@@ -337,20 +336,16 @@ public class GameMechanics {
 		for(int i=0;i<diff;i++) {
 			if(Players[current].cards.get(i) <= 6) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 15, yValue, null);
-				//System.out.println(current + ":" + Players[current].cards.get(i));
 				yValue += 30*numOfPlayers;
 			}else if(Players[current].cards.get(i) >= 11 && Players[current].cards.get(i) < 20) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "room"), 15, yValue, null);
-				//System.out.println(current + ":" + Players[current].cards.get(i));
 				yValue += 30*numOfPlayers;
 			}else if(Players[current].cards.get(i) >= 21 && Players[current].cards.get(i) < 27) {
 				g.drawImage(images.getImage(Players[current].cards.get(i), "weaponsCard"), 15, yValue, null);
-				//System.out.println(current + ":" + Players[current].cards.get(i));
 				yValue += 30*numOfPlayers;
 			}
 		}
 		
-		//g.drawImage(images.getImage(6, "screens"),15, 600, null);
 	}
 	
 	public void movement(int num) {
@@ -559,12 +554,7 @@ public class GameMechanics {
 		CList.remove(CList.indexOf(suspect));
 		CList.remove(CList.indexOf(room));
 		CList.remove(CList.indexOf(weapon));
-		
-		System.out.println(CList.toString());
-		
-		System.out.println("cards:" + murderEnvelope[0]);
-		System.out.println("room:" + murderEnvelope[1]);
-		System.out.println("weaponCard:" +murderEnvelope[2]+ "\n");
+
 		setPlayerCards();
 
 		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
@@ -577,11 +567,8 @@ public class GameMechanics {
 		playerInput.errorMessages(2);
 		
 		for(int i=0;i<numOfPlayers;i++) {
-			System.out.println("Player:" + i + ":");
 			Players[i].getCards();
-			System.out.println();
 		}
-		System.out.println("CList:" + CList.toString());
 	}
 	
 	//used to control players and weapons, will be updated in the future to work for different input styles
@@ -776,11 +763,6 @@ public class GameMechanics {
 		murderEnvelope[0] = rand.nextInt(6)+1;
 		murderEnvelope[1] = rand.nextInt(9)+11;
 		murderEnvelope[2] = rand.nextInt(6)+21;
-		
-		System.out.println("cards:" + murderEnvelope[0]);
-		System.out.println("room:" + murderEnvelope[1]);
-		System.out.println("weaponCard:" +murderEnvelope[2]+ "\n");
-		
 	}
 	
 	public void checkDone() {
@@ -791,7 +773,6 @@ public class GameMechanics {
 	}
 	
 	public void setPlayerCards() {
-		System.out.println("Diff:" + diff);
 		for(int i=0;i<numOfPlayers;i++){
 			for(int j=0;j<diff;j++) {
 				int ran = rand.nextInt(CList.size());
@@ -799,7 +780,6 @@ public class GameMechanics {
 				CList.remove(ran);
 			}
 		}
-		System.out.println(CList.toString());
 	}
 	
 	public String getCards(int num){

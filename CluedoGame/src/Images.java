@@ -29,11 +29,11 @@ public class Images {
 			tokens[4] = ImageIO.read(getClass().getResource("maggieToken2.png"));
 			tokens[5] = ImageIO.read(getClass().getResource("moeToken2.png"));
 			
-			cards[0] = ImageIO.read(getClass().getResource("carzyCatLady.png"));
+			cards[0] = ImageIO.read(getClass().getResource("carzyCatLady2.png"));
 			cards[1] = ImageIO.read(getClass().getResource("fatTonyCardTest.png"));
 			cards[2] = ImageIO.read(getClass().getResource("hanzMoleManCard.png"));
 			cards[3] = ImageIO.read(getClass().getResource("homerCard.png"));
-			cards[4] = ImageIO.read(getClass().getResource("maggieCardTest.png"));
+			cards[4] = ImageIO.read(getClass().getResource("maggie2.png"));
 			cards[5] = ImageIO.read(getClass().getResource("moeCardTest.png"));
 			
 			weapons[0] = ImageIO.read(getClass().getResource("axeToken.png"));
