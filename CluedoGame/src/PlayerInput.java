@@ -161,75 +161,97 @@ public class PlayerInput extends JPanel implements ActionListener {
 	}
 
 	public void playerMove(String text) {
-		if (text.equals("u")) {
-			if (cTest.testMove("u", mech.getOb())) {
-				mech.setInput("u");
-				textArea.append("Moved player up" + "\n");
-
+		if(mech.getGameState() == 2) {
+			if (text.equals("u")) {
+				if (cTest.testMove("u", mech.getOb())) {
+					mech.setInput("u");
+					textArea.append("Moved player up" + "\n");
+				}
 			}
-		}
-
-		else if (text.equals("d")) {
-			if (cTest.testMove(text, mech.getOb())) {
-				mech.setInput("d");
-				textArea.append("Moved player down" + "\n");
-
+			else if (text.equals("d")) {
+				if (cTest.testMove(text, mech.getOb())) {
+					mech.setInput("d");
+					textArea.append("Moved player down" + "\n");
+				}
+			}else if (text.equals("r")) {
+				if (cTest.testMove("r", mech.getOb())) {
+					mech.setInput("r");
+					textArea.append("Moved player right" + "\n");
+				}
+			}else if (text.equals("done")) {
+				textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
+				mech.setDone(1);
+				i = 0;
+			}else if (text.equals("l")) {
+				if (cTest.testMove("l", mech.getOb())) {
+					mech.setInput("l");
+					textArea.append("Moved player left" + "\n");
+				}
+			}else if (text.equals("cheat")) {
+				mech.setCurrentGameState(4);
+			}else if (text.equals("1")) {
+				setExit(1);
+				textArea.append("Player exited through exit 1" + "\n");
+				spaces--;
+			}else if (text.equals("2")) {
+				setExit(2);
+				textArea.append("Player exited through exit 2" + "\n");
+			}else if (text.equals("3")) {
+				setExit(3);
+				textArea.append("Player exited through exit 3" + "\n");
+			}else if (text.equals("4")) {
+				setExit(4);
+				textArea.append("Player exited through exit 4" + "\n");
+			}else if (text.equals("passage")) {
+				setExit(5);
+				textArea.append("Player exited through exit secret passage way" + "\n");
+			}else if (text.equals("n")) {
+				mech.newMClass();
 			}
-		}
-
-		else if (text.equals("r")) {
-			if (cTest.testMove("r", mech.getOb())) {
-				mech.setInput("r");
-				textArea.append("Moved player right" + "\n");
-
+		}else if(mech.getGameState() == 5 && mech.accuseFull() == false) {
+			if(text.equals("burns mansion")) {
+				mech.accuseAddition(11);
+			}else if(text.equals("comic book store")) {
+				mech.accuseAddition(16);
+			}else if(text.equals("flanders house")) {
+				mech.accuseAddition(14);
+			}else if(text.equals("frying dutchman")) {
+				mech.accuseAddition(13);
+			}else if(text.equals("krusty burger")) {
+				mech.accuseAddition(15);
+			}else if(text.equals("moes tavern")) {
+				mech.accuseAddition(19);
+			}else if(text.equals("kwik-e-mart")) {
+				mech.accuseAddition(17);
+			}else if(text.equals("springfield elementry")) {
+				mech.accuseAddition(12);
+			}else if(text.equals("simpsons house")) {
+				mech.accuseAddition(18);
+			}else if(text.equals("homer")) {
+				mech.accuseAddition(4);
+			}else if(text.equals("moe")) {
+				mech.accuseAddition(6);
+			}else if(text.equals("hanz")) {
+				mech.accuseAddition(3);
+			}else if(text.equals("maggie")) {
+				mech.accuseAddition(5);
+			}else if(text.equals("fat tony")) {
+				mech.accuseAddition(2);
+			}else if(text.equals("axe")) {
+				mech.accuseAddition(1);
+			}else if(text.equals("atomic bomb")) {
+				mech.accuseAddition(2);
+			}else if(text.equals("chainsaw")) {
+				mech.accuseAddition(3);
+			}else if(text.equals("knife")) {
+				mech.accuseAddition(5);
+			}else if(text.equals("sling shot")) {
+				mech.accuseAddition(6);
+			}else if(text.equals("gun")) {
+				mech.accuseAddition(4);
 			}
-		}
-
-		else if (text.equals("done")) {
-			// mech.updateCurrent();
-			textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
-			mech.setDone(1);
-			i = 0;
-		} else if (text.equals("l")) {
-			if (cTest.testMove("l", mech.getOb())) {
-				mech.setInput("l");
-				textArea.append("Moved player left" + "\n");
-
-			}
-		} else if (text.equals("cheat")) {
-			mech.setCurrentGameState(4);
-		}
-
-		else if (text.equals("1")) {
-			setExit(1);
-			textArea.append("Player exited through exit 1" + "\n");
-			spaces--;
-		}
-
-		else if (text.equals("2")) {
-			setExit(2);
-			textArea.append("Player exited through exit 2" + "\n");
-
-		}
-
-		else if (text.equals("3")) {
-			setExit(3);
-			textArea.append("Player exited through exit 3" + "\n");
-
-		}
-
-		else if (text.equals("4")) {
-			setExit(4);
-			textArea.append("Player exited through exit 4" + "\n");
-
-		}
-
-		else if (text.equals("passage")) {
-			setExit(5);
-			textArea.append("Player exited through exit secret passage way" + "\n");
-
-		} else if (text.equals("n")) {
-			mech.newMClass();
+		}else if(mech.accuseFull() == true) {
+			System.out.println("full");
 		}
 
 	}

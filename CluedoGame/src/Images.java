@@ -10,7 +10,7 @@ public class Images {
 	BufferedImage cards[] = new BufferedImage[6];
 	BufferedImage weapons[] = new BufferedImage[6];
 	BufferedImage weaponsCard[] = new BufferedImage[6];
-	BufferedImage screens[] = new BufferedImage[6];
+	BufferedImage screens[] = new BufferedImage[7];
 	BufferedImage numbers[] = new BufferedImage[6];
 	BufferedImage rooms[] = new BufferedImage[9];
 	BufferedImage secret;
@@ -29,12 +29,12 @@ public class Images {
 			tokens[4] = ImageIO.read(getClass().getResource("maggieToken2.png"));
 			tokens[5] = ImageIO.read(getClass().getResource("moeToken2.png"));
 			
-			cards[0] = ImageIO.read(getClass().getResource("carzyCatLady2.png"));
-			cards[1] = ImageIO.read(getClass().getResource("fatTonyCardTest.png"));
-			cards[2] = ImageIO.read(getClass().getResource("hanzMoleManCard.png"));
+			cards[0] = ImageIO.read(getClass().getResource("crazyCatLadyCard.png"));
+			cards[1] = ImageIO.read(getClass().getResource("fatTonyCard.png"));
+			cards[2] = ImageIO.read(getClass().getResource("hanzMolemanCard.png"));
 			cards[3] = ImageIO.read(getClass().getResource("homerCard.png"));
-			cards[4] = ImageIO.read(getClass().getResource("maggie2.png"));
-			cards[5] = ImageIO.read(getClass().getResource("moeCardTest.png"));
+			cards[4] = ImageIO.read(getClass().getResource("maggieCard.png"));
+			cards[5] = ImageIO.read(getClass().getResource("moeCard.png"));
 			
 			weapons[0] = ImageIO.read(getClass().getResource("axeToken.png"));
 			weapons[1] = ImageIO.read(getClass().getResource("bombToken.png"));
@@ -43,19 +43,20 @@ public class Images {
 			weapons[4] = ImageIO.read(getClass().getResource("knifeToken.png"));
 			weapons[5] = ImageIO.read(getClass().getResource("slingShotToken.png"));
 			
-			weaponsCard[0] = ImageIO.read(getClass().getResource("axe.png"));
-			weaponsCard[1] = ImageIO.read(getClass().getResource("PlutoniumRod.png"));
-			weaponsCard[2] = ImageIO.read(getClass().getResource("chainsaw.png"));
-			weaponsCard[3] = ImageIO.read(getClass().getResource("gun.png"));
-			weaponsCard[4] = ImageIO.read(getClass().getResource("knife.png"));
-			weaponsCard[5] = ImageIO.read(getClass().getResource("slingshot.png"));
+			weaponsCard[0] = ImageIO.read(getClass().getResource("axeCard.png"));
+			weaponsCard[1] = ImageIO.read(getClass().getResource("atomicBombCard.png"));
+			weaponsCard[2] = ImageIO.read(getClass().getResource("chainsawCard.png"));
+			weaponsCard[3] = ImageIO.read(getClass().getResource("gunCard.png"));
+			weaponsCard[4] = ImageIO.read(getClass().getResource("knifeCard.png"));
+			weaponsCard[5] = ImageIO.read(getClass().getResource("slingShotCard.png"));
 			
-			screens[0] = ImageIO.read(getClass().getResource("Accusations3.png"));
+			screens[0] = ImageIO.read(getClass().getResource("acc.png"));
 			screens[1] = ImageIO.read(getClass().getResource("startArea.png"));
 			screens[2] = ImageIO.read(getClass().getResource("playButton.png"));
 			screens[3] = ImageIO.read(getClass().getResource("howToPlayButton.png"));
-			screens[4] = ImageIO.read(getClass().getResource("Murder.png"));
-			screens[5] = ImageIO.read(getClass().getResource("where.png"));
+			screens[4] = ImageIO.read(getClass().getResource("murderEnvelope.png"));
+			screens[5] = ImageIO.read(getClass().getResource("selectionButton.png"));
+			screens[6] = ImageIO.read(getClass().getResource("murderEnvelope2.png"));
 			
 			numbers[0] = ImageIO.read(getClass().getResource("1.png"));
 			numbers[1] = ImageIO.read(getClass().getResource("2.png"));
@@ -66,15 +67,15 @@ public class Images {
 			
 			secret = ImageIO.read(getClass().getResource("secret1.png"));
 			
-			rooms[0] = ImageIO.read(getClass().getResource("Broom.png"));
-			rooms[1] = ImageIO.read(getClass().getResource("SEroom.png"));
-			rooms[2] = ImageIO.read(getClass().getResource("FDroom.png"));
-			rooms[3] = ImageIO.read(getClass().getResource("Froom.png"));
-			rooms[4] = ImageIO.read(getClass().getResource("KBroom.png"));
-			rooms[5] = ImageIO.read(getClass().getResource("CBSroom.png"));
-			rooms[6] = ImageIO.read(getClass().getResource("Kroom.png"));
-			rooms[7] = ImageIO.read(getClass().getResource("Sroom.png"));
-			rooms[8] = ImageIO.read(getClass().getResource("Mroom.png"));
+			rooms[0] = ImageIO.read(getClass().getResource("burnsMansionCard.png"));
+			rooms[1] = ImageIO.read(getClass().getResource("springfieldElementryCard.png"));
+			rooms[2] = ImageIO.read(getClass().getResource("fryingDutchmanCard.png"));
+			rooms[3] = ImageIO.read(getClass().getResource("flandersHouseCard.png"));
+			rooms[4] = ImageIO.read(getClass().getResource("krustyBurgerCard.png"));
+			rooms[5] = ImageIO.read(getClass().getResource("comicBookStoreCard.png"));
+			rooms[6] = ImageIO.read(getClass().getResource("kwikEMartCard.png"));
+			rooms[7] = ImageIO.read(getClass().getResource("simpsonsHouseCard.png"));
+			rooms[8] = ImageIO.read(getClass().getResource("moesTavernCard.png"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -186,6 +187,8 @@ public class Images {
 				return screens[4];
 			}else if(val == 6) {
 				return screens[5];
+			}else if(val == 7) {
+				return screens[6];
 			}
 		}else if(str.equals("numbers")) {
 			if(val == 1) {

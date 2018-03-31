@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -8,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -16,6 +20,8 @@ public class GameMechanics {
 	
 	Random rand = new Random();
 	int[] murderEnvelope = new int[3];
+	
+	ArrayList<Integer> accuse = new ArrayList<Integer>();
 	
 	int gameStateCurrent = 1;
 	int numOfCards = 21;
@@ -36,13 +42,13 @@ public class GameMechanics {
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
-	int[] gameState = {1,2,3,4};
+	int[] gameState = {1,2,3,4,5};
 	int width, height;
 	
 	Images images = new Images();
 	
 	Players[] Players = new Players[6];
-	Card[] Cards = new Card[6];
+	Card[] Cards = new Card[21];
 	weapons[] Weapons = new weapons[6];
 
 	BufferedImage background;
@@ -143,97 +149,35 @@ public class GameMechanics {
 			g.fillRect(0, 0, width, height);
 			//g.drawImage(images.getImage(0, "screens"),45, 0, null);
 			
-			g.drawImage(images.getImage(5, "screens"), 150, 100, null);
-			g.drawImage(images.getImage(murderEnvelope[0], "cards"), 100, 230, null);
-			g.drawImage(images.getImage(murderEnvelope[1], "room"), 285, 230, null);
-			g.drawImage(images.getImage(murderEnvelope[2], "weaponsCard"), 485, 230, null);
+			g.drawImage(images.getImage(5, "screens"), 0, 0, null);
+			g.drawImage(images.getImage(murderEnvelope[0], "cards"), 231, 255, null);
+			g.drawImage(images.getImage(murderEnvelope[1], "room"), 368, 255, null);
+			g.drawImage(images.getImage(murderEnvelope[2], "weaponsCard"), 505, 255, null);
+			g.drawImage(images.getImage(7, "screens"), 0, 0, null);
 			
-		}
-		/*
-		for(int i=0;i<28;i++) {
-			for(int j=0;j<28;j++) {
-				if(dimensions.getVal(i, j) == 0) {
-					g.setColor(new Color(100,100,100));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 2) {
-					g.setColor(new Color(111,222,55));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 3) {
-					g.setColor(new Color(99,51,116));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 4) {
-					g.setColor(new Color(248,54,56));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 5) {
-					g.setColor(new Color(158,54,241));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 6) {
-					g.setColor(new Color(120,34,116));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 7) {
-					g.setColor(new Color(213,54,56));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 8) {
-					g.setColor(new Color(213,22,33));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 9) {
-					g.setColor(new Color(100,54,56));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 10) {
-					g.setColor(new Color(213,54,56));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 12) {
-					g.setColor(new Color(150,54,46));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 1) {
-					g.setColor(new Color(23,94,56));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 50) {
-					g.setColor(new Color(88,55,122));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 60) {
-					g.setColor(new Color(55,200,45));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 70) {
-					g.setColor(new Color(55,20,245));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 80) {
-					g.setColor(new Color(255,0,0));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 90) {
-					g.setColor(new Color(0,0,255));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 100) {
-					g.setColor(new Color(255,255,0));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 20) {
-					g.setColor(new Color(11,55,150));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 30) {
-					g.setColor(new Color(75,75,75));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 40) {
-					g.setColor(new Color(80,55,1));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 55) {
-					g.setColor(new Color(0,200,100));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 17) {
-					g.setColor(new Color(150,150,150));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 15) {
-					g.setColor(new Color(50,50,50));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 110) {
-					g.setColor(new Color(75,0,10));
-					g.fillRect((i*24)+180, j*24, 24, 24);
-				}else if(dimensions.getVal(i, j) == 11) {
-					g.setColor(new Color(225,0,0));
-					g.fillRect((i*24)+180, j*24, 24, 24);
+		}else if(gameState[4] == gameStateCurrent) {
+			g.setColor(new Color(20,20,20,150));
+			g.fillRect(0, 0, width, height);
+			int x = 430; int y = 5;
+			for(int i=1;i<=26;i++) {
+				if(x > width-20) {
+					x = 10;
+					y += 167;
+				}
+				g.drawImage(images.getImage(1, "screens"), 0, 0, null);
+				//g.drawImage(images.getImage(6, "screens"), 0, 150, null);
+				if(i<=6) {
+					g.drawImage(images.getImage(i, "cards"), x, y, null);
+					x+=140;
+				}else if(i >=11 && i<=19) {
+					g.drawImage(images.getImage(i, "room"), x, y, null);
+					x+=140;
+				}else if(i >=21 && i<=26) {
+					g.drawImage(images.getImage(i, "weaponsCard"), x, y, null);
+					x+=140;
 				}
 			}
 		}
-		*/
 		buffer.show();
 		g.dispose();
 	}
@@ -248,7 +192,7 @@ public class GameMechanics {
 			g.drawImage(Weapons[i].getImage(), (Weapons[i].getx()*24) +180, Weapons[i].gety()*24, null);
 		}
 		if(exit() || secretExit()) {
-			if(secretExit()) {
+			if(secretExit() && rollNum > 0) {
 				if(Players[current].getDoor() == 10 || Players[current].getDoor() == 5) {
 					g.drawImage(images.getImage(1, "secret"),(25*24) + 180, 22*24, null);
 					g.drawImage(images.getImage(1, "secret"),(7*24) + 180, 2*24, null);
@@ -265,50 +209,58 @@ public class GameMechanics {
 						if(dimensions.checkPosAvailable(4,5,5)) {
 							Players[current].setx(dimensions.getX());
 							Players[current].sety(dimensions.getY());
+							gameStateCurrent = 5;
 						}
 						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 						
 						setExitNum(0);
+						rollNum = 0;
 					}else if(Players[current].getDoor() == 5) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
 						
 						if(dimensions.checkPosAvailable(24,22,10)) {
 							Players[current].setx(dimensions.getX());
 							Players[current].sety(dimensions.getY());
+							gameStateCurrent = 5;
 						}
 						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 						
 						setExitNum(0);
+						rollNum = 0;
 					}else if(Players[current].getDoor() == 3) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
 						
 						if(dimensions.checkPosAvailable(4,22,7)) {
 							Players[current].setx(dimensions.getX());
 							Players[current].sety(dimensions.getY());
+							gameStateCurrent = 5;
 						}
 						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 						
 						setExitNum(0);
+						rollNum = 0;
 					}else if(Players[current].getDoor() == 7) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
 						;
 						if(dimensions.checkPosAvailable(23,5,3)) {
 							Players[current].setx(dimensions.getX());
 							Players[current].sety(dimensions.getY());
-						};
+							gameStateCurrent = 5;
+						}
 						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 					
 						setExitNum(0);
+						rollNum = 0;
 					}
 		
 				}
 				
 			}
-			if(exit()) {
+			if(exit() && rollNum > 0) {
 			
 				int count =1;
 				for(int i=0;i<28;i++) {
@@ -592,7 +544,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 			
 		}else if(val == 30) {
@@ -602,7 +555,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 		}else if(val == 40) {
 			if(dimensions.checkPosAvailable(13,5,(val/10))) {
@@ -611,7 +565,7 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
 			}
 		}else if(val == 50){
 			if(dimensions.checkPosAvailable(4,5,(val/10))) {
@@ -620,7 +574,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 		}else if(val == 60){
 			if(dimensions.checkPosAvailable(5,14,(val/10))) {
@@ -629,7 +584,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 		}else if(val == 70){
 			if(dimensions.checkPosAvailable(4,22,(val/10))) {
@@ -638,7 +594,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 		}else if(val == 80){
 			if(dimensions.checkPosAvailable(11,24,(val/10))) {
@@ -647,7 +604,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 		}else if(val == 90){
 			if(dimensions.checkPosAvailable(17,24,(val/10))) {
@@ -656,7 +614,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 		}else if(val == 100){
 			if(dimensions.checkPosAvailable(24,22,(val/10))) {
@@ -665,7 +624,8 @@ public class GameMechanics {
 				Players[current].sety(dimensions.getY());
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 			}
 		}else if(val == 110){
 				Players[current].setDoor(val/10);
@@ -673,7 +633,8 @@ public class GameMechanics {
 				Players[current].sety(14);
 				Players[current].setx(14);
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
-				playerInput.errorMessages(4);
+				rollNum = 0;
+				gameStateCurrent = 5;
 		}
 	}
 	
@@ -841,5 +802,12 @@ public class GameMechanics {
 	    frame.setVisible(true);
 
 	  }
+	
+	public boolean accuseFull() {
+		return accuse.size() == 3;
+	}
+	public void accuseAddition(int number) {
+		accuse.add(number);
+	}
 	 
 }
