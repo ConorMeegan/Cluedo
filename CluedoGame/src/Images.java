@@ -6,13 +6,13 @@ import javax.imageio.ImageIO;
 public class Images {
 	
 	BufferedImage tokens[] = new BufferedImage[6];
-	BufferedImage tokensH[] = new BufferedImage[6];
-	BufferedImage cards[] = new BufferedImage[6];
+	BufferedImage cards[] = new BufferedImage[7];
 	BufferedImage weapons[] = new BufferedImage[6];
-	BufferedImage weaponsCard[] = new BufferedImage[6];
-	BufferedImage screens[] = new BufferedImage[7];
+	BufferedImage weaponsCard[] = new BufferedImage[7];
+	BufferedImage screens[] = new BufferedImage[12];
 	BufferedImage numbers[] = new BufferedImage[6];
 	BufferedImage rooms[] = new BufferedImage[9];
+	BufferedImage bigTokens[] = new BufferedImage[12];
 	BufferedImage secret;
 	
 	public Images() {
@@ -35,6 +35,20 @@ public class Images {
 			cards[3] = ImageIO.read(getClass().getResource("homerCard.png"));
 			cards[4] = ImageIO.read(getClass().getResource("maggieCard.png"));
 			cards[5] = ImageIO.read(getClass().getResource("moeCard.png"));
+			cards[6] = ImageIO.read(getClass().getResource("cluedoBackCard.png"));
+			
+			bigTokens[0] = ImageIO.read(getClass().getResource("catLadyBigToken.png"));
+			bigTokens[1] = ImageIO.read(getClass().getResource("fatTonyBigToken.png"));
+			bigTokens[2] = ImageIO.read(getClass().getResource("hanzBigToken.png"));
+			bigTokens[3] = ImageIO.read(getClass().getResource("homerBigToken.png"));
+			bigTokens[4] = ImageIO.read(getClass().getResource("maggieBigToken.png"));
+			bigTokens[5] = ImageIO.read(getClass().getResource("moeBigToken.png"));
+			bigTokens[6] = ImageIO.read(getClass().getResource("catLadyBigTokenH.png"));
+			bigTokens[7] = ImageIO.read(getClass().getResource("fatTonyBigTokenH.png"));
+			bigTokens[8] = ImageIO.read(getClass().getResource("hanzBigTokenH.png"));
+			bigTokens[9] = ImageIO.read(getClass().getResource("homerBigTokenH.png"));
+			bigTokens[10] = ImageIO.read(getClass().getResource("maggieBigTokenH.png"));
+			bigTokens[11] = ImageIO.read(getClass().getResource("moeBigTokenH.png"));
 			
 			weapons[0] = ImageIO.read(getClass().getResource("axeToken.png"));
 			weapons[1] = ImageIO.read(getClass().getResource("bombToken.png"));
@@ -49,14 +63,19 @@ public class Images {
 			weaponsCard[3] = ImageIO.read(getClass().getResource("gunCard.png"));
 			weaponsCard[4] = ImageIO.read(getClass().getResource("knifeCard.png"));
 			weaponsCard[5] = ImageIO.read(getClass().getResource("slingShotCard.png"));
+			weaponsCard[6] = ImageIO.read(getClass().getResource("atomicBombCardGlow.png"));
 			
 			screens[0] = ImageIO.read(getClass().getResource("acc.png"));
-			screens[1] = ImageIO.read(getClass().getResource("startArea.png"));
-			screens[2] = ImageIO.read(getClass().getResource("playButton.png"));
+			screens[1] = ImageIO.read(getClass().getResource("opening.png"));
+			screens[2] = ImageIO.read(getClass().getResource("openingButtons.png"));
 			screens[3] = ImageIO.read(getClass().getResource("howToPlayButton.png"));
 			screens[4] = ImageIO.read(getClass().getResource("murderEnvelope.png"));
 			screens[5] = ImageIO.read(getClass().getResource("selectionButton.png"));
 			screens[6] = ImageIO.read(getClass().getResource("murderEnvelope2.png"));
+			screens[7] = ImageIO.read(getClass().getResource("accusationCheck.png"));
+			screens[8] = ImageIO.read(getClass().getResource("box.png"));
+			screens[9] = ImageIO.read(getClass().getResource("currentPlayer.png"));
+			screens[10] = ImageIO.read(getClass().getResource("currentPlayer.png"));
 			
 			numbers[0] = ImageIO.read(getClass().getResource("1.png"));
 			numbers[1] = ImageIO.read(getClass().getResource("2.png"));
@@ -111,6 +130,8 @@ public class Images {
 				return cards[4];
 			}else if(val == 6) {
 				return cards[5];
+			}else if(val == 7) {
+				return cards[6];
 			}
 		}else if(str.equals("weapons")) {
 			if(val == 1) {
@@ -139,20 +160,8 @@ public class Images {
 				return weaponsCard[4];
 			}else if(val == 26) {
 				return weaponsCard[5];
-			}
-		}else if(str.equals("highlight")) {
-			if(val == 1) {
-				return tokensH[0];
-			}else if(val == 2) {
-				return tokensH[1];
-			}else if(val == 3) {
-				return tokensH[2];
-			}else if(val == 4) {
-				return tokensH[3];
-			}else if(val == 5) {
-				return tokensH[4];
-			}else if(val == 6) {
-				return tokensH[5];
+			}else if(val == 52) {
+				return weaponsCard[6];
 			}
 		}else if(str.equals("room")) {
 			if(val == 11) {
@@ -189,6 +198,14 @@ public class Images {
 				return screens[5];
 			}else if(val == 7) {
 				return screens[6];
+			}else if(val == 8) {
+				return screens[7];
+			}else if(val == 9) {
+				return screens[8];
+			}else if(val == 10) {
+				return screens[9];
+			}else if(val == 11) {
+				return screens[10];
 			}
 		}else if(str.equals("numbers")) {
 			if(val == 1) {
@@ -203,6 +220,34 @@ public class Images {
 				return numbers[4];
 			}else if(val == 6) {
 				return numbers[5];
+			}
+		}else if(str.equals("bigToken")) {
+			if(val == 1) {
+				return bigTokens[0];
+			}else if(val == 2) {
+				return bigTokens[1];
+			}else if(val == 3) {
+				return bigTokens[2];
+			}else if(val == 4) {
+				return bigTokens[3];
+			}else if(val == 5) {
+				return bigTokens[4];
+			}else if(val == 6) {
+				return bigTokens[5];
+			}
+			
+			else if(val == 31) {
+				return bigTokens[6];
+			}else if(val == 32) {
+				return bigTokens[7];
+			}else if(val == 33) {
+				return bigTokens[8];
+			}else if(val == 34) {
+				return bigTokens[9];
+			}else if(val == 35) {
+				return bigTokens[10];
+			}else if(val == 36) {
+				return bigTokens[11];
 			}
 		}else if(str.equals("secret")) {
 			if(val == 1) {

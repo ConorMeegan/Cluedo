@@ -1,18 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -21,16 +16,15 @@ public class GameMechanics {
 	Random rand = new Random();
 	int[] murderEnvelope = new int[3];
 	
-	ArrayList<Integer> accuse = new ArrayList<Integer>();
-	
-	int gameStateCurrent = 1;
+	int gameStateCurrent = 2;
 	int numOfCards = 21;
 	ArrayList<Integer> CList = new ArrayList<Integer>();
 	
+	int accuseCurrent;
 	int current = 0;
 	int exitNum = 0;
 	int secretExitNum = 0;
-	
+	boolean password = false;
 	int x=0,xOne = 852/2;
 	int numOfPlayers;
 	int diff;
@@ -42,7 +36,7 @@ public class GameMechanics {
 	Frame frame;
 	BufferStrategy buffer;
 	Graphics g;
-	int[] gameState = {1,2,3,4,5};
+	int[] gameState = {1,2,3,4,5,6,7};
 	int width, height;
 	
 	Images images = new Images();
@@ -51,11 +45,13 @@ public class GameMechanics {
 	Card[] Cards = new Card[21];
 	weapons[] Weapons = new weapons[6];
 
+	Accusation accuse = new Accusation(Players,this);
+	
 	BufferedImage background;
 	BufferedImage murder[] = new BufferedImage[3];
 	
 	Dimensions dimensions = new Dimensions();
-	PlayerInput playerInput = new PlayerInput(this);
+	PlayerInput playerInput = new PlayerInput(this,accuse);
 	Moving moving = new Moving();
 	CollisonTesting cTest = new CollisonTesting(this);
 	
@@ -70,7 +66,7 @@ public class GameMechanics {
 		keyManager = new KeyManager(this,cTest);  //for arrow key movement
 		frame.getCanvas().addKeyListener(keyManager);
 		try {
-			background = ImageIO.read(getClass().getResource("NEWmap4.png"));
+			background = ImageIO.read(getClass().getResource("map.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,8 +95,12 @@ public class GameMechanics {
 
 		
 		//future code for future game states
+		//Start screen
 		if(gameState[0] == gameStateCurrent) {
-			gameStateCurrent += 1;
+			//gameStateCurrent += 1;
+			g.drawImage(images.getImage(2, "screens"), 0, 0, null);
+			g.drawImage(images.getImage(3, "screens"), 480, 78, null);
+			//main game
 		}else if(gameState[1] == gameStateCurrent) {
 			g.setColor(new Color(97,62,7));
 			g.fillRect(0, 0, width, height);
@@ -124,27 +124,8 @@ public class GameMechanics {
 					}
 				}
 			}
-			
-		}else if(gameState[2] == gameStateCurrent) {
-			g.setColor(new Color(20,20,20,240));
-			g.fillRect(0, 0, width, height);
-			g.drawImage(images.getImage(0, "screens"),45, 0, null);
-			
-			g.drawImage(images.getImage(1, "weapons"), 15, 230, null);
-			g.drawImage(images.getImage(2, "weapons"), 175, 230, null);
-			g.drawImage(images.getImage(3, "weapons"), 335, 230, null);
-			g.drawImage(images.getImage(4, "weapons"), 15, 440, null);
-			g.drawImage(images.getImage(5, "weapons"), 175, 440, null);
-			g.drawImage(images.getImage(6, "weapons"), 335, 440, null);
-			
-			g.drawImage(images.getImage(1, "cards"), 500, 15, null);
-			g.drawImage(images.getImage(2, "cards"), 500, 230, null);
-			g.drawImage(images.getImage(3, "cards"), 500, 445, null);
-			g.drawImage(images.getImage(4, "cards"), 670, 15, null);
-			g.drawImage(images.getImage(5, "cards"), 670, 230, null);
-			g.drawImage(images.getImage(6, "cards"), 670, 445, null);
-		}
-		else if(gameState[3] == gameStateCurrent) {
+			//murder (cheat)
+		}else if(gameState[3] == gameStateCurrent) {
 			g.setColor(new Color(20,20,20,240));
 			g.fillRect(0, 0, width, height);
 			//g.drawImage(images.getImage(0, "screens"),45, 0, null);
@@ -154,9 +135,9 @@ public class GameMechanics {
 			g.drawImage(images.getImage(murderEnvelope[1], "room"), 368, 255, null);
 			g.drawImage(images.getImage(murderEnvelope[2], "weaponsCard"), 505, 255, null);
 			g.drawImage(images.getImage(7, "screens"), 0, 0, null);
-			
+			//Accusation board
 		}else if(gameState[4] == gameStateCurrent) {
-			g.setColor(new Color(20,20,20,150));
+			g.setColor(new Color(20,20,20,240));
 			g.fillRect(0, 0, width, height);
 			int x = 430; int y = 5;
 			for(int i=1;i<=26;i++) {
@@ -165,18 +146,72 @@ public class GameMechanics {
 					y += 167;
 				}
 				g.drawImage(images.getImage(1, "screens"), 0, 0, null);
-				//g.drawImage(images.getImage(6, "screens"), 0, 150, null);
+				
 				if(i<=6) {
-					g.drawImage(images.getImage(i, "cards"), x, y, null);
-					x+=140;
+					if(accuse.getAccuseList().contains(i)) {
+						g.drawImage(images.getImage(7, "cards"), x, y, null);
+						x+=140;
+					}else {
+						g.drawImage(images.getImage(i, "cards"), x, y, null);
+						x+=140;
+					}
 				}else if(i >=11 && i<=19) {
-					g.drawImage(images.getImage(i, "room"), x, y, null);
-					x+=140;
+					if(accuse.getAccuseList().contains(i)) {
+						g.drawImage(images.getImage(7, "cards"), x, y, null);
+						x+=140;
+					}else {
+						g.drawImage(images.getImage(i, "room"), x, y, null);
+						x+=140;
+					}
 				}else if(i >=21 && i<=26) {
-					g.drawImage(images.getImage(i, "weaponsCard"), x, y, null);
-					x+=140;
+					if(accuse.getAccuseList().contains(i)) {
+						g.drawImage(images.getImage(7, "cards"), x, y, null);
+						x+=140;
+					}else {
+						g.drawImage(images.getImage(i, "weaponsCard"), x, y, null);
+						x+=140;
+					}
 				}
 			}
+		}else if(gameState[6] == gameStateCurrent) {
+			g.setColor(new Color(20,20,20,240));
+			g.fillRect(0, 0, width, height);
+			int x = 430; int y = 5;
+			for(int i=1;i<=26;i++) {
+				if(x > width-20) {
+					x = 10;
+					y += 167;
+				}
+				g.drawImage(images.getImage(11, "screens"), 0, 0, null);
+				
+				if(i<=6) {
+					if(accuse.getAccuseList().contains(i)) {
+						g.drawImage(images.getImage(7, "cards"), x, y, null);
+						x+=140;
+					}else {
+						g.drawImage(images.getImage(i, "cards"), x, y, null);
+						x+=140;
+					}
+				}else if(i >=11 && i<=19) {
+					if(accuse.getAccuseList().contains(i)) {
+						g.drawImage(images.getImage(7, "cards"), x, y, null);
+						x+=140;
+					}else {
+						g.drawImage(images.getImage(i, "room"), x, y, null);
+						x+=140;
+					}
+				}else if(i >=21 && i<=26) {
+					if(accuse.getAccuseList().contains(i)) {
+						g.drawImage(images.getImage(7, "cards"), x, y, null);
+						x+=140;
+					}else {
+						g.drawImage(images.getImage(i, "weaponsCard"), x, y, null);
+						x+=140;
+					}
+				}
+			}
+		}else if(gameState[5] == gameStateCurrent) {
+			draw(accuseCurrent);
 		}
 		buffer.show();
 		g.dispose();
@@ -189,8 +224,19 @@ public class GameMechanics {
 			g.drawImage(Players[i].getImage(), (Players[i].getx()*24) +180, Players[i].gety()*24, null);
 		}
 		for(int i=0;i<6;i++){
-			g.drawImage(Weapons[i].getImage(), (Weapons[i].getx()*24) +180, Weapons[i].gety()*24, null);
+			g.drawImage(Weapons[i].getImage(), (Weapons[i].getx()*24) +170, (Weapons[i].gety()*24), null);
 		}
+		g.drawImage(images.getImage(9, "screens"), 157, 175, null);
+		g.drawImage(images.getImage(Players[current].getPlayerId()+30, "bigToken"), 157, 175, null);
+		int y = 230;
+		for(int i=0;i<6;i++){
+			g.drawImage(images.getImage(i+1, "bigToken"), 157, y, null);
+			y+=65;
+		}
+		
+		
+		
+		
 		if(exit() || secretExit()) {
 			if(secretExit() && rollNum > 0) {
 				if(Players[current].getDoor() == 10 || Players[current].getDoor() == 5) {
@@ -216,6 +262,7 @@ public class GameMechanics {
 						
 						setExitNum(0);
 						rollNum = 0;
+						
 					}else if(Players[current].getDoor() == 5) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
 						
@@ -229,6 +276,7 @@ public class GameMechanics {
 						
 						setExitNum(0);
 						rollNum = 0;
+						
 					}else if(Players[current].getDoor() == 3) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
 						
@@ -242,6 +290,7 @@ public class GameMechanics {
 						
 						setExitNum(0);
 						rollNum = 0;
+						
 					}else if(Players[current].getDoor() == 7) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
 						;
@@ -255,6 +304,7 @@ public class GameMechanics {
 					
 						setExitNum(0);
 						rollNum = 0;
+						
 					}
 		
 				}
@@ -285,15 +335,22 @@ public class GameMechanics {
 		}
 		
 		int yValue = 15;
-		for(int i=0;i<diff;i++) {
-			if(Players[current].cards.get(i) <= 6) {
-				g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 15, yValue, null);
-				yValue += 30*numOfPlayers;
-			}else if(Players[current].cards.get(i) >= 11 && Players[current].cards.get(i) < 20) {
-				g.drawImage(images.getImage(Players[current].cards.get(i), "room"), 15, yValue, null);
-				yValue += 30*numOfPlayers;
-			}else if(Players[current].cards.get(i) >= 21 && Players[current].cards.get(i) < 27) {
-				g.drawImage(images.getImage(Players[current].cards.get(i), "weaponsCard"), 15, yValue, null);
+		if(password) {
+			for(int i=0;i<diff;i++) {
+				if(Players[current].cards.get(i) <= 6) {
+					g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 15, yValue, null);
+					yValue += 30*numOfPlayers;
+				}else if(Players[current].cards.get(i) >= 11 && Players[current].cards.get(i) < 20) {
+					g.drawImage(images.getImage(Players[current].cards.get(i), "room"), 15, yValue, null);
+					yValue += 30*numOfPlayers;
+				}else if(Players[current].cards.get(i) >= 21 && Players[current].cards.get(i) < 27) {
+					g.drawImage(images.getImage(Players[current].cards.get(i), "weaponsCard"), 15, yValue, null);
+					yValue += 30*numOfPlayers;
+				}
+			}
+		}else {
+			for(int i=0;i<diff;i++) {
+				g.drawImage(images.getImage(7, "cards"), 15, yValue, null);
 				yValue += 30*numOfPlayers;
 			}
 		}
@@ -362,27 +419,27 @@ public class GameMechanics {
 		
 		for(int j=0;j<numOfPlayers;j++) {
 			if(start.getPlayerNames(j) == "Crazy Cat Lady") {
-				Players[j] = new Players(j,images.getImage(1, "tokens"), 11, 1);
+				Players[j] = new Players(1,images.getImage(1, "tokens"), 11, 1);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
 			}else if(start.getPlayerNames(j) == "Hanz Moleman") {
-				Players[j] = new Players(j,images.getImage(3, "tokens"), 2, 18);
+				Players[j] = new Players(3,images.getImage(3, "tokens"), 2, 18);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
 			}else if(start.getPlayerNames(j) == "Fat Tony") {
-				Players[j] = new Players(j,images.getImage(2, "tokens"), 25, 20);
+				Players[j] = new Players(2,images.getImage(2, "tokens"), 25, 20);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
 			}else if(start.getPlayerNames(j) == "Moe Syzlack") {
-				Players[j] = new Players(j,images.getImage(6, "tokens"), 16, 1);
+				Players[j] = new Players(6,images.getImage(6, "tokens"), 16, 1);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
 			}else if(start.getPlayerNames(j) == "Maggie Simpson") {
-				Players[j] = new Players(j,images.getImage(5, "tokens"), 9, 25);
+				Players[j] = new Players(5,images.getImage(5, "tokens"), 9, 25);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
 			}else if(start.getPlayerNames(j) == "Homer Simpson") {
-				Players[j] = new Players(j,images.getImage(4, "tokens"), 25, 7);
+				Players[j] = new Players(4,images.getImage(4, "tokens"), 25, 7);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
 			}
@@ -545,6 +602,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
 				gameStateCurrent = 5;
 			}
 			
@@ -556,6 +614,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
 				gameStateCurrent = 5;
 			}
 		}else if(val == 40) {
@@ -566,6 +625,8 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
+				gameStateCurrent = 5;
 			}
 		}else if(val == 50){
 			if(dimensions.checkPosAvailable(4,5,(val/10))) {
@@ -575,6 +636,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
 				gameStateCurrent = 5;
 			}
 		}else if(val == 60){
@@ -585,6 +647,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
 				gameStateCurrent = 5;
 			}
 		}else if(val == 70){
@@ -595,6 +658,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
 				gameStateCurrent = 5;
 			}
 		}else if(val == 80){
@@ -605,6 +669,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
 				gameStateCurrent = 5;
 			}
 		}else if(val == 90){
@@ -615,6 +680,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+				
 				gameStateCurrent = 5;
 			}
 		}else if(val == 100){
@@ -625,6 +691,7 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
+	
 				gameStateCurrent = 5;
 			}
 		}else if(val == 110){
@@ -634,7 +701,8 @@ public class GameMechanics {
 				Players[current].setx(14);
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				gameStateCurrent = 5;
+				
+				gameStateCurrent = 7;
 		}
 	}
 	
@@ -803,11 +871,61 @@ public class GameMechanics {
 
 	  }
 	
-	public boolean accuseFull() {
-		return accuse.size() == 3;
+	public Accusation getAccuse() {
+		return accuse;
 	}
-	public void accuseAddition(int number) {
-		accuse.add(number);
+	public void setPassword(boolean t) {
+		password = t;
 	}
-	 
+	public void setAccuseCurrent(int number) {
+		accuseCurrent = number;
+	}
+	
+	public void draw(int number) {
+		g.setColor(Color.BLACK);
+		g.drawImage(images.getImage(8, "screens"), 0, 0, null);
+		for(int i=0;i<6;i++) {
+			if(i == accuseCurrent) {
+				g.drawImage(images.getImage(10, "screens"), 340, 150, null);
+				g.drawImage(images.getImage(Players[accuseCurrent].getPlayerId(), "bigToken"), 420,153, null);
+			}
+		}
+		for(int i=0;i<accuse.getAccuseList().size();i++) {
+			if(accuse.getAccuseList().get(i)<=6) {
+				g.drawImage(images.getImage(accuse.getAccuseList().get(i), "cards"), 231, 255, null);
+			
+			}else if(accuse.getAccuseList().get(i) >=11 && accuse.getAccuseList().get(i)<=19) {
+				g.drawImage(images.getImage(accuse.getAccuseList().get(i), "room"), 368, 255, null);
+				
+			}else if(accuse.getAccuseList().get(i) >=21 && accuse.getAccuseList().get(i)<=26) {
+				g.drawImage(images.getImage(accuse.getAccuseList().get(i), "weaponsCard"), 505, 255, null);
+			
+			}
+		}
+		
+		int xValue = 20;
+		for(int i=0;i<diff;i++) {
+			if(Players[number].cards.get(i) <= 6) {
+				g.drawImage(images.getImage(Players[number].cards.get(i), "cards"), xValue, 450, null);
+				xValue += 43*numOfPlayers;
+			}else if(Players[number].cards.get(i) >= 11 && Players[number].cards.get(i) < 20) {
+				g.drawImage(images.getImage(Players[number].cards.get(i), "room"), xValue, 450, null);
+				xValue += 43*numOfPlayers;
+			}else if(Players[number].cards.get(i) >= 21 && Players[number].cards.get(i) < 27) {
+				g.drawImage(images.getImage(Players[number].cards.get(i), "weaponsCard"), xValue, 450, null);
+				xValue += 43*numOfPlayers;
+			}
+		}
+		
+	}
+	public void showAccused(int number, int player) {
+		System.out.println("player:" +player);
+		System.out.println("number:" +number);
+		if(number == 0 || player == 0) {
+			playerInput.message("No player had any cards");
+		}else {
+			playerInput.message(Players[player].getName()+" has the card:" + number);
+		}
+		setCurrentGameState(2);
+	}
 }

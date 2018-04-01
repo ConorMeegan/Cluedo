@@ -12,15 +12,21 @@ public class PlayerInput extends JPanel implements ActionListener {
 
 	GameMechanics mech;
 	CollisonTesting cTest;
+	Accusation acc;
 	int spaces = 0;
 	int firstRoll = 0;
 	int i = 0;
+	int number = 0;
+	boolean player = true;
+	boolean room = true;
+	boolean weapon = true;
 
 	DiceRoll roll = new DiceRoll();
 
-	public PlayerInput(GameMechanics mech) {
+	public PlayerInput(GameMechanics mech,Accusation accuse) {
 		super(new GridBagLayout());
 		this.mech = mech;
+		this.acc = accuse;
 		cTest = new CollisonTesting(mech);
 		textField = new JTextField(20);
 		textField.addActionListener(this);
@@ -45,24 +51,26 @@ public class PlayerInput extends JPanel implements ActionListener {
 		text = text.toLowerCase();
 		text = text.trim();
 
-		weaponMove(text);
-
 		if (text.equals("roll") && i == 0) {
 			spaces = Roll();
 			textArea.append("press u,d,l,r to move character or \nclick on the board and use the arrow keys" + "\n");
 			i++;
 			mech.setRoll(spaces);
 			mech.setDone(0);
-		} else if (text.equals("quit")) {
+		}else if (text.equals("quit")) {
 			System.exit(0);
-		} else if (text.equals("notes")) {
+		}else if (text.equals("notes")) {
 			mech.table();
-
-		} else if (text.equals("help")) {
+		}else if (text.equals("help")) {
 			help();
-		} else if (text.equals("rules")) {
+		}else if (text.equals("rules")) {
 			rules();
-		} else {
+		}else if (text.equals("cheat")) {
+			message("Error");
+			mech.setCurrentGameState(4);
+		}else if(text.equals("password") && mech.getGameState() == 2) {
+			mech.setPassword(true);
+		}else {
 			playerMove(text);
 		}
 
@@ -98,68 +106,6 @@ public class PlayerInput extends JPanel implements ActionListener {
 		}
 	}
 
-	public void weaponMove(String text) {
-		if (text.equals("burns mansion")) {
-
-			textArea.append("burns mansion" + "\n");
-			textArea.append("moved weapon to burns mansion" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		}
-
-		else if (text.equals("comic book store")) {
-
-			textArea.append("comic book store" + "\n");
-			textArea.append("moved weapon to comic book store" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		}
-
-		else if (text.equals("kwik-e-mart")) {
-
-			textArea.append("kwik-e-mart" + "\n");
-			textArea.append("moved weapon to kwik-e-mart" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		}
-
-		else if (text.equals("school")) {
-
-			textArea.append("school" + "\n");
-			textArea.append("moved weapon to school" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		}
-
-		else if (text.equals("flanders house")) {
-
-			textArea.append("flanders house" + "\n");
-			textArea.append("moved weapon to flanders house" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		}
-
-		else if (text.equals("simpsons house")) {
-
-			textArea.append("simpsons house" + "\n");
-			textArea.append("moved weapon to simpsons house" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		}
-
-		else if (text.equals("frying dutchman")) {
-
-			textArea.append("frying dutchman" + "\n");
-			textArea.append("moved weapon to frying dutchman" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		} else if (text.equals("krusty burger")) {
-
-			textArea.append("krusty burger" + "\n");
-			textArea.append("moved weapon to krusty burger" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		} else if (text.equals("moes tavern")) {
-
-			textArea.append("moes tavern" + "\n");
-			textArea.append("moved weapon to moes tavern" + "\n");
-			textArea.append("roll dice by typing roll" + "\n");
-		}
-
-	}
-
 	public void playerMove(String text) {
 		if(mech.getGameState() == 2) {
 			if (text.equals("u")) {
@@ -182,13 +128,12 @@ public class PlayerInput extends JPanel implements ActionListener {
 				textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
 				mech.setDone(1);
 				i = 0;
+				mech.setPassword(false);
 			}else if (text.equals("l")) {
 				if (cTest.testMove("l", mech.getOb())) {
 					mech.setInput("l");
 					textArea.append("Moved player left" + "\n");
 				}
-			}else if (text.equals("cheat")) {
-				mech.setCurrentGameState(4);
 			}else if (text.equals("1")) {
 				setExit(1);
 				textArea.append("Player exited through exit 1" + "\n");
@@ -207,51 +152,222 @@ public class PlayerInput extends JPanel implements ActionListener {
 				textArea.append("Player exited through exit secret passage way" + "\n");
 			}else if (text.equals("n")) {
 				mech.newMClass();
+			}else {
+				message("(" + text +"): is not a command" );
 			}
-		}else if(mech.getGameState() == 5 && mech.accuseFull() == false) {
+		}else if(mech.getGameState() == 5 && acc.accuseFull() == false) {
 			if(text.equals("burns mansion")) {
-				mech.accuseAddition(11);
+				if(checkValue(11) == false) {
+					acc.accuseAddition(11);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
 			}else if(text.equals("comic book store")) {
-				mech.accuseAddition(16);
+				if(checkValue(16) == false) {
+					acc.accuseAddition(16);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("flanders house")) {
-				mech.accuseAddition(14);
+				if(checkValue(14) == false) {
+					acc.accuseAddition(14);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("frying dutchman")) {
-				mech.accuseAddition(13);
+				if(checkValue(13) == false) {
+					acc.accuseAddition(13);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("krusty burger")) {
-				mech.accuseAddition(15);
+				if(checkValue(15) == false) {
+					acc.accuseAddition(15);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+			
 			}else if(text.equals("moes tavern")) {
-				mech.accuseAddition(19);
+				if(checkValue(19) == false) {
+					acc.accuseAddition(19);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("kwik-e-mart")) {
-				mech.accuseAddition(17);
+				if(checkValue(17) == false) {
+					acc.accuseAddition(17);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("springfield elementry")) {
-				mech.accuseAddition(12);
+				if(checkValue(12) == false) {
+					acc.accuseAddition(12);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("simpsons house")) {
-				mech.accuseAddition(18);
+				if(checkValue(18) == false) {
+					acc.accuseAddition(18);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("homer")) {
-				mech.accuseAddition(4);
+				if(checkValue(4) == false) {
+					acc.accuseAddition(4);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("moe")) {
-				mech.accuseAddition(6);
+				if(checkValue(6) == false) {
+					acc.accuseAddition(6);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("hanz")) {
-				mech.accuseAddition(3);
+				if(checkValue(3) == false) {
+					acc.accuseAddition(3);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("maggie")) {
-				mech.accuseAddition(5);
+				if(checkValue(5) == false) {
+					acc.accuseAddition(5);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("fat tony")) {
-				mech.accuseAddition(2);
+				if(checkValue(2) == false) {
+					acc.accuseAddition(2);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
+			}else if(text.equals("crazy cat lady")) {
+				if(checkValue(1) == false) {
+					acc.accuseAddition(1);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("axe")) {
-				mech.accuseAddition(1);
+				if(checkValue(21) == false) {
+					acc.accuseAddition(21);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("atomic bomb")) {
-				mech.accuseAddition(2);
+				if(checkValue(22) == false) {
+					acc.accuseAddition(22);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("chainsaw")) {
-				mech.accuseAddition(3);
+				if(checkValue(23) == false) {
+					acc.accuseAddition(23);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("knife")) {
-				mech.accuseAddition(5);
+				if(checkValue(25) == false) {
+					acc.accuseAddition(25);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
 			}else if(text.equals("sling shot")) {
-				mech.accuseAddition(6);
+				if(checkValue(26) == false) {
+					acc.accuseAddition(26);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+				
 			}else if(text.equals("gun")) {
-				mech.accuseAddition(4);
+				if(checkValue(24) == false) {
+					acc.accuseAddition(24);
+					if(acc.accuseFull() == true){
+						number = acc.checkMatch();
+						acc.clearAll();
+						mech.showAccused(number,acc.getPlayerWithCard());
+					}
+				}
+			}else {
+				message("(" + text +"): is not a command" );
 			}
-		}else if(mech.accuseFull() == true) {
-			System.out.println("full");
+		}else if(acc.accuseFull() == true) {
+			message("Accusation:" +mech.getAccuse().toString());
+			mech.setCurrentGameState(2);
 		}
 
 	}
@@ -301,7 +417,6 @@ public class PlayerInput extends JPanel implements ActionListener {
 						+ "'NUMBER e.g(1)' to leave by that door(must be in room)\n"
 						+ "'PASSAGE' to leave through secret passage(must be in room)\n"
 						+ "-----------------------------------------------------------------------------------------");
-
 	}
 
 	public void rules() {
@@ -321,6 +436,29 @@ public class PlayerInput extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-
 	}
+	
+	public boolean checkValue(int value) {
+		if(value <= 6 && player) {
+			player = false;
+			return false;
+		}else if(value >= 11 && value <= 19 && room) {
+			room = false;
+			return false;
+		}else if(value >= 21 && value <= 26 && weapon) {
+			weapon = false;
+			return false;
+		}else if(!(room)) {
+			message("Accusation already contains a room");
+			return true;
+		}else if(!(weapon)) {
+			message("Accusation already contains a weapon");
+			return true;
+		}else if(!(player)) {
+			message("Accusation already contains a player");
+			return true;
+		}
+		return false;
+	}
+	
 }
