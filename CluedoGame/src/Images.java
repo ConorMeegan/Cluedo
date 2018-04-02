@@ -9,7 +9,7 @@ public class Images {
 	BufferedImage cards[] = new BufferedImage[7];
 	BufferedImage weapons[] = new BufferedImage[6];
 	BufferedImage weaponsCard[] = new BufferedImage[7];
-	BufferedImage screens[] = new BufferedImage[12];
+	BufferedImage screens[] = new BufferedImage[13];
 	BufferedImage numbers[] = new BufferedImage[6];
 	BufferedImage rooms[] = new BufferedImage[9];
 	BufferedImage bigTokens[] = new BufferedImage[12];
@@ -50,12 +50,12 @@ public class Images {
 			bigTokens[10] = ImageIO.read(getClass().getResource("maggieBigTokenH.png"));
 			bigTokens[11] = ImageIO.read(getClass().getResource("moeBigTokenH.png"));
 			
-			weapons[0] = ImageIO.read(getClass().getResource("axeToken.png"));
-			weapons[1] = ImageIO.read(getClass().getResource("bombToken.png"));
-			weapons[2] = ImageIO.read(getClass().getResource("chainsawToken.png"));
-			weapons[3] = ImageIO.read(getClass().getResource("gunToken.png"));
-			weapons[4] = ImageIO.read(getClass().getResource("knifeToken.png"));
-			weapons[5] = ImageIO.read(getClass().getResource("slingShotToken.png"));
+			weapons[0] = ImageIO.read(getClass().getResource("axetToken2.png"));
+			weapons[1] = ImageIO.read(getClass().getResource("bombToken2.png"));
+			weapons[2] = ImageIO.read(getClass().getResource("chainsawToken2.png"));
+			weapons[3] = ImageIO.read(getClass().getResource("gunToken2.png"));
+			weapons[4] = ImageIO.read(getClass().getResource("knifeToken2.png"));
+			weapons[5] = ImageIO.read(getClass().getResource("slingShotToken2.png"));
 			
 			weaponsCard[0] = ImageIO.read(getClass().getResource("axeCard.png"));
 			weaponsCard[1] = ImageIO.read(getClass().getResource("atomicBombCard.png"));
@@ -75,7 +75,8 @@ public class Images {
 			screens[7] = ImageIO.read(getClass().getResource("accusationCheck.png"));
 			screens[8] = ImageIO.read(getClass().getResource("box.png"));
 			screens[9] = ImageIO.read(getClass().getResource("currentPlayer.png"));
-			screens[10] = ImageIO.read(getClass().getResource("currentPlayer.png"));
+			screens[10] = ImageIO.read(getClass().getResource("finalAcc.png"));
+			screens[11] = ImageIO.read(getClass().getResource("currentPlayerRing.png"));
 			
 			numbers[0] = ImageIO.read(getClass().getResource("1.png"));
 			numbers[1] = ImageIO.read(getClass().getResource("2.png"));
@@ -206,6 +207,8 @@ public class Images {
 				return screens[9];
 			}else if(val == 11) {
 				return screens[10];
+			}else if(val == 12) {
+				return screens[11];
 			}
 		}else if(str.equals("numbers")) {
 			if(val == 1) {

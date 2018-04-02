@@ -14,11 +14,14 @@ import javax.swing.JTable;
 public class GameMechanics {
 	
 	Random rand = new Random();
-	int[] murderEnvelope = new int[3];
+	
+	ArrayList<Integer> startList = new ArrayList<Integer>();
+	ArrayList<Integer> murderEnvelope = new ArrayList<Integer>();
+	ArrayList<Integer> loser = new ArrayList<Integer>();
+	ArrayList<Integer> CList = new ArrayList<Integer>();
 	
 	int gameStateCurrent = 2;
 	int numOfCards = 21;
-	ArrayList<Integer> CList = new ArrayList<Integer>();
 	
 	int accuseCurrent;
 	int current = 0;
@@ -66,7 +69,7 @@ public class GameMechanics {
 		keyManager = new KeyManager(this,cTest);  //for arrow key movement
 		frame.getCanvas().addKeyListener(keyManager);
 		try {
-			background = ImageIO.read(getClass().getResource("map.png"));
+			background = ImageIO.read(getClass().getResource("map1.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -102,7 +105,7 @@ public class GameMechanics {
 			g.drawImage(images.getImage(3, "screens"), 480, 78, null);
 			//main game
 		}else if(gameState[1] == gameStateCurrent) {
-			g.setColor(new Color(97,62,7));
+			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, width, height);
 			g.drawImage(background,180, 0, null);
 			if(Players[current].getDoor() != 0) {
@@ -131,9 +134,9 @@ public class GameMechanics {
 			//g.drawImage(images.getImage(0, "screens"),45, 0, null);
 			
 			g.drawImage(images.getImage(5, "screens"), 0, 0, null);
-			g.drawImage(images.getImage(murderEnvelope[0], "cards"), 231, 255, null);
-			g.drawImage(images.getImage(murderEnvelope[1], "room"), 368, 255, null);
-			g.drawImage(images.getImage(murderEnvelope[2], "weaponsCard"), 505, 255, null);
+			g.drawImage(images.getImage(murderEnvelope.get(0), "cards"), 231, 255, null);
+			g.drawImage(images.getImage(murderEnvelope.get(1), "room"), 368, 255, null);
+			g.drawImage(images.getImage(murderEnvelope.get(2), "weaponsCard"), 505, 255, null);
 			g.drawImage(images.getImage(7, "screens"), 0, 0, null);
 			//Accusation board
 		}else if(gameState[4] == gameStateCurrent) {
@@ -226,12 +229,14 @@ public class GameMechanics {
 		for(int i=0;i<6;i++){
 			g.drawImage(Weapons[i].getImage(), (Weapons[i].getx()*24) +170, (Weapons[i].gety()*24), null);
 		}
-		g.drawImage(images.getImage(9, "screens"), 157, 175, null);
-		g.drawImage(images.getImage(Players[current].getPlayerId()+30, "bigToken"), 157, 175, null);
-		int y = 230;
-		for(int i=0;i<6;i++){
-			g.drawImage(images.getImage(i+1, "bigToken"), 157, y, null);
-			y+=65;
+		
+		int y = 190;
+		for(int i=0;i<startList.size();i++){
+			g.drawImage(images.getImage(startList.get(i), "bigToken"), 157, y, null);
+			if(i == current) {
+				g.drawImage(images.getImage(12, "screens"), 148, y-8, null);
+			}
+			y+=70;
 		}
 		
 		
@@ -422,26 +427,32 @@ public class GameMechanics {
 				Players[j] = new Players(1,images.getImage(1, "tokens"), 11, 1);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
+				startList.add(1);
 			}else if(start.getPlayerNames(j) == "Hanz Moleman") {
 				Players[j] = new Players(3,images.getImage(3, "tokens"), 2, 18);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
+				startList.add(3);
 			}else if(start.getPlayerNames(j) == "Fat Tony") {
 				Players[j] = new Players(2,images.getImage(2, "tokens"), 25, 20);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
+				startList.add(2);
 			}else if(start.getPlayerNames(j) == "Moe Syzlack") {
 				Players[j] = new Players(6,images.getImage(6, "tokens"), 16, 1);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
+				startList.add(6);
 			}else if(start.getPlayerNames(j) == "Maggie Simpson") {
 				Players[j] = new Players(5,images.getImage(5, "tokens"), 9, 25);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
+				startList.add(5);
 			}else if(start.getPlayerNames(j) == "Homer Simpson") {
 				Players[j] = new Players(4,images.getImage(4, "tokens"), 25, 7);
 				Players[j].setName(start.getNames(j));
 				Players[j].setPlayerName(start.getPlayerNames(j));
+				startList.add(4);
 			}
 		}
 			
@@ -556,9 +567,9 @@ public class GameMechanics {
 		int room = rand.nextInt(9)+11;
 		int weapon = rand.nextInt(6)+21;
 		
-		murderEnvelope[0] = suspect;
-		murderEnvelope[1] = room;
-		murderEnvelope[2] = weapon;
+		murderEnvelope.add(suspect);
+		murderEnvelope.add(room);
+		murderEnvelope.add(weapon);
 
 		CList.remove(CList.indexOf(suspect));
 		CList.remove(CList.indexOf(room));
@@ -789,9 +800,9 @@ public class GameMechanics {
 		return Players[current];
 	}
 	public void newMClass() {
-		murderEnvelope[0] = rand.nextInt(6)+1;
-		murderEnvelope[1] = rand.nextInt(9)+11;
-		murderEnvelope[2] = rand.nextInt(6)+21;
+		murderEnvelope.add(rand.nextInt(6)+1);
+		murderEnvelope.add(rand.nextInt(9)+11);
+		murderEnvelope.add(rand.nextInt(6)+21);
 	}
 	
 	public void checkDone() {
@@ -927,5 +938,18 @@ public class GameMechanics {
 			playerInput.message(Players[player].getName()+" has the card:" + number);
 		}
 		setCurrentGameState(2);
+	}
+	
+	public void checkWin() {
+		int totalMurder = 0;
+		int totalAccuse = 0;
+		for(int i = 0;i<3;i++) {
+			totalMurder += murderEnvelope.get(i);
+			totalAccuse += accuse.getAccuseList().get(i);
+		}
+		
+		if(totalMurder == totalAccuse) {
+			playerInput.message("Winner");
+		}
 	}
 }
