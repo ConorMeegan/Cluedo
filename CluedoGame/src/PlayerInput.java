@@ -289,6 +289,7 @@ public class PlayerInput extends JPanel implements ActionListener {
 					acc.accuseAddition(2);
 					if(acc.accuseFull() == true){
 						number = acc.checkMatch();
+						moveCardWeapon();
 						acc.clearAll();
 						mech.showAccused(number,acc.getPlayerWithCard());
 					}
@@ -459,6 +460,21 @@ public class PlayerInput extends JPanel implements ActionListener {
 			return true;
 		}
 		return false;
+	}
+	
+	public void moveCardWeapon() {
+		for(int i=0;i<2;i++) {
+			for(int j=0;j<6;j++) {
+				if(acc.getAccuseList().get(i) == mech.getWeapons()[j].getWeaponsID()) {
+					message("found weapon " + mech.getWeapons()[j].getWeaponsID());
+				}
+			}
+			for(int m=0;m<mech.getNumOfPlayers();i++) {
+				if(acc.getAccuseList().get(i) == mech.getPlayers()[m].getPlayerId()) {
+					message("found player " + mech.getPlayers()[m].getPlayerId());
+				}
+			}
+		}
 	}
 	
 }

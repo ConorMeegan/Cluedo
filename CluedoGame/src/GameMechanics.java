@@ -69,7 +69,7 @@ public class GameMechanics {
 		keyManager = new KeyManager(this,cTest);  //for arrow key movement
 		frame.getCanvas().addKeyListener(keyManager);
 		try {
-			background = ImageIO.read(getClass().getResource("map1.png"));
+			background = ImageIO.read(getClass().getResource("map2.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -577,12 +577,12 @@ public class GameMechanics {
 
 		setPlayerCards();
 
-		Weapons[0] = new weapons(1,images.getImage(1, "weapons"),0,1);
-		Weapons[1] = new weapons(2,images.getImage(2, "weapons"),0,2);
-		Weapons[2] = new weapons(3,images.getImage(3, "weapons"),0,3);
-		Weapons[3] = new weapons(4,images.getImage(4, "weapons"),0,4);
-		Weapons[4] = new weapons(5,images.getImage(5, "weapons"),0,5);
-		Weapons[5] = new weapons(6,images.getImage(6, "weapons"),0,6);
+		Weapons[0] = new weapons(21,images.getImage(1, "weapons"),0,1);
+		Weapons[1] = new weapons(22,images.getImage(2, "weapons"),0,2);
+		Weapons[2] = new weapons(23,images.getImage(3, "weapons"),0,3);
+		Weapons[3] = new weapons(24,images.getImage(4, "weapons"),0,4);
+		Weapons[4] = new weapons(25,images.getImage(5, "weapons"),0,5);
+		Weapons[5] = new weapons(26,images.getImage(6, "weapons"),0,6);
 		playerInput.errorMessages(1);
 		playerInput.errorMessages(2);
 		
@@ -951,5 +951,17 @@ public class GameMechanics {
 		if(totalMurder == totalAccuse) {
 			playerInput.message("Winner");
 		}
+	}
+	
+	public weapons[] getWeapons() {
+		return Weapons;
+	}
+	
+	public Players[] getPlayers() {
+		return Players;
+	}
+	
+	public int getNumOfPlayers() {
+		return numOfPlayers;
 	}
 }
