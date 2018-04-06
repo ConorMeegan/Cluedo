@@ -4,10 +4,12 @@ public class Card extends GameObject{
 	
 	int cardId;
 	int choosenId;
+	int cardLocId;
 	
-	public Card(int cardId,BufferedImage icon, int x, int y) {
+	public Card(int cardId,BufferedImage icon, int x, int y,int cardLocId) {
 		super(icon,x,y);
 		this.cardId = cardId;
+		this.cardLocId = cardLocId;
 	}
 	
 	public int getCardId() {
@@ -20,6 +22,10 @@ public class Card extends GameObject{
 	
 	public int getChoosenId() {
 		return choosenId;
+	}
+	
+	public int getCardLocId() {
+		return cardLocId;
 	}
 
 }

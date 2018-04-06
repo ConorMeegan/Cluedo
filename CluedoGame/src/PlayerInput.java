@@ -69,7 +69,7 @@ public class PlayerInput extends JPanel implements ActionListener {
 			message("Error");
 			mech.setCurrentGameState(4);
 		}else if(text.equals("password") && mech.getGameState() == 2) {
-			mech.setPassword(true);
+			mech.setPassword(1);
 		}else {
 			playerMove(text);
 		}
@@ -128,7 +128,7 @@ public class PlayerInput extends JPanel implements ActionListener {
 				textArea.append("Next player turn. Type 'roll' to roll the dice" + "\n");
 				mech.setDone(1);
 				i = 0;
-				mech.setPassword(false);
+				mech.setPassword(0);
 			}else if (text.equals("l")) {
 				if (cTest.testMove("l", mech.getOb())) {
 					mech.setInput("l");
@@ -280,6 +280,7 @@ public class PlayerInput extends JPanel implements ActionListener {
 					acc.accuseAddition(5);
 					if(acc.accuseFull() == true){
 						number = acc.checkMatch();
+						acc.clearAll();
 						mech.showAccused(number,acc.getPlayerWithCard());
 					}
 				}
@@ -466,12 +467,8 @@ public class PlayerInput extends JPanel implements ActionListener {
 		for(int i=0;i<2;i++) {
 			for(int j=0;j<6;j++) {
 				if(acc.getAccuseList().get(i) == mech.getWeapons()[j].getWeaponsID()) {
-					message("found weapon " + mech.getWeapons()[j].getWeaponsID());
-				}
-			}
-			for(int m=0;m<mech.getNumOfPlayers();i++) {
-				if(acc.getAccuseList().get(i) == mech.getPlayers()[m].getPlayerId()) {
-					message("found player " + mech.getPlayers()[m].getPlayerId());
+					mech.getWeapons()[j].setx(mech.getDimensions().getX());
+					mech.getWeapons()[j].sety(mech.getDimensions().getY());
 				}
 			}
 		}

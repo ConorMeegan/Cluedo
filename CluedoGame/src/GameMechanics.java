@@ -27,7 +27,7 @@ public class GameMechanics {
 	int current = 0;
 	int exitNum = 0;
 	int secretExitNum = 0;
-	boolean password = false;
+	int password = 0;
 	int x=0,xOne = 852/2;
 	int numOfPlayers;
 	int diff;
@@ -45,7 +45,7 @@ public class GameMechanics {
 	Images images = new Images();
 	
 	Players[] Players = new Players[6];
-	Card[] Cards = new Card[21];
+	Card[] Rooms = new Card[9];
 	weapons[] Weapons = new weapons[6];
 
 	Accusation accuse = new Accusation(Players,this);
@@ -309,11 +309,8 @@ public class GameMechanics {
 					
 						setExitNum(0);
 						rollNum = 0;
-						
 					}
-		
-				}
-				
+				}				
 			}
 			if(exit() && rollNum > 0) {
 			
@@ -340,7 +337,7 @@ public class GameMechanics {
 		}
 		
 		int yValue = 15;
-		if(password) {
+		if(password == 1) {
 			for(int i=0;i<diff;i++) {
 				if(Players[current].cards.get(i) <= 6) {
 					g.drawImage(images.getImage(Players[current].cards.get(i), "cards"), 15, yValue, null);
@@ -583,6 +580,16 @@ public class GameMechanics {
 		Weapons[3] = new weapons(24,images.getImage(4, "weapons"),0,4);
 		Weapons[4] = new weapons(25,images.getImage(5, "weapons"),0,5);
 		Weapons[5] = new weapons(26,images.getImage(6, "weapons"),0,6);
+		
+		Rooms[0] = new Card(60,images.getImage(11, "room"),0,0,11);
+		Rooms[0] = new Card(50,images.getImage(16, "room"),0,0,16);
+		Rooms[0] = new Card(40,images.getImage(12, "room"),0,0,12);
+		Rooms[0] = new Card(30,images.getImage(19, "room"),0,0,19);
+		Rooms[0] = new Card(20,images.getImage(15, "room"),0,0,15);
+		Rooms[0] = new Card(70,images.getImage(17, "room"),0,0,17);
+		Rooms[0] = new Card(80,images.getImage(14, "room"),0,0,14);
+		Rooms[0] = new Card(90,images.getImage(18, "room"),0,0,18);
+		Rooms[0] = new Card(100,images.getImage(13, "room"),0,0,13);
 		playerInput.errorMessages(1);
 		playerInput.errorMessages(2);
 		
@@ -885,7 +892,7 @@ public class GameMechanics {
 	public Accusation getAccuse() {
 		return accuse;
 	}
-	public void setPassword(boolean t) {
+	public void setPassword(int t) {
 		password = t;
 	}
 	public void setAccuseCurrent(int number) {
@@ -959,6 +966,10 @@ public class GameMechanics {
 	
 	public Players[] getPlayers() {
 		return Players;
+	}
+	
+	public Card[] getRooms() {
+		return Rooms;
 	}
 	
 	public int getNumOfPlayers() {

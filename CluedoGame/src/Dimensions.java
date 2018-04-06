@@ -122,6 +122,40 @@ private int[][] dimensionsTwo = {
 		return false;
 	}
 	
+public boolean checkPosAvailableWeapon(int x, int y) {
+		
+		if(dimensionsTwo[y][x] != 47) {
+			this.x = y;
+			this.y = x;
+			return true;
+		}else if(dimensionsTwo[y][x+1] != 47) {
+			this.x = y;
+			this.y = x+1;
+			return true;
+		}else if(dimensionsTwo[y][x-1] != 47) {
+			this.x = y;
+			this.y = x-1;
+			return true;
+		}else if(dimensionsTwo[y+1][x] != 47) {
+			this.x = y+1;
+			this.y = x;
+			return true;
+		}else if(dimensionsTwo[y-1][x] != 47) {
+			this.x = y-1;
+			this.y = x;
+			return true;
+		}else if(dimensionsTwo[y][x+2] != 47) {
+			this.x = y;
+			this.y = x+2;
+			return true;
+		}else if(dimensionsTwo[y][x-2] != 47) {
+			this.x = y;
+			this.y = x-2;
+			return true;
+		}
+		return false;
+	}
+	
 	public int getVal(int i, int j) {
 		return dimensions[i][j];
 	}
