@@ -30,14 +30,9 @@ public class Frame {
 		canvas.setPreferredSize(new Dimension(width,height));
 		canvas.setFocusable(true);
 		
+		
 		frame.getContentPane().setLayout(new BorderLayout());
-		canvas.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-				game.setPassword(1);
-			}
-		});
+		
 		frame.add(canvas, BorderLayout.CENTER);
 		frame.pack();
 	}
