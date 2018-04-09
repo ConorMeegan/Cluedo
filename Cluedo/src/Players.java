@@ -85,6 +85,10 @@ public class Players extends GameObject{
 		 cards.add(num);
 	}
 	
+	public ArrayList<Integer> getSeen(){
+		return seenCards;
+	}
+	
 	public void setseenCards(int seenCards){
 		this.seenCards.add(seenCards);
 	}

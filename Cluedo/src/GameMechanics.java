@@ -50,6 +50,7 @@ public class GameMechanics {
 	Images images = new Images();
 	
 	Players[] Players = new Players[6];
+	Players[] PlayersTwo = new Players[6];
 	Card[] Rooms = new Card[9];
 	weapons[] Weapons = new weapons[6];
 
@@ -254,6 +255,11 @@ public class GameMechanics {
 		for(int i=0;i<numOfPlayers;i++) {
 			g.drawImage(Players[i].getImage(), (Players[i].getx()*24) +180, Players[i].gety()*24, null);
 		}
+		//inputPanel.message(PlayersTwo.length + "");
+		for(int i=0;i<PlayersTwo.length-numOfPlayers;i++) {
+			g.drawImage(images.getImage(PlayersTwo[i].getPlayerId(), "tokens"),(PlayersTwo[i].getx()*24) +180, PlayersTwo[i].gety()*24, null);
+		}
+		
 		for(int i=0;i<6;i++){
 			g.drawImage(Weapons[i].getImage(), (Weapons[i].getx()*24) +170, (Weapons[i].gety()*24), null);
 		}
@@ -475,6 +481,50 @@ public class GameMechanics {
 				startList.add(4);
 			}
 		}
+		ArrayList<String> extraNames = new ArrayList<String>();
+		extraNames.add("Moe Syzlack");
+		extraNames.add("Maggie Simpson");
+		
+		extraNames.add("Homer Simpson");
+		extraNames.add("Fat Tony");
+		extraNames.add("Hanz Moleman");
+		extraNames.add("Crazy Cat Lady");
+		int pos = 0;
+		for(int i=0;i<6;i++) {
+			if(!(start.contains(extraNames.get(i)))) {
+				if(extraNames.get(i) == "Crazy Cat Lady") {
+					PlayersTwo[pos] = new Players(1,images.getImage(1, "tokens"), 11, 1);
+					PlayersTwo[pos].setName("noName");
+					PlayersTwo[pos].setPlayerName("Unkown");
+					
+				}else if(extraNames.get(i) == "Hanz Moleman") {
+					PlayersTwo[pos] = new Players(3,images.getImage(3, "tokens"), 2, 18);
+					PlayersTwo[pos].setName("noName");
+					PlayersTwo[pos].setPlayerName("Unkown");
+					
+				}else if(extraNames.get(i) == "Fat Tony") {
+					PlayersTwo[pos] = new Players(2,images.getImage(2, "tokens"), 25, 20);
+					PlayersTwo[pos].setName("noName");
+					PlayersTwo[pos].setPlayerName("Unkown");
+					
+				}else if(extraNames.get(i) == "Moe Syzlack") {
+					PlayersTwo[pos] = new Players(6,images.getImage(6, "tokens"), 16, 1);
+					PlayersTwo[pos].setName("noName");
+					PlayersTwo[pos].setPlayerName("Unkown");
+					
+				}else if(extraNames.get(i) == "Maggie Simpson") {
+					PlayersTwo[pos] = new Players(5,images.getImage(5, "tokens"), 9, 25);
+					PlayersTwo[pos].setName("noName");
+					PlayersTwo[pos].setPlayerName("Unkown");
+					
+				}else if(extraNames.get(i) == "Homer Simpson") {
+					PlayersTwo[pos] = new Players(4,images.getImage(4, "tokens"), 25, 7);
+					PlayersTwo[pos].setName("noName");
+					PlayersTwo[pos].setPlayerName("Unkown");
+				}
+				pos+=1;
+			}
+		}
 			
 		//beginning dice roll here
 		//for loop to roll the dice
@@ -593,7 +643,7 @@ public class GameMechanics {
 		}
 	}
 	
-	public void setDoor(int val) {	
+	public void setDoor(int val,boolean moving) {	
 		if(val == 20) {
 			if(dimensions.checkPosAvailable(23,15,(val/10))) {
 				Players[current].setDoor(val/10);
@@ -602,9 +652,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 			
@@ -616,9 +668,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 40) {
@@ -629,9 +683,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 50){
@@ -642,9 +698,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 60){
@@ -655,9 +713,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 70){
@@ -668,9 +728,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 80){
@@ -681,9 +743,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 90){
@@ -694,9 +758,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 100){
@@ -707,9 +773,11 @@ public class GameMechanics {
 				Players[current].setx(dimensions.getX());
 				dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 				rollNum = 0;
-				inputPanel.message("Type Question to ask a Question");
-				inputPanel.message("or click on the question mark.");
-				accuse.accuseAdditionRoom(Players[current].getDoor());
+				if(moving) {
+					inputPanel.message("Type Question to ask a Question");
+					inputPanel.message("or click on the question mark.");
+					accuse.accuseAdditionRoom(Players[current].getDoor());
+				}
 				panel.reDraw();
 			}
 		}else if(val == 110){
@@ -840,6 +908,12 @@ public class GameMechanics {
 						return "A";
 					}
 				}
+			}else if(getcurrent().getSeen().size()>0) {
+				for(int j = 0; j<getcurrent().getSeen().size(); j++){
+					if(getcurrent().getSeen().get(j) == num){
+						return "V";
+					}
+				}
 			}
 		}
 		return "";
@@ -913,8 +987,7 @@ public class GameMechanics {
 				g.drawImage(images.getImage(10, "screens"), 340, 150, null);
 				g.drawImage(images.getImage(Players[accuseCurrent].getPlayerId(), "bigToken"), 420,153, null);
 			}
-		}
-	
+		}	
 		for(int i=0;i<accuse.getAccuseList().size();i++) {
 			if(accuse.getAccuseList().get(i)<=6) {
 				g.drawImage(images.getImage(accuse.getAccuseList().get(i), "cards"), 231, 255, null);
@@ -1036,7 +1109,7 @@ public class GameMechanics {
 				}
 				panel.reDraw();
 			}
-		}else if(weaponNum == 12) {
+		}else if(roomNum == 12) {
 			if(dimensions.checkPosAvailable(13,5,(40/10))) {
 				for(int i=0;i<6;i++) {
 					if(Weapons[i].getWeaponsID() == weaponNum) {
@@ -1055,7 +1128,7 @@ public class GameMechanics {
 				}
 				panel.reDraw();
 			}
-		}else if(weaponNum == 16){
+		}else if(roomNum == 16){
 			if(dimensions.checkPosAvailable(4,5,(50/10))) {
 				for(int i=0;i<6;i++) {
 					if(Weapons[i].getWeaponsID() == weaponNum) {
@@ -1074,7 +1147,7 @@ public class GameMechanics {
 				}
 				panel.reDraw();
 			}
-		}else if(weaponNum == 11){
+		}else if(roomNum == 11){
 			if(dimensions.checkPosAvailable(5,14,(60/10))) {
 				for(int i=0;i<6;i++) {
 					if(Weapons[i].getWeaponsID() == weaponNum) {
@@ -1093,7 +1166,7 @@ public class GameMechanics {
 				}
 				panel.reDraw();
 			}
-		}else if(weaponNum == 17){
+		}else if(roomNum == 17){
 			if(dimensions.checkPosAvailable(4,22,(70/10))) {
 				for(int i=0;i<6;i++) {
 					if(Weapons[i].getWeaponsID() == weaponNum) {
@@ -1112,7 +1185,7 @@ public class GameMechanics {
 				}
 				panel.reDraw();
 			}
-		}else if(weaponNum == 14){
+		}else if(roomNum == 14){
 			if(dimensions.checkPosAvailable(11,24,(80/10))) {
 				for(int i=0;i<6;i++) {
 					if(Weapons[i].getWeaponsID() == weaponNum) {
@@ -1132,7 +1205,7 @@ public class GameMechanics {
 				panel.reDraw();
 				panel.reDraw();
 			}
-		}else if(weaponNum == 18){
+		}else if(roomNum == 18){
 			if(dimensions.checkPosAvailable(17,24,(90/10))) {
 				for(int i=0;i<6;i++) {
 					if(Weapons[i].getWeaponsID() == weaponNum) {
@@ -1152,7 +1225,7 @@ public class GameMechanics {
 				panel.reDraw();
 				panel.reDraw();
 			}
-		}else if(weaponNum == 13){
+		}else if(roomNum == 13){
 			if(dimensions.checkPosAvailable(24,22,(100/10))) {
 				for(int i=0;i<6;i++) {
 					if(Weapons[i].getWeaponsID() == weaponNum) {
@@ -1175,8 +1248,117 @@ public class GameMechanics {
 	}
 	
 	public void playerMove() {
+		int roomNum =0;
+		int playerNum=0;
 		for(int i=0;i<3;i++) {
+			if(getAccuse().getAccuseList().get(i) >= 1 && getAccuse().getAccuseList().get(i) <= 6) {
+				playerNum = getAccuse().getAccuseList().get(i);
+			}
+			if(getAccuse().getAccuseList().get(i) >= 11 && getAccuse().getAccuseList().get(i) <= 19) {
+				roomNum = getAccuse().getAccuseList().get(i);
+			}
+		}
+		
+			for(int i=0;i<PlayersTwo.length;i++) {
+				inputPanel.message(playerNum+" number");
+				inputPanel.message(PlayersTwo[i].getPlayerId()+"");
+				if(PlayersTwo[i].getPlayerId() == playerNum) {
+					playerNum = i;
+					inputPanel.message(playerNum + "");
+					return;
+				}
+			}
+		if(roomNum == 15) {
+			if(dimensions.checkPosAvailable(23,15,(20/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
 			
+		}else if(roomNum == 19) {
+			if(dimensions.checkPosAvailable(23,5,(30/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
+		}else if(roomNum == 12) {
+			if(dimensions.checkPosAvailable(13,5,(40/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
+		}else if(roomNum == 16){
+			if(dimensions.checkPosAvailable(4,5,(50/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
+		}else if(roomNum == 11){
+			if(dimensions.checkPosAvailable(5,14,(60/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(Players[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
+		}else if(roomNum == 17){
+			if(dimensions.checkPosAvailable(4,22,(70/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
+		}else if(roomNum == 14){
+			if(dimensions.checkPosAvailable(11,24,(80/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
+		}else if(roomNum == 18){
+			if(dimensions.checkPosAvailable(17,24,(90/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
+		}else if(roomNum == 100){
+			if(dimensions.checkPosAvailable(24,22,(100/10))) {
+				PlayersTwo[playerNum].setDoor(20/10);
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+				PlayersTwo[playerNum].sety(dimensions.getY());
+				PlayersTwo[playerNum].setx(dimensions.getX());
+				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+				rollNum = 0;
+				panel.reDraw();
+			}
 		}
 	}
 	

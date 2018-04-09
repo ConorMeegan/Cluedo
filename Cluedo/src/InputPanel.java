@@ -102,6 +102,8 @@ public class InputPanel extends JPanel{
 					
 				}else if(text.equals("log")) {
 					message(mech.getAccuse().getAswers().toString());
+				}else if(text.equals("list")){
+					message(mech.getcurrent().getSeen().toString());
 				}else {
 					playerMove(text);
 				}
@@ -216,6 +218,7 @@ public class InputPanel extends JPanel{
 					acc.setBooleans();
 					mech.setCurrentGameState(2);
 					mech.getPanel().reDraw();
+					mech.getcurrent().getSeen().add(Integer.parseInt(text));
 				}else {
 					message("Number doesnt match\nPlease enter again");
 				}
@@ -408,17 +411,6 @@ public class InputPanel extends JPanel{
 	
 	public void getNames() {
 		message("Please Enter the Names:");
-	}
-	
-	public void moveCardWeapon() {
-		for(int i=0;i<2;i++) {
-			for(int j=0;j<6;j++) {
-				if(acc.getAccuseList().get(i) == mech.getWeapons()[j].getWeaponsID()) {
-					mech.getWeapons()[j].setx(mech.getDimensions().getX());
-					mech.getWeapons()[j].sety(mech.getDimensions().getY());
-				}
-			}
-		}
 	}
 	
 	public void clear() {
