@@ -986,9 +986,190 @@ public class GameMechanics {
 	}
 	
 	public void weaponMove() {
+		int weaponNum = 0;
+		int roomNum = 0;
 		for(int i=0;i<3;i++) {
 			if(getAccuse().getAccuseList().get(i) >= 21 && getAccuse().getAccuseList().get(i) <= 26) {
-				F
+				weaponNum = getAccuse().getAccuseList().get(i);
+			}
+			if(getAccuse().getAccuseList().get(i) >= 11 && getAccuse().getAccuseList().get(i) <= 19) {
+				roomNum = getAccuse().getAccuseList().get(i);
+			}
+		}
+		
+		if(roomNum == 15) {
+			if(dimensions.checkPosAvailable(23,15,(20/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+			}
+			
+		}else if(roomNum == 19) {
+			if(dimensions.checkPosAvailable(23,5,(30/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+			}
+		}else if(weaponNum == 12) {
+			if(dimensions.checkPosAvailable(13,5,(40/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+			}
+		}else if(weaponNum == 16){
+			if(dimensions.checkPosAvailable(4,5,(50/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+			}
+		}else if(weaponNum == 11){
+			if(dimensions.checkPosAvailable(5,14,(60/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+			}
+		}else if(weaponNum == 17){
+			if(dimensions.checkPosAvailable(4,22,(70/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+			}
+		}else if(weaponNum == 14){
+			if(dimensions.checkPosAvailable(11,24,(80/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+				panel.reDraw();
+			}
+		}else if(weaponNum == 18){
+			if(dimensions.checkPosAvailable(17,24,(90/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
+				panel.reDraw();
+			}
+		}else if(weaponNum == 13){
+			if(dimensions.checkPosAvailable(24,22,(100/10))) {
+				for(int i=0;i<6;i++) {
+					if(Weapons[i].getWeaponsID() == weaponNum) {
+						
+						if(dimensions.getVal(Weapons[i].getx(), Weapons[i].gety()) == 0) {
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}else {
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 0);
+							Weapons[i].sety(dimensions.getY());
+							Weapons[i].setx(dimensions.getX());
+							dimensions.setVal(Weapons[i].getx(), Weapons[i].gety(), 47);
+						}
+					}
+				}
+				panel.reDraw();
 			}
 		}
 	}

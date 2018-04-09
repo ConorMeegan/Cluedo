@@ -122,7 +122,7 @@ private int[][] dimensionsTwo = {
 		return false;
 	}
 	
-public boolean checkPosAvailableWeapon(int x, int y) {
+	public boolean checkPosAvailableWeapon(int x, int y) {
 		
 		if(dimensionsTwo[y][x] != 47) {
 			this.x = y;
