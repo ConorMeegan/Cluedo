@@ -11,6 +11,7 @@ public class Players extends GameObject{
 	String playerName;
 	boolean active = false;
 	boolean biggestRoll;
+	ArrayList<Integer> seenCards = new ArrayList<Integer>();
 	ArrayList<Integer> cards = new ArrayList<Integer>();
 	
 	public Players(int playerId,BufferedImage icon, int x, int y) {
@@ -82,5 +83,13 @@ public class Players extends GameObject{
 	
 	public void addCards(int num) {
 		 cards.add(num);
+	}
+	
+	public void setseenCards(int seenCards){
+		this.seenCards.add(seenCards);
+	}
+	
+	public int getseenCards(int i) {
+		return seenCards.get(i);
 	}
 }
