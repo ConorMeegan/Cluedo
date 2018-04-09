@@ -32,7 +32,6 @@ public class Accusation {
 		return accuse.size() == 3;
 	}
 	public void accuseAdditionRoom(int number) {
-		game.getInputPanel().message(accuse.toString());
 		if(!(room)) {
 			
 			if(game.getGameState() == 7) {
@@ -78,12 +77,12 @@ public class Accusation {
 			}
 			room = true;
 			if(game.getAccuse().accuseFull() && game.getGameState() == 7) {
-				game.setCurrentGameState(8);
+				game.setCurrentGameState(2);
+				
 				game.getPanel().reDraw();
 				game.checkWin();
 			}
 			game.getPanel().reDraw();
-			game.getInputPanel().message(accuse.toString());
 		}
 	}
 	public void accuseAdditionWeapon(int number) {
@@ -101,11 +100,10 @@ public class Accusation {
 		}
 		
 		if(game.getAccuse().accuseFull() && game.getGameState() == 7) {
-			game.setCurrentGameState(8);
+			game.setCurrentGameState(2);
 			game.getPanel().reDraw();
 			game.checkWin();
 		}
-		game.getInputPanel().message(accuse.toString());
 	}
 	public void accuseAdditionPlayer(int number) {
 		
@@ -122,11 +120,10 @@ public class Accusation {
 		}
 		
 		if(game.getAccuse().accuseFull() && game.getGameState() == 7) {
-			game.setCurrentGameState(8);
+			game.setCurrentGameState(2);
 			game.getPanel().reDraw();
 			game.checkWin();
 		}
-		game.getInputPanel().message(accuse.toString());
 	}
 	public void addQuestion(String name) {
 		String q = name + "questioned:";

@@ -32,7 +32,7 @@ public class Images {
 			
 			cards[0] = ImageIO.read(getClass().getResource("crazyCatLadyCard.png"));
 			cards[1] = ImageIO.read(getClass().getResource("fatTonyCard.png"));
-			cards[2] = ImageIO.read(getClass().getResource("hanzMolemanCard.png"));
+			cards[2] = ImageIO.read(getClass().getResource("hanzMoleManCard.png"));
 			cards[3] = ImageIO.read(getClass().getResource("homerCard.png"));
 			cards[4] = ImageIO.read(getClass().getResource("maggieCard.png"));
 			cards[5] = ImageIO.read(getClass().getResource("moeCard.png"));

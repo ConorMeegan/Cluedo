@@ -792,24 +792,15 @@ public class GameMechanics {
 		if(current < (numOfPlayers-1)) {
 			current++;
 			if(loser.contains(current)) {
-				current++;
+				checkCurrent();
 			}
-		}else if(current == (numOfPlayers-1)){
+		}else{
 			
 			current = 0;
+			if(loser.contains(current)) {
+				checkCurrent();
+			}
 		}
-		
-		/*
-		 * old loop
-		 * 
-		 * if(current < (numOfPlayers-1)) {
-			current++;
-		
-		}else {
-			
-			current = 0;
-		}
-		 */
 	}
 	
 	public Players getcurrent(){
@@ -994,13 +985,25 @@ public class GameMechanics {
 		return panel;
 	}
 	
+	public void weaponMove() {
+		for(int i=0;i<3;i++) {
+			if(getAccuse().getAccuseList().get(i) >= 21 && getAccuse().getAccuseList().get(i) <= 26) {
+				F
+			}
+		}
+	}
+	
+	public void playerMove() {
+		for(int i=0;i<3;i++) {
+			
+		}
+	}
+	
 	public void checkWin() {
-		inputPanel.message(murderEnvelope.toString());
 		int matches = 0;
 		for(int i=0;i<murderEnvelope.size();i++) {
 			for(int j=0;j<getAccuse().getAccuseList().size();j++) {
 				if(murderEnvelope.contains(getAccuse().getAccuseList().get(j))) {
-					inputPanel.message(murderEnvelope.get(j) + "");
 					matches += 1;
 				}
 			}
@@ -1011,6 +1014,19 @@ public class GameMechanics {
 		}else {
 			inputPanel.message("no win");
 			loser.add(current);
+			getAccuse().reset();
+			getAccuse().setBooleans();
+			
+			if(loser.size() == numOfPlayers-1) {
+				for(int i=0;i<loser.size();i++) {
+					for(int j=0;j<numOfPlayers;j++) {
+						if(!(loser.contains(j))) {
+							inputPanel.message(Players[j].getName()+" Wins the game");
+							return;
+						}
+					}
+				}
+			}
 		}
 	}
 

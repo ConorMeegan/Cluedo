@@ -141,7 +141,6 @@ public class InputPanel extends JPanel{
 				}else if(x> 10 && x < 20 && !(mech.getAccuse().getAccuseList().contains(x))) {
 					mech.getAccuse().accuseAdditionRoom(x);
 				}else if(x > 20 && x < 27 && !(mech.getAccuse().getAccuseList().contains(x))) {
-					message("weapons|||");
 					mech.getAccuse().accuseAdditionWeapon(x);
 				}else {
 					message("Final Accusation already\ncontains this card");
@@ -200,6 +199,8 @@ public class InputPanel extends JPanel{
 				mech.setAccuseCurrent(mech.current + 1);
 				mech.getAccuse().addQuestion(mech.Players[mech.current].getName());
 				mech.getPanel().reDraw();
+				mech.weaponMove();
+				mech.playerMove();
 				message("Do you have any\nmatching cards?Enter the value\nof the card");
 			}else if (text.equals("cheat")) {
 				message("cheat command");
