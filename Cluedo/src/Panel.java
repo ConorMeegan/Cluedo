@@ -53,11 +53,19 @@ public class Panel extends JPanel{
 					reDraw();
 				}
 				
-				if(x>=160 && x<=460 && game.getGameState() == 2 && y >= 632) {
+				if(x>=160 && x<=460 && game.getGameState() == 2 && y >= 500) {
 					game.setHidden(true);
 					reDraw();
 				}else {
 					game.setHidden(false);
+					reDraw();
+				}
+				
+				if(game.getGameState() == 6 && y > 500) {
+					game.setShow(true);
+					reDraw();
+				}else {
+					game.setShow(false);
 					reDraw();
 				}
 				
@@ -153,7 +161,7 @@ public class Panel extends JPanel{
 				}
 				
 				if(arg0.getX()>=810 && arg0.getX()<=845 && game.getGameState() == 2 && arg0.getY() <= 45 && game.getOb().getDoor() > 0) {
-					game.getInputPanel().message("Question Clicked");
+				
 					game.setCurrentGameState(5);
 					reDraw();
 				}

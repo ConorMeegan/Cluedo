@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -34,6 +35,8 @@ public class GameMechanics {
 	int exitNum = 0;
 	int secretExitNum = 0;
 	
+	boolean setShow = false;
+	
 	int password = 0;
 	boolean showHidden = false;
 	
@@ -53,6 +56,8 @@ public class GameMechanics {
 	Players[] PlayersTwo = new Players[6];
 	Card[] Rooms = new Card[9];
 	weapons[] Weapons = new weapons[6];
+	
+	int wait = 0;
 
 	Accusation accuse = new Accusation(Players,this);
 	InputPanel inputPanel = new InputPanel(width,height,this,accuse);
@@ -107,11 +112,6 @@ public class GameMechanics {
 			}else {
 				g.drawImage(images.getImage(13, "screens"),810, 10, null);
 			}
-			if(rollNum == 0) {
-				g.drawImage(images.getImage(16, "screens"),810, 625, null);
-			}else {
-				g.drawImage(images.getImage(14, "screens"),810, 625, null);
-			}
 			if(CList.size() != 0) {
 				int x = 160;
 				int y = 632;
@@ -161,6 +161,12 @@ public class GameMechanics {
 			g.drawImage(images.getImage(15, "screens"), 0, 0, null);
 			g.setColor(new Color(20,20,20,240));
 			g.fillRect(0, 0, width, height);
+			g.setFont(new Font("Courier", Font.BOLD,50));
+			g.setColor(Color.white);
+			g.drawString("Make accusation", 170, 100);
+			g.setFont(new Font("Courier", Font.BOLD,35));
+			g.setColor(Color.white);
+			g.drawString("Type the number of the card", 150, 130);
 			int x = 10; int y = 240;
 			for(int i=1;i<=6;i++) {
 				if(accuse.getAccuseList().contains(i)) {
@@ -235,11 +241,21 @@ public class GameMechanics {
 			g.drawImage(images.getImage(15, "screens"), 0, 0, null);
 			g.setColor(new Color(20,20,20,200));
 			g.fillRect(0, 0, width, height);
+			
 			int x = 10; int y = 240;
 			for(int i=1;i<=6;i++) {
+					g.setFont(new Font("Courier", Font.BOLD,50));
+					g.setColor(Color.white);
+					g.drawString("Choose Player based", 170, 100);
+					g.drawString("on the input of the", 170, 140);
+					g.drawString("names", 170, 180);
+					g.setFont(new Font("Courier", Font.BOLD,35));
+					g.drawString("Click on cards", 170, 220);
+			
 				if(choosen.contains(i)) {
 					g.drawImage(images.getImage(7, "cards"), x, y, null);
 					x+=140;
+					wait+=1;
 				}else {
 					g.drawImage(images.getImage(i, "cards"), x, y, null);
 					x+=140;
@@ -255,7 +271,7 @@ public class GameMechanics {
 		for(int i=0;i<numOfPlayers;i++) {
 			g.drawImage(Players[i].getImage(), (Players[i].getx()*24) +180, Players[i].gety()*24, null);
 		}
-		//inputPanel.message(PlayersTwo.length + "");
+		
 		for(int i=0;i<PlayersTwo.length-numOfPlayers;i++) {
 			g.drawImage(images.getImage(PlayersTwo[i].getPlayerId(), "tokens"),(PlayersTwo[i].getx()*24) +180, PlayersTwo[i].gety()*24, null);
 		}
@@ -296,7 +312,7 @@ public class GameMechanics {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 						
 						setExitNum(0);
-						rollNum = 0;
+						rollNum = 1;
 						
 					}else if(Players[current].getDoor() == 5) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
@@ -309,7 +325,7 @@ public class GameMechanics {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 						
 						setExitNum(0);
-						rollNum = 0;
+						rollNum = 1;
 						
 					}else if(Players[current].getDoor() == 3) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
@@ -322,7 +338,7 @@ public class GameMechanics {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 						
 						setExitNum(0);
-						rollNum = 0;
+						rollNum = 1;
 						
 					}else if(Players[current].getDoor() == 7) {
 						dimensions.setVal(Players[current].getx(), Players[current].gety(), Players[current].getDoor());
@@ -334,7 +350,7 @@ public class GameMechanics {
 						Players[current].setDoor((dimensions.getVal(Players[current].getx(),Players[current].gety())));	
 						dimensions.setVal(Players[current].getx(), Players[current].gety(),47);
 						setExitNum(0);
-						rollNum = 0;
+						rollNum = 1;
 					}
 				}
 				panel.reDraw();
@@ -351,7 +367,7 @@ public class GameMechanics {
 									dimensions.setVal(i, j, Players[current].getDoor()/10);
 									Players[current].setx(dimensions.getX());
 									Players[current].sety(dimensions.getY());
-									dimensions.setVal(i, j, 47);
+									dimensions.setVal(Players[current].getx(), Players[current].gety(), 47);
 									Players[current].setDoor(0);
 								}
 							}
@@ -899,7 +915,7 @@ public class GameMechanics {
 	
 	public String getCards(int num){
 		for(int i = 0; i<Players[current].cards.size(); i++){
-			if( Players[current].cards.get(i) == num){
+			if(Players[current].cards.get(i) == num){
 				return "X";
 			}
 			else if(CList.size() > 0){
@@ -910,7 +926,7 @@ public class GameMechanics {
 				}
 			}else if(getcurrent().getSeen().size()>0) {
 				for(int j = 0; j<getcurrent().getSeen().size(); j++){
-					if(getcurrent().getSeen().get(j) == num){
+					if(Players[current].getSeen().get(j) == num){
 						return "V";
 					}
 				}
@@ -984,17 +1000,15 @@ public class GameMechanics {
 		}
 		for(int i=0;i<6;i++) {
 			if(i == accuseCurrent) {
-				g.drawImage(images.getImage(10, "screens"), 340, 150, null);
-				g.drawImage(images.getImage(Players[accuseCurrent].getPlayerId(), "bigToken"), 420,153, null);
+				g.drawImage(images.getImage(12, "screens"), 660, 50, null);
+				g.drawImage(images.getImage(Players[accuseCurrent].getPlayerId(), "bigToken"), 668,58, null);
 			}
 		}	
 		for(int i=0;i<accuse.getAccuseList().size();i++) {
 			if(accuse.getAccuseList().get(i)<=6) {
 				g.drawImage(images.getImage(accuse.getAccuseList().get(i), "cards"), 231, 255, null);
-			
 			}else if(accuse.getAccuseList().get(i) >=11 && accuse.getAccuseList().get(i)<=19) {
-				g.drawImage(images.getImage(accuse.getAccuseList().get(i), "room"), 368, 255, null);
-				
+					g.drawImage(images.getImage(accuse.getAccuseList().get(i), "room"), 368, 255, null);
 			}else if(accuse.getAccuseList().get(i) >=21 && accuse.getAccuseList().get(i)<=26) {
 				g.drawImage(images.getImage(accuse.getAccuseList().get(i), "weaponsCard"), 505, 255, null);
 			}
@@ -1003,14 +1017,29 @@ public class GameMechanics {
 		int xValue = 20;
 		for(int i=0;i<diff;i++) {
 			if(Players[accuseCurrent].cards.get(i) <= 6) {
-				g.drawImage(images.getImage(Players[accuseCurrent].cards.get(i), "cards"), xValue, 450, null);
-				xValue += 43*numOfPlayers;
+				if(setShow) {
+					g.drawImage(images.getImage(Players[accuseCurrent].cards.get(i), "cards"), xValue, 450, null);
+					xValue += 43*numOfPlayers;
+				}else {
+					g.drawImage(images.getImage(7, "cards"), xValue, 450, null);
+					xValue += 43*numOfPlayers;
+				}
 			}else if(Players[accuseCurrent].cards.get(i) >= 11 && Players[accuseCurrent].cards.get(i) < 20) {
-				g.drawImage(images.getImage(Players[accuseCurrent].cards.get(i), "room"), xValue, 450, null);
-				xValue += 43*numOfPlayers;
+				if(setShow) {
+					g.drawImage(images.getImage(Players[accuseCurrent].cards.get(i), "room"), xValue, 450, null);
+					xValue += 43*numOfPlayers;
+				}else {
+					g.drawImage(images.getImage(7, "cards"), xValue, 450, null);
+					xValue += 43*numOfPlayers;
+				}
 			}else if(Players[accuseCurrent].cards.get(i) >= 21 && Players[accuseCurrent].cards.get(i) < 27) {
-				g.drawImage(images.getImage(Players[accuseCurrent].cards.get(i), "weaponsCard"), xValue, 450, null);
-				xValue += 43*numOfPlayers;
+				if(setShow) {
+					g.drawImage(images.getImage(Players[accuseCurrent].cards.get(i), "weaponsCard"), xValue, 450, null);
+					xValue += 43*numOfPlayers;
+				}else {
+					g.drawImage(images.getImage(7, "cards"), xValue, 450, null);
+					xValue += 43*numOfPlayers;
+				}
 			}
 		}
 	}
@@ -1247,9 +1276,11 @@ public class GameMechanics {
 		}
 	}
 	
-	public void playerMove() {
-		int roomNum =0;
-		int playerNum=0;
+	public int playerMove() {
+		int roomNum = 0;
+		int playerNum = 0;
+		int num = 0;
+		int n = 0;
 		for(int i=0;i<3;i++) {
 			if(getAccuse().getAccuseList().get(i) >= 1 && getAccuse().getAccuseList().get(i) <= 6) {
 				playerNum = getAccuse().getAccuseList().get(i);
@@ -1257,109 +1288,239 @@ public class GameMechanics {
 			if(getAccuse().getAccuseList().get(i) >= 11 && getAccuse().getAccuseList().get(i) <= 19) {
 				roomNum = getAccuse().getAccuseList().get(i);
 			}
+			
 		}
-		
-			for(int i=0;i<PlayersTwo.length;i++) {
-				inputPanel.message(playerNum+" number");
-				inputPanel.message(PlayersTwo[i].getPlayerId()+"");
-				if(PlayersTwo[i].getPlayerId() == playerNum) {
-					playerNum = i;
-					inputPanel.message(playerNum + "");
-					return;
+		for(int i =0;i<PlayersTwo.length;i++) {
+			if(!(PlayersTwo[i] == null) && PlayersTwo[i].getPlayerId() == playerNum) {
+				n = 2;
+			}
+		}
+		for(int i =0;i<Players.length;i++) {
+			if(!(Players[i] == null) && Players[i].getPlayerId() == playerNum) {
+				n = 1;
+			}
+		}
+		if(n == 1) {
+			for(int i=0;i<Players.length;i++) {
+				if(Players[i].getPlayerId() == playerNum) {
+					num = i;
+					if(roomNum == 15) {
+						if(dimensions.checkPosAvailable(23,15,(20/10))) {
+							Players[num].setDoor(20/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+						
+					}else if(roomNum == 19) {
+						if(dimensions.checkPosAvailable(23,5,(30/10))) {
+							Players[num].setDoor(30/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}else if(roomNum == 12) {
+						if(dimensions.checkPosAvailable(13,5,(40/10))) {
+							Players[num].setDoor(40/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}else if(roomNum == 16){
+						if(dimensions.checkPosAvailable(4,5,(50/10))) {
+							PlayersTwo[num].setDoor(50/10);
+							dimensions.setVal(Players[num].getx(), PlayersTwo[num].gety(), 0);
+							PlayersTwo[num].sety(dimensions.getY());
+							PlayersTwo[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), PlayersTwo[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}else if(roomNum == 11){
+						if(dimensions.checkPosAvailable(5,14,(60/10))) {
+							Players[num].setDoor(60/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}else if(roomNum == 17){
+						if(dimensions.checkPosAvailable(4,22,(70/10))) {
+							Players[num].setDoor(70/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}else if(roomNum == 14){
+						if(dimensions.checkPosAvailable(11,24,(80/10))) {
+							Players[num].setDoor(80/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}else if(roomNum == 18){
+						if(dimensions.checkPosAvailable(17,24,(90/10))) {
+							Players[num].setDoor(90/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}else if(roomNum == 100){
+						if(dimensions.checkPosAvailable(24,22,(100/10))) {
+							Players[num].setDoor(100/10);
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 0);
+							Players[num].sety(dimensions.getY());
+							Players[num].setx(dimensions.getX());
+							dimensions.setVal(Players[num].getx(), Players[num].gety(), 47);
+							rollNum = 0;
+							panel.reDraw();
+							return 0;
+						}
+					}
 				}
 			}
-		if(roomNum == 15) {
-			if(dimensions.checkPosAvailable(23,15,(20/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-			
-		}else if(roomNum == 19) {
-			if(dimensions.checkPosAvailable(23,5,(30/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-		}else if(roomNum == 12) {
-			if(dimensions.checkPosAvailable(13,5,(40/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-		}else if(roomNum == 16){
-			if(dimensions.checkPosAvailable(4,5,(50/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-		}else if(roomNum == 11){
-			if(dimensions.checkPosAvailable(5,14,(60/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(Players[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-		}else if(roomNum == 17){
-			if(dimensions.checkPosAvailable(4,22,(70/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-		}else if(roomNum == 14){
-			if(dimensions.checkPosAvailable(11,24,(80/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-		}else if(roomNum == 18){
-			if(dimensions.checkPosAvailable(17,24,(90/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
-			}
-		}else if(roomNum == 100){
-			if(dimensions.checkPosAvailable(24,22,(100/10))) {
-				PlayersTwo[playerNum].setDoor(20/10);
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
-				PlayersTwo[playerNum].sety(dimensions.getY());
-				PlayersTwo[playerNum].setx(dimensions.getX());
-				dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
-				rollNum = 0;
-				panel.reDraw();
+		}
+		
+		if(n == 2) {
+			for(int i=0;i<PlayersTwo.length;i++) {
+				if(!(PlayersTwo[i] == null)) {
+					if(PlayersTwo[i].getPlayerId() == playerNum) {
+						num = i;
+						if(roomNum == 15) {
+							if(dimensions.checkPosAvailable(23,15,(20/10))) {
+								PlayersTwo[num].setDoor(20/10);
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+							
+						}else if(roomNum == 19) {
+							if(dimensions.checkPosAvailable(23,5,(30/10))) {
+								PlayersTwo[num].setDoor(30/10);
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}else if(roomNum == 12) {
+							if(dimensions.checkPosAvailable(13,5,(40/10))) {
+								PlayersTwo[num].setDoor(40/10);
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}else if(roomNum == 16){
+							if(dimensions.checkPosAvailable(4,5,(50/10))) {
+								PlayersTwo[num].setDoor(50/10);
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}else if(roomNum == 11){
+							if(dimensions.checkPosAvailable(5,14,(60/10))) {
+								PlayersTwo[num].setDoor(60/10);
+								dimensions.setVal(Players[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}else if(roomNum == 17){
+							if(dimensions.checkPosAvailable(4,22,(70/10))) {
+								PlayersTwo[num].setDoor(70/10);
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}else if(roomNum == 14){
+							if(dimensions.checkPosAvailable(11,24,(80/10))) {
+								PlayersTwo[num].setDoor(80/10);
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}else if(roomNum == 18){
+							if(dimensions.checkPosAvailable(17,24,(90/10))) {
+								PlayersTwo[playerNum].setDoor(90/10);
+								dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[playerNum].gety(), 0);
+								PlayersTwo[playerNum].sety(dimensions.getY());
+								PlayersTwo[playerNum].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[playerNum].getx(), PlayersTwo[current].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}else if(roomNum == 100){
+							if(dimensions.checkPosAvailable(24,22,(100/10))) {
+								PlayersTwo[num].setDoor(100/10);
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 0);
+								PlayersTwo[num].sety(dimensions.getY());
+								PlayersTwo[num].setx(dimensions.getX());
+								dimensions.setVal(PlayersTwo[num].getx(), PlayersTwo[num].gety(), 47);
+								rollNum = 0;
+								panel.reDraw();
+								return 0;
+							}
+						}
+					}
+				}
 			}
 		}
+		return 0;
+
 	}
 	
 	public void checkWin() {
@@ -1391,6 +1552,10 @@ public class GameMechanics {
 				}
 			}
 		}
+	}
+	
+	public void setShow(boolean t) {
+		setShow = t;
 	}
 
 }

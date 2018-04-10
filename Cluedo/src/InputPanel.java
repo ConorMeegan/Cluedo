@@ -102,6 +102,8 @@ public class InputPanel extends JPanel{
 					
 				}else if(text.equals("log")) {
 					message(mech.getAccuse().getAswers().toString());
+				}else if(text.equals("answers")) {
+					message(mech.getAccuse().getAswers().toString());
 				}else if(text.equals("list")){
 					message(mech.getcurrent().getSeen().toString());
 				}else {
@@ -196,7 +198,7 @@ public class InputPanel extends JPanel{
 			}else if(text.equals("quit")) {
 				System.exit(0);
 			}else if(text.equals("done") && acc.accuseFull()) {
-				message("Current:"+mech.current);
+				
 				mech.setCurrentGameState(6);
 				mech.setAccuseCurrent(mech.current + 1);
 				mech.getAccuse().addQuestion(mech.Players[mech.current].getName());
@@ -217,6 +219,7 @@ public class InputPanel extends JPanel{
 					acc.reset();
 					acc.setBooleans();
 					mech.setCurrentGameState(2);
+					message(mech.getAccuse().getAswers().toString());
 					mech.getPanel().reDraw();
 					mech.getcurrent().getSeen().add(Integer.parseInt(text));
 				}else {
