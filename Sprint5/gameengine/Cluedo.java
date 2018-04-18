@@ -37,7 +37,7 @@ public class Cluedo {
         ArrayList<String> suspectNames = new ArrayList<>(Arrays.asList(Names.SUSPECT_NAMES));
         Collections.shuffle(suspectNames);
         if (args.length<NUM_PLAYERS) {
-            botNames[0] = "Sherlock";//team name
+            botNames[0] = "Sherlock";
             botNames[1] = "Bot2";
             botNames[2] = "Bot3";
         } else {
