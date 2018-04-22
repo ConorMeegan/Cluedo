@@ -4,6 +4,7 @@ import gameengine.*;
 
 public class Bot2 implements BotAPI {
 
+	private int turnsDone = 0;
     // The public API of Bot must not change
     // This is ONLY class that you can edit in the program
     // Rename Bot to the name of your team. Use camel case.
@@ -31,13 +32,27 @@ public class Bot2 implements BotAPI {
     }
 
     public String getCommand() {
-        // Add your code here
+    	if(turnsDone == dice.getTotal()) {
+			turnsDone = 0;
+			return "done";
+		}
+
         return "done";
     }
 
     public String getMove() {
-        // Add your code here
-        return "r";
+    	if(map.isCorridor(new Coordinates(player.getToken().getPosition().getCol(),player.getToken().getPosition().getRow()-1))) {
+			turnsDone += 1;
+			return "u";
+		}else if(map.isCorridor(new Coordinates(player.getToken().getPosition().getCol()+1,player.getToken().getPosition().getRow()))) {
+			turnsDone += 1;
+			return "r";
+		}else if(map.isCorridor(new Coordinates(player.getToken().getPosition().getCol()-1,player.getToken().getPosition().getRow()))) {
+			turnsDone += 1;
+			return "l";
+		}
+		turnsDone += 1;
+		return "d";
     }
 
     public String getSuspect() {

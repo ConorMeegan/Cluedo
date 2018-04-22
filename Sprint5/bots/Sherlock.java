@@ -1,9 +1,69 @@
 package bots;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import gameengine.*;
 
 public class Sherlock implements BotAPI {
-
+	
+	
+	private class node {
+		int H;
+		int T;
+		int D;
+		int xCord;
+		int yCord;
+		
+		public node(int x, int y) {
+			xCord = x;
+			yCord = y;
+			this.T = -1;
+		}
+		
+		public void setH(int H) {
+			this.H = H;
+		}
+		
+		public void setT(int T) {
+			this.T= T;
+		}
+		
+		public void setD(int D) {
+			this.D = D;
+		}
+		
+		public int getH() {
+			return H;
+		}
+		
+		public int getT() {
+			return T;
+		}
+		
+		public int getD() {
+			return D;
+		}
+		
+		/*
+		private void setUpNodeCords(node nodes[][]) {
+			for(int i=0;i<24;i++) {
+				for(int j=0;j<24;j++) {
+					nodes[i][j] =  new node(i,j);
+				}
+			}
+		}
+		*/
+	}
+	
+	
+	private int turnsDone = 0;
+	private Coordinates target = new Coordinates(4,6);
+	ArrayList<Coordinates> bestPath = new ArrayList<Coordinates>();
+	Coordinates checkedCords;
+	public node[][] mapNodes = new node[24][24];
+	int lowest = 100;
+	
 	// The public API of Bot must not change
 	// This is ONLY class that you can edit in the program
 	// Rename Bot to the name of your team. Use camel case.
@@ -18,12 +78,21 @@ public class Sherlock implements BotAPI {
 	private Deck deck;
 
 	public Sherlock(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
+		for(int i=0;i<24;i++) {
+			for(int j=0;j<24;j++) {
+				mapNodes[i][j] =  new node(i,j);
+				
+			}
+		}
+		
+		
 		this.player = player;
 		this.playersInfo = playersInfo;
 		this.map = map;
 		this.dice = dice;
 		this.log = log;
 		this.deck = deck;
+
 	}
 
 	public String getName() {
@@ -31,15 +100,85 @@ public class Sherlock implements BotAPI {
 	}
 
 	public String getCommand() {
-		// Add your code here
+		if(turnsDone == dice.getTotal()) {
+			turnsDone = 0;
+			return "done";
+		}
 
-		return "done";
+		return "roll";
 	}
 
 	public String getMove() {
-		// Add your code here
-
-		return "r";
+		String move;
+		int targetX = target.getCol();
+		int targetY = target.getRow();
+		int playerX = player.getToken().getPosition().getCol();
+		int playerY = player.getToken().getPosition().getRow();
+		//int distOfNodeAndTarget = distance(playerX,playerY,targetX,targetY);
+		
+		if(map.isCorridor(new Coordinates(playerX +1,playerY)) || map.isCorridor(new Coordinates(playerX -1,playerY))) {
+			if(map.isCorridor(new Coordinates(playerX +1,playerY)) && map.isCorridor(new Coordinates(playerX -1,playerY))) {
+				if(distance(playerX +1,playerY,targetX,targetY) > distance(playerX +1,playerY,targetX,targetY)) {
+					turnsDone +=1;
+					return "r";
+				}else {
+					turnsDone +=1;
+					return "l";
+				}
+			}else if(map.isCorridor(new Coordinates(playerX +1,playerY))) {
+				turnsDone +=1;
+				return "r";
+			}else if(map.isCorridor(new Coordinates(playerX -1,playerY))) {
+				turnsDone +=1;
+				return "l";
+			}
+		}else {
+			if(map.isCorridor(new Coordinates(playerX,playerY+1)) || map.isCorridor(new Coordinates(playerX,playerY-1))) {
+				if(distance(playerX,playerY+1,targetX,targetY) > distance(playerX,playerY-1,targetX,targetY)) {
+					turnsDone +=1;
+					return "u";
+				}else {
+					turnsDone +=1;
+					return "d";
+				}
+			}else if(map.isCorridor(new Coordinates(playerX,playerY+1))) {
+				turnsDone +=1;
+				return "u";
+			}else if(map.isCorridor(new Coordinates(playerX -1,playerY-1))) {
+				turnsDone +=1;
+				return "d";
+			}
+		}
+		getMove(playerX,playerY,targetX,targetY,lowest);
+		
+		
+		System.out.println(checkedCords.toString());
+		System.out.println("lowest:" + lowest);
+		for(int i=0;i<24;i++) {
+			for(int j=0;j<24;j++) {
+				System.out.printf("%d ",mapNodes[i][j].getT());
+			}
+			System.out.println();
+		}
+		
+		if(playerX - checkedCords.getCol() != 0) {
+			if(playerX - checkedCords.getCol() == 1) {
+				turnsDone += 1;
+				return "l";
+			}
+			else {
+				turnsDone += 1;
+				return "r";
+			}
+		}else {
+			if(playerY - checkedCords.getRow() == -1) {
+				turnsDone += 1;
+				return "d";
+			}else {
+				turnsDone += 1;
+				return "u";
+			}
+		}
 	}
 
 	public String getSuspect() {
@@ -76,5 +215,84 @@ public class Sherlock implements BotAPI {
 		// Add your code here
 
 	}
+	
+	public int distance(int x,int y, int x2, int y2) {
+		
+		return (int) Math.sqrt(Math.pow((x2 - x), 2) + Math.pow((y2 - y), 2));
+	}
+	
+	public void getMove(int x, int y, int targetX, int targetY,int l) throws ArrayIndexOutOfBoundsException{
+		
+
+		int lowestX = 0;
+		int lowestY = 0;
+		
+		
+		if(x != targetX && y != targetY) {
+			if(map.isCorridor(new Coordinates(x-1,y))) {
+				//up
+				mapNodes[x-1][y].setD(distance(x,y,x-1,y));
+				System.out.println("up Node(D):" +distance(x,y,x-1,y));
+				mapNodes[x-1][y].setH(distance(x-1,y,targetX,targetY));
+				System.out.println("Up Node(H):" +distance(x-1,y,targetX,targetY));
+				mapNodes[x-1][y].setT(mapNodes[x-1][y].getD() + mapNodes[x-1][y].getH());
+				System.out.println("Up Node(T):"+mapNodes[x-1][y].getT());
+				
+			}
+			if(map.isCorridor(new Coordinates(x+1,y))) {
+				//down
+				mapNodes[x+1][y].setD(distance(x,y,x+1,y));
+				System.out.println("Down Node(D):" +distance(x,y,x+1,y));
+				mapNodes[x+1][y].setH(distance(x+1,y,targetX,targetY));
+				System.out.println("Down Node(H):" +distance(x+1,y,targetX,targetY));
+				mapNodes[x+1][y].setT(mapNodes[x+1][y].getD() + mapNodes[x+1][y].getH());
+				System.out.println("Down Node(T):" +mapNodes[x+1][y].getT());
+				
+			}
+			if(map.isCorridor(new Coordinates(x,y+1))) {
+				//right
+				mapNodes[x][y+1].setD(distance(x,y,x,y+1));
+				System.out.println("Right Node(D):" +distance(x,y,x,y+1));
+				mapNodes[x][y+1].setH(distance(x,y+1,targetX,targetY));
+				System.out.println("Right Node(H):" +distance(x,y+1,targetX,targetY));
+				mapNodes[x][y+1].setT(mapNodes[x][y+1].getD() + mapNodes[x][y+1].getH());
+				System.out.println("Right Node(T):" +mapNodes[x][y+1].getT());
+				
+			}
+			if(map.isCorridor(new Coordinates(x,y-1))) {
+				//left
+				mapNodes[x][y-1].setD(distance(x,y,x,y-1));
+				System.out.println("Left Node(D):" +distance(x,y,x,y-1));
+				mapNodes[x][y-1].setH(distance(x,y-1,targetX,targetY));
+				System.out.println("Left Node(H):" +distance(x,y-1,targetX,targetY));
+				mapNodes[x][y-1].setT(mapNodes[x][y-1].getD() + mapNodes[x][y-1].getH());
+				System.out.println("Left Node(T):" +mapNodes[x][y-1].getT());
+			}
+			
+			
+			for(int i=0;i<24;i++) {
+				for(int j=0;j<24;j++) {
+					if(mapNodes[i][j].getT() < l && mapNodes[i][j].getT() != -1) {
+						lowest = mapNodes[i][j].getT();
+						lowestX = i;
+						lowestY = j;
+
+					}
+				}
+			}
+			checkedCords=new Coordinates(lowestX,lowestY);
+			System.out.println();
+			System.out.println(checkedCords.toString());
+			for(int i=0;i<24;i++) {
+				for(int j=0;j<24;j++) {
+					System.out.printf("%d ",mapNodes[i][j].getT());
+				}
+				System.out.println();
+			}
+		}else return;
+		
+	}
+	
+	
 
 }
