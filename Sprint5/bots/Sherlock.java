@@ -104,7 +104,10 @@ public class Sherlock implements BotAPI {
 			turnsDone = 0;
 			return "done";
 		}
-
+		if(player.getToken().isInRoom() && turnsDone == dice.getTotal()) {
+			return "question";
+		}
+		
 		return "roll";
 	}
 
@@ -116,69 +119,56 @@ public class Sherlock implements BotAPI {
 		int playerY = player.getToken().getPosition().getRow();
 		//int distOfNodeAndTarget = distance(playerX,playerY,targetX,targetY);
 		
-		if(map.isCorridor(new Coordinates(playerX +1,playerY)) || map.isCorridor(new Coordinates(playerX -1,playerY))) {
-			if(map.isCorridor(new Coordinates(playerX +1,playerY)) && map.isCorridor(new Coordinates(playerX -1,playerY))) {
-				if(distance(playerX +1,playerY,targetX,targetY) > distance(playerX +1,playerY,targetX,targetY)) {
-					turnsDone +=1;
-					return "r";
-				}else {
-					turnsDone +=1;
-					return "l";
-				}
-			}else if(map.isCorridor(new Coordinates(playerX +1,playerY))) {
-				turnsDone +=1;
-				return "r";
-			}else if(map.isCorridor(new Coordinates(playerX -1,playerY))) {
-				turnsDone +=1;
-				return "l";
-			}
-		}else {
-			if(map.isCorridor(new Coordinates(playerX,playerY+1)) || map.isCorridor(new Coordinates(playerX,playerY-1))) {
-				if(distance(playerX,playerY+1,targetX,targetY) > distance(playerX,playerY-1,targetX,targetY)) {
-					turnsDone +=1;
-					return "u";
-				}else {
-					turnsDone +=1;
-					return "d";
-				}
-			}else if(map.isCorridor(new Coordinates(playerX,playerY+1))) {
-				turnsDone +=1;
-				return "u";
-			}else if(map.isCorridor(new Coordinates(playerX -1,playerY-1))) {
-				turnsDone +=1;
-				return "d";
-			}
-		}
-		getMove(playerX,playerY,targetX,targetY,lowest);
+		int xDifference = playerX-targetX;
+		int yDifference = playerY-targetY;
 		
+		System.out.println("xDifference:" +xDifference);
+		System.out.println("yDifference:" +yDifference);
 		
-		System.out.println(checkedCords.toString());
-		System.out.println("lowest:" + lowest);
-		for(int i=0;i<24;i++) {
-			for(int j=0;j<24;j++) {
-				System.out.printf("%d ",mapNodes[i][j].getT());
-			}
-			System.out.println();
-		}
-		
-		if(playerX - checkedCords.getCol() != 0) {
-			if(playerX - checkedCords.getCol() == 1) {
+		if(yDifference < -1) {
+			if(map.isCorridor(new Coordinates(playerX ,playerY+1))) {
 				turnsDone += 1;
-				return "l";
-			}
-			else {
-				turnsDone += 1;
-				return "r";
-			}
-		}else {
-			if(playerY - checkedCords.getRow() == -1) {
-				turnsDone += 1;
+				System.out.println("true for D");
 				return "d";
 			}else {
+				if(xDifference < -1 && map.isCorridor(new Coordinates(playerX +1,playerY))) {
+					turnsDone += 1;
+					System.out.println("true for D and R");
+					return "r";
+				}else if(xDifference > -1 && map.isCorridor(new Coordinates(playerX -1,playerY))) {
+					turnsDone += 1;
+					System.out.println("true for D and L");
+					return "l";
+				}
+			}
+		}else if(yDifference > -1) {
+			if(map.isCorridor(new Coordinates(playerX ,playerY-1))) {
 				turnsDone += 1;
+				System.out.println("true for D");
 				return "u";
+			}else {
+				if(xDifference < -1 && map.isCorridor(new Coordinates(playerX +1,playerY))) {
+					turnsDone += 1;
+					System.out.println("true for D and R");
+					return "r";
+				}else if(xDifference > -1 && map.isCorridor(new Coordinates(playerX -1,playerY))) {
+					turnsDone += 1;
+					System.out.println("true for D and L");
+					return "l";
+				}
+			}
+		}else {
+			//left and right stuff
+			if(xDifference < -1) {
+				turnsDone += 1;
+				return "r";
+			}else if(xDifference > -1) {
+				turnsDone += 1;
+				return "l";
 			}
 		}
+		turnsDone += 1;
+		return "u";
 	}
 
 	public String getSuspect() {
