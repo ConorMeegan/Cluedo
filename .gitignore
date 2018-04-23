@@ -1,2 +1,6 @@
 /.metadata/
 /.recommenders/
+*.iml
+/out/*
+/.idea/*
+*.class
