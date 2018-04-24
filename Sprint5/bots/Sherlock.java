@@ -143,6 +143,27 @@ public class Sherlock implements BotAPI {
 		String mustardToConservatory = "rrrrrrrrrrrrrrrruuuuuuuuuuuurru";
 		String mustardToBallRoom = "rrrrrrrruuuuuuuuuru";
 		String mustardToKitchen = "rrrrrrrruuuuuuuuulllluu";
+		
+		String plumToStudy = "lllllldd";
+		String plumToHall = "llllllllddl";
+		String plumToLounge = "lllllllluulllllllllldd";
+		String plumToDiningRoom = "lllllllluulllllllllluu";
+		String plumToLibrary = "llllllluuur";
+		String plumToBillardRoom = "llllllluuuuuuuuuur";
+		String plumToConservatory = "llllllluuuuuuuuuuuuuurru";
+		String plumToBallRoom = "llllllluuuuuuuuuuuuuul";
+		String plumToKitchen = "lllllllluulllllllluuuuuuuuulllluu";
+		
+		String whiteToBallRoom = "dllddddr";
+		String whiteToKitchen= "dllddddddlllu";
+		String whiteToConsevatory = "dlldddddddrrrrrrrrrruuuru";
+		String whiteToDiningRoom = "dllddddddddrdddl";
+		String whiteToBillardRoom = "dlldddddddrrrrrrrrrrdl";
+		String whiteToLibrary = "dlldddddddrrrrrrrrrddddddddl";
+		String whiteToLounge = "dllddddddddrdddddddddlld";
+		String whiteToHall = "dllddddddddrddddddddrrrd";
+		String whiteToStudy= "dlldddddddrrrrrrrrrddddddddddddrd";
+		
 
 		//String conservatoryToBallRoom = "lll";
 
