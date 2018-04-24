@@ -6,7 +6,13 @@ import java.util.Random;
 import gameengine.*;
 
 public class Sherlock implements BotAPI {
-	
+
+	ArrayList<String> knownPlayers = new ArrayList<>();
+	ArrayList<String> suspectPlayers = new ArrayList<>();
+	ArrayList<String> knownWeapons = new ArrayList<>();
+	ArrayList<String> suspectWeapons = new ArrayList<>();
+	ArrayList<String> knownRooms = new ArrayList<>();
+	ArrayList<String> suspectRooms = new ArrayList<>();
 	
 	private class node {
 		int H;
@@ -59,6 +65,7 @@ public class Sherlock implements BotAPI {
 	
 	private int turnsDone = 0;
 	private Coordinates target = new Coordinates(19,6);
+	
 	ArrayList<Coordinates> bestPath = new ArrayList<Coordinates>();
 	Coordinates checkedCords;
 	public node[][] mapNodes = new node[24][24];
@@ -178,19 +185,130 @@ public class Sherlock implements BotAPI {
 	public String getSuspect() {
 		// Add your code here
 
-		return Names.SUSPECT_NAMES[0];
+
+		if(player.hasCard("Green")){
+			knownPlayers.add("Green");
+		}
+		if(player.hasCard("White")){
+			knownPlayers.add("White");
+		}
+		if(player.hasCard("Peacock")){
+			knownPlayers.add("Peacock");
+		}
+		if(player.hasCard("Scarlett")){
+			knownPlayers.add("Scarlett");
+		}
+		if(player.hasCard("Plum")){
+			knownPlayers.add("Plum");
+		}
+		if(player.hasCard("Mustard")){
+			knownPlayers.add("Mustard");
+		}
+		/*
+		for (String name : Names.WEAPON_NAMES) {
+			if (player.hasCard(name)) {
+				knownWeapons.add(name);
+			}
+		}*/
+		for(int i=0; i<6; i++){
+			if(!(player.hasCard(Names.SUSPECT_NAMES[i]))) {
+				suspectPlayers.add(Names.SUSPECT_NAMES[i]);
+			}
+		}
+		System.out.println(player.getCards());
+		System.out.println(knownPlayers);
+		System.out.println(suspectPlayers);
+
+
+		return suspectPlayers.get(0);
 	}
 
 	public String getWeapon() {
 		// Add your code here
 
-		return Names.WEAPON_NAMES[0];
+		if(player.hasCard("Pistol")){
+			knownWeapons.add("Pistol");
+		}
+		if(player.hasCard("Rope")){
+			knownWeapons.add("Rope");
+		}
+		if(player.hasCard("Dagger")){
+			knownWeapons.add("Dagger");
+		}
+		if(player.hasCard("Wrench")){
+			knownWeapons.add("Wrench");
+		}
+		if(player.hasCard("Candlestick")){
+			knownWeapons.add("Candlestick");
+		}
+		if(player.hasCard("Lead Pipe")){
+			knownWeapons.add("Lead Pipe");
+		}
+		/*
+		for (String name : Names.WEAPON_NAMES) {
+			if (player.hasCard(name)) {
+				knownWeapons.add(name);
+			}
+		}*/
+		for(int i=0; i<6; i++){
+			if(!(player.hasCard(Names.WEAPON_NAMES[i]))) {
+				suspectWeapons.add(Names.WEAPON_NAMES[i]);
+			}
+		}
+		System.out.println(player.getCards());
+		System.out.println(knownWeapons);
+		System.out.println(suspectWeapons);
+
+		return suspectWeapons.get(0);
 	}
 
 	public String getRoom() {
 		// Add your code here
 
-		return Names.ROOM_NAMES[0];
+		if(player.hasCard("Kitchen")){
+			knownRooms.add("Kitchen");
+		}
+		if(player.hasCard("Ballroom")){
+			knownRooms.add("Ballroom");
+		}
+		if(player.hasCard("Conservatory")){
+			knownRooms.add("Conservatory");
+		}
+		if(player.hasCard("Billiard Room")){
+			knownRooms.add("Billiard Room");
+		}
+		if(player.hasCard("Library")){
+			knownRooms.add("Library");
+		}
+		if(player.hasCard("Study")){
+			knownRooms.add("Study");
+		}
+		if(player.hasCard("Hall")){
+			knownRooms.add("Hall");
+		}
+		if(player.hasCard("Lounge")){
+			knownRooms.add("Lounge");
+		}
+		if(player.hasCard("Dining Room")){
+			knownRooms.add("Dining Room");
+		}
+		/*
+		for (String name : Names.ROOM_NAMES) {
+			if (player.hasCard(name)) {
+				knownRooms.add(name);
+			}
+		}*/
+		for(int i=0; i<6; i++){
+			if(!(player.hasCard(Names.ROOM_NAMES[i]))) {
+				suspectPlayers.add(Names.ROOM_NAMES[i]);
+			}
+
+		}
+		System.out.println(player.getCards());
+		System.out.println(knownRooms);
+		System.out.println(suspectRooms);
+
+		return suspectRooms.get(0);
 	}
 
 	public String getDoor() {
