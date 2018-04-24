@@ -17,7 +17,7 @@ public class Bot3 implements BotAPI {
 	int lastIndex = 0;
 	
 	private int turnsDone = 0;
-	private String target = "Lounge";
+	private String target = "Kitchen";
 
 	ArrayList<Coordinates> bestPath = new ArrayList<Coordinates>();
 	Coordinates checkedCords;
@@ -59,19 +59,19 @@ public class Bot3 implements BotAPI {
 	
 	String plumToStudy = "lllllldd";
 	String plumToHall = "llllllllddl";
-	String plumToLounge = "lllllllluulllllllllldd";
+	String plumToLounge = "lllllllluullllllllldd";
 	String plumToDiningRoom = "lllllllluulllllllllluu";
 	String plumToLibrary = "llllllluuur";
-	String plumToBillardRoom = "llllllluuuuuuuuuur";
+	String plumToBilliardRoom = "llllllluuuuuuuuuur";
 	String plumToConservatory = "llllllluuuuuuuuuuuuuurru";
 	String plumToBallRoom = "llllllluuuuuuuuuuuuuul";
 	String plumToKitchen = "lllllllluulllllllluuuuuuuuulllluu";
 	
 	String whiteToBallRoom = "dllddddr";
 	String whiteToKitchen= "dllddddddlllu";
-	String whiteToConsevatory = "dlldddddddrrrrrrrrrruuuru";
+	String whiteToConservatory = "dlldddddddrrrrrrrrrruuuru";
 	String whiteToDiningRoom = "dllddddddddrdddl";
-	String whiteToBillardRoom = "dlldddddddrrrrrrrrrrdl";
+	String whiteToBilliardRoom = "dlldddddddrrrrrrrrrrdl";
 	String whiteToLibrary = "dlldddddddrrrrrrrrrddddddddl";
 	String whiteToLounge = "dllddddddddrdddddddddlld";
 	String whiteToHall = "dllddddddddrddddddddrrrd";
@@ -79,13 +79,13 @@ public class Bot3 implements BotAPI {
 	
 	//Green
 	String greenToBallRoom = "drrdddl";
-	String greenToConsevatory = "drrdrdddru";
-	String greenToBillardRoom = "drrddddddddrr";
+	String greenToConservatory = "drrdrdddru";
+	String greenToBilliardRoom = "drrddddddddrr";
 	String greenToLibrary = "drrdddddddddddddddr";
 	String greenToStudy = "drrdddddddddddddddddddrd";
 	String greenToHall = "drrdddddddddddddddddddll";
 	String greenToKitchen = "drrddddddddllllllllllluluu";
-	String greenToDiningroom = "drrddddddddlllllllldddl";
+	String greenToDiningRoom = "drrddddddddlllllllldddl";
 	String greenToLounge = "drrddddddddlllllllldddddddddlld";
 	
 	//Scarlet
@@ -94,10 +94,10 @@ public class Bot3 implements BotAPI {
 	String scarlettToHall = "uuuuuuuurrrrd";
 	String scarlettToStudy = "uuuuuuuurrrrrrrrrdddrd";
 	String scarlettToLibrary = "uuuuuuuurrrrrrrrrur";
-	String scarlettToBR = "uuuuuuuuruuuuuuuuuuru";
+	String scarlettToBallRoom = "uuuuuuuuruuuuuuuuuuru";
 	String scarlettToKitchen = "uuuuuuuuruuuuuuuuuulllluu";
-	String scarlettToConsevatory = "uuuuuuuuruuuuuuuuuurrrrrrrrruuulu";
-	String scarlettToBillardRoom = "uuuuuuuurrrrrrrrruuuurrrrrru";
+	String scarlettToConservatory = "uuuuuuuuruuuuuuuuuurrrrrrrrruuulu";
+	String scarlettToBilliardRoom = "uuuuuuuurrrrrrrrruuuurrrrrru";
 
 	public Bot3(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
 		this.player = player;
@@ -135,48 +135,336 @@ public class Bot3 implements BotAPI {
 
 		if(player.getToken().getName().equals("Mustard")){
 			if(target.equals("Lounge")) {
-				System.out.println("ML");
+				
 				char toReturn =  mustardToLounge.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Dining Room")) {
+				
+				char toReturn =  mustardToDiningRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Library")) {
+				
+				char toReturn =  mustardToLibrary.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Ball Room")) {
+				
+				char toReturn =  mustardToBallRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Conservatory")) {
+				
+				char toReturn =  mustardToConservatory.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Billard Room")) {
+				
+				char toReturn =  mustardToBilliardRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Study")) {
+				
+				char toReturn =  mustardToStudy.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Hall")) {
+				
+				char toReturn =  mustardToHall.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Kitchen")) {
+				
+				char toReturn =  mustardToKitchen.charAt(lastIndex);
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
 			}
 		}else if(player.getToken().getName().equals("Scarlett")) {
 			if(target.equals("Lounge")) {
-				System.out.println("SL");
-				char toReturn = scarlettToLounge.charAt(lastIndex);
+				
+				char toReturn =  scarlettToLounge.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Dining Room")) {
+				
+				char toReturn =  scarlettToDiningRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Library")) {
+				
+				char toReturn =  scarlettToLibrary.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Ball Room")) {
+				
+				char toReturn =  scarlettToBallRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Conservatory")) {
+				
+				char toReturn =  scarlettToConservatory.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Billard Room")) {
+				
+				char toReturn =  scarlettToBilliardRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Study")) {
+				
+				char toReturn =  scarlettToStudy.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Hall")) {
+				
+				char toReturn =  scarlettToHall.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Kitchen")) {
+				
+				char toReturn =  scarlettToKitchen.charAt(lastIndex);
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
 			}
 		}else if(player.getToken().getName().equals("White")) {
 			if(target.equals("Lounge")) {
-				System.out.println("WL");
-				char toReturn = whiteToLounge.charAt(lastIndex);
+				
+				char toReturn =  whiteToLounge.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Dining Room")) {
+				
+				char toReturn =  whiteToDiningRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Library")) {
+				
+				char toReturn =  whiteToLibrary.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Ball Room")) {
+				
+				char toReturn =  whiteToBallRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Conservatory")) {
+				
+				char toReturn =  whiteToConservatory.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Billard Room")) {
+				
+				char toReturn =  whiteToBilliardRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Study")) {
+				
+				char toReturn =  whiteToStudy.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Hall")) {
+				
+				char toReturn =  whiteToHall.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Kitchen")) {
+				
+				char toReturn =  whiteToKitchen.charAt(lastIndex);
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
 			}
 		}else if(player.getToken().getName().equals("Green")) {
 			if(target.equals("Lounge")) {
-				System.out.println("GL");
+				
 				char toReturn =  greenToLounge.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Dining Room")) {
+				
+				char toReturn =  greenToDiningRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Library")) {
+				
+				char toReturn =  greenToLibrary.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Ball Room")) {
+				
+				char toReturn =  greenToBallRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Conservatory")) {
+				
+				char toReturn =  greenToConservatory.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Billard Room")) {
+				
+				char toReturn =  greenToBilliardRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Study")) {
+				
+				char toReturn =  greenToStudy.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Hall")) {
+				
+				char toReturn =  greenToHall.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Kitchen")) {
+				
+				char toReturn =  greenToKitchen.charAt(lastIndex);
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
 			}
 		}else if(player.getToken().getName().equals("Plum")) {
 			if(target.equals("Lounge")) {
-				System.out.println("PL");
+				
 				char toReturn =  plumToLounge.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Dining Room")) {
+				
+				char toReturn =  plumToDiningRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Library")) {
+				
+				char toReturn =  plumToLibrary.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Ball Room")) {
+				
+				char toReturn =  plumToBallRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Conservatory")) {
+				
+				char toReturn =  plumToConservatory.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Billard Room")) {
+				
+				char toReturn =  plumToBilliardRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Study")) {
+				
+				char toReturn =  plumToStudy.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Hall")) {
+				
+				char toReturn =  plumToHall.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Kitchen")) {
+				
+				char toReturn =  plumToKitchen.charAt(lastIndex);
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
 			}
 		}else if(player.getToken().getName().equals("Peacock")) {
 			if(target.equals("Lounge")) {
-				System.out.println("PeaL");
+				
 				char toReturn =  peacockToLounge.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Dining Room")) {
+				
+				char toReturn =  peacockToDiningRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Library")) {
+				
+				char toReturn =  peacockToLibrary.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Ball Room")) {
+				
+				char toReturn =  peacockToBallRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Conservatory")) {
+				
+				char toReturn =  peacockToConservatory.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Billard Room")) {
+				
+				char toReturn =  peacockToBilliardRoom.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Study")) {
+				
+				char toReturn =  peacockToStudy.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Hall")) {
+				
+				char toReturn =  peacockToHall.charAt(lastIndex);
+				lastIndex += 1;
+				turnsDone += 1;
+				return Character.toString(toReturn);
+			}else if(target.equals("Kitchen")) {
+				
+				char toReturn =  peacockToKitchen.charAt(lastIndex);
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);

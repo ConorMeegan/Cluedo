@@ -5,7 +5,7 @@ import java.util.Random;
 
 import gameengine.*;
 
-public class Bot2 implements BotAPI {
+public class Bot5 implements BotAPI {
 
 	ArrayList<String> knownPlayers = new ArrayList<>();
 	ArrayList<String> suspectPlayers = new ArrayList<>();
@@ -99,7 +99,7 @@ public class Bot2 implements BotAPI {
 	String scarlettToConservatory = "uuuuuuuuruuuuuuuuuurrrrrrrrruuulu";
 	String scarlettToBilliardRoom = "uuuuuuuurrrrrrrrruuuurrrrrru";
 
-	public Bot2(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
+	public Bot5(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
 		this.player = player;
 		this.playersInfo = playersInfo;
 		this.map = map;
