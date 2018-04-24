@@ -17,7 +17,7 @@ public class Bot3 implements BotAPI {
 	int lastIndex = 0;
 	
 	private int turnsDone = 0;
-	private String target = "Kitchen";
+	private String target = "Billard Room";
 
 	ArrayList<Coordinates> bestPath = new ArrayList<Coordinates>();
 	Coordinates checkedCords;
@@ -38,7 +38,7 @@ public class Bot3 implements BotAPI {
 	private Deck deck;
 	
 	String peacockToConservatory = "llllluu";
-	String peacockToBilliardRoom = "llllllddr";
+	String peacockToBilliardRoom = "lllllldddr";
 	String peacockToLibrary = "lllllldddddddrrrd";
 	String peacockToStudy = "lllllllddddddddddddddrd";
 	String peacockToBallRoom = "lllllllul";
@@ -95,10 +95,9 @@ public class Bot3 implements BotAPI {
 	String scarlettToStudy = "uuuuuuuurrrrrrrrrdddrd";
 	String scarlettToLibrary = "uuuuuuuurrrrrrrrrur";
 	String scarlettToBallRoom = "uuuuuuuuruuuuuuuuuuru";
-	String scarlettToKitchen = "uuuuuuuuruuuuuuuuuulllluu";
+	String scarlettToKitchen = "uuuuuuuuruuuuuuuulllluu";
 	String scarlettToConservatory = "uuuuuuuuruuuuuuuuuurrrrrrrrruuulu";
-	String scarlettToBilliardRoom = "uuuuuuuurrrrrrrrruuuurrrrrru";
-
+	String scarlettToBilliardRoom = "uuuuuuurrrrrrrrruuuuuuuurr";
 	public Bot3(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
 		this.player = player;
 		this.playersInfo = playersInfo;
