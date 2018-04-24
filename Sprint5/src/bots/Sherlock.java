@@ -58,7 +58,7 @@ public class Sherlock implements BotAPI {
 	
 	
 	private int turnsDone = 0;
-	private Coordinates target = new Coordinates(4,6);
+	private Coordinates target = new Coordinates(19,6);
 	ArrayList<Coordinates> bestPath = new ArrayList<Coordinates>();
 	Coordinates checkedCords;
 	public node[][] mapNodes = new node[24][24];
@@ -104,7 +104,11 @@ public class Sherlock implements BotAPI {
 			turnsDone = 0;
 			return "done";
 		}
-		if(player.getToken().isInRoom() && turnsDone == dice.getTotal()) {
+		if(player.getToken().isInRoom()) {
+			if(turnsDone == 0){
+				return "done";
+			}
+			turnsDone = 0;
 			return "question";
 		}
 		
@@ -191,8 +195,15 @@ public class Sherlock implements BotAPI {
 
 	public String getDoor() {
 		// Add your code here
+		String door = "";
 
-		return "1";
+		if(player.getToken().isInRoom()){
+			int numberOfDoors =  player.getToken().getRoom().getNumberOfDoors();
+			Random rand = new Random();
+			door = Integer.toString(rand.nextInt(numberOfDoors)+1);
+		}
+
+		return door;
 	}
 
 	public String getCard(Cards matchingCards) {
@@ -212,7 +223,7 @@ public class Sherlock implements BotAPI {
 	}
 	
 	public void getMove(int x, int y, int targetX, int targetY,int l) throws ArrayIndexOutOfBoundsException{
-		
+
 
 		int lowestX = 0;
 		int lowestY = 0;
@@ -282,7 +293,7 @@ public class Sherlock implements BotAPI {
 		}else return;
 		
 	}
-	
-	
+
+
 
 }
