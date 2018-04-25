@@ -31,7 +31,9 @@ public class Sherlock implements BotAPI {
 	
 	private int turnsDone = 0;
 
-	private String target = "Lounge";
+	private String target = "Dining Room";
+	private String lastCommand = "roll";
+	private Boolean questionDone = false;
 	
 	// The public API of Bot must not change
 	// This is ONLY class that you can edit in the program
@@ -47,6 +49,8 @@ public class Sherlock implements BotAPI {
 	private Deck deck;
 	
 	private Boolean release = false;
+	private Boolean enteredRoom = false;
+	private Boolean leaveRoom = false;
 	
 	String peacockToConservatory = "llllluu";
 	String peacockToBilliardRoom = "lllllldddr";
@@ -113,7 +117,7 @@ public class Sherlock implements BotAPI {
 	
 	//room paths
 	String kitchenToDiningRoom = "drrrrddddl";
-	String kitchenToBallRoom = "drrrrru";
+	String kitchenToBallRoom = "drrruur"; //done
 	String kitchenToConservatory = "drrrrrrrrrrrrruuuru";
 	String kitchenToBilliardRoom = "drrrrrrrrrrrrrdr";
 	String kitchenToLounge = "drrrrddddddddddlld";
@@ -121,7 +125,7 @@ public class Sherlock implements BotAPI {
 	String kitchenToStudy = "drrrrdddddddddrrrrrrrdddrrd";
 	String kitchenToLibrary = "drrrrrrrrrrrrddddddddr";
 
-	String ballroomToConservatory = "rrrrrrrruuuru";
+	String ballroomToConservatory = "ldddrrrrrrrrrruuuru"; // done
 	String ballroomToBilliardRoom = "rrrrrrrrdr";
 	String ballroomToLibrary = "rrrrrrrddddddddr";
 	String ballroomToDiningRoom = "lddddl";
@@ -129,32 +133,45 @@ public class Sherlock implements BotAPI {
 	String ballroomToHall = "ldddddddddrrrd";
 	String ballroomToStudy = "ldddddddddrrrrrrrdddrrd";
 
-	String conservatoryToBilliardRoom = "ddlddr";
+	String conservatoryToBilliardRoom = "dddlddr";  //done
 	String conservatoryToLibrary = "ddldddddddlddr";
 	String conservatoryToStudy = "ddldddddddlddddddrd";
 	String conservatoryToHall = "ddldddddddldddllllld";
 	String conservatoryToLounge = "ddldddddddldddlllllllllldd";
 	String conservatoryToDiningRoom = "ddlddllllllllldddl";
 
-	String billardroomToLibrary = "dddddlddr";
+	String billardroomToLibrary = "ldddddlddr"; // done
 	String billardroomToStudy = "dddddlddddddrd";
 	String billardroomToHall = "dddddldddllllld";
 	String billardroomToLounge = "dddddldddlllllllllldd";
 	String billardroomToDiningRoom = "ullllllllldddl";
 
-	String libraryToStudy = "ddddrd";
+	String libraryToStudy = "lddddrd";  //done
 	String libraryToHall = "dllllld";
 	String libraryToLounge = "dlllllllllldd";
 	String libraryToDiningRoom = "dlllllllluuuuul";
 
-	String studyToHall = "uulullllld";
+	String studyToHall = "luuululllld";  //done
 	String studyToLounge = "uululllllllllldd";
 	String studyToDiningRoom = "uululllllllluuuuul";
 
-	String hallToLounge = "llllldd";
+	String hallToLounge = "ullllldd"; //done
 	String hallToDiningRoom = "llluuuuul";
 
-	String loungeToDiningRoom = "urruuuuul";
+	String loungeToDiningRoom = "uuuu"; //done
+
+	String diningRoomToKitchen = "drruuuuuuullluluu";  //done
+
+	private int routeIndex = 0;
+	private String[] masterRoute = new String[] {"drruuuuuuullluluu","drrruur","ldddrrrrrrrrrruuuru","dddlddr","ldddddlddr","lddddrd",
+			"luuululllld","ullllldd","uuuu","ddrrrrrru"};
+
+	/*
+	diningRoomToKitchen,
+	kitchenToBallRoom, ballroomToConservatory, conservatoryToBilliardRoom,
+	billardroomToLibrary, libraryToStudy, studyToHall, hallToLounge, loungeToDiningRoom];
+	 */
+
 
 	public Sherlock(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
 		this.player = player;
@@ -172,27 +189,57 @@ public class Sherlock implements BotAPI {
 	}
 
 	public String getCommand() {
-		
-		if(player.getToken().isInRoom()) {
-			
-			if(turnsDone == 0){
-				return "done";
-			}
-			turnsDone = 0;
+		if(routeIndex == 10 && player.getToken().isInRoom()){
+			return "accuse";
+		}
+		if(lastCommand.equals("roll") && !(player.getToken().isInRoom())){
+			System.out.println("Done");
+			lastCommand = "done";
+			return "done";
+		}
+		if(lastCommand.equals("question") && turnsDone == dice.getTotal()){
+			System.out.println("Done with question");
+			release = false;
+			lastCommand = "done";
+			return "done";
+		}
+		if(lastCommand.equals("roll") && player.getToken().isInRoom()){
+			System.out.println("asking question");
+			lastCommand = "question";
+			questionDone = true;
+			turnsDone = dice.getTotal();
 			return "question";
 		}
-		
-		return "roll";
+		if(lastCommand.equals("done") && player.getToken().isInRoom()){
+			System.out.println("perform exit");
+			release = true;
+			System.out.println(routeIndex);
+			System.out.println(masterRoute.length);
+
+			pathToTravel = masterRoute[routeIndex];
+			routeIndex++;
+			lastIndex = 0;
+			lastCommand = "roll";
+			return "roll";
+		}
+		else{
+			System.out.println("roll not in room");
+			lastCommand ="roll";
+			return "roll";
+		}
+
 	}
 
 	public String getMove() {
-		
+
+
 		if(release) {
 			char toReturn = pathToTravel.charAt(lastIndex);
 			lastIndex += 1;
 			turnsDone += 1;
 			return Character.toString(toReturn);
 		}
+
 	
 
 		if(player.getToken().getName().equals("Mustard")){
@@ -538,25 +585,35 @@ public class Sherlock implements BotAPI {
 
 	public String getSuspect() {
 		// Add your code here
+		for(int i=0; i<6; i++){
+			if(!(player.hasCard(Names.SUSPECT_NAMES[i]))) {
+				suspectPlayers.add(Names.SUSPECT_NAMES[i]);
+			}
+		}
 
-
-		if(player.hasCard("Green")){
+		if(player.hasCard("Green") || player.hasSeen("Green")){
 			knownPlayers.add("Green");
+			suspectPlayers.remove("Green");
 		}
-		if(player.hasCard("White")){
+		if(player.hasCard("White") || player.hasSeen("White")){
 			knownPlayers.add("White");
+			suspectPlayers.remove("White");
 		}
-		if(player.hasCard("Peacock")){
+		if(player.hasCard("Peacock") || player.hasSeen("Peacock")){
 			knownPlayers.add("Peacock");
+			suspectPlayers.remove("Peacock");
 		}
-		if(player.hasCard("Scarlett")){
+		if(player.hasCard("Scarlett") || player.hasSeen("Scarlett")){
 			knownPlayers.add("Scarlett");
+			suspectPlayers.remove("Scarlett");
 		}
-		if(player.hasCard("Plum")){
+		if(player.hasCard("Plum") || player.hasSeen("Plum")){
 			knownPlayers.add("Plum");
+			suspectPlayers.remove("Plum");
 		}
-		if(player.hasCard("Mustard")){
+		if(player.hasCard("Mustard") || player.hasSeen("Mustard")){
 			knownPlayers.add("Mustard");
+			suspectPlayers.remove("Mustard");
 		}
 		/*
 		for (String name : Names.WEAPON_NAMES) {
@@ -564,11 +621,7 @@ public class Sherlock implements BotAPI {
 				knownWeapons.add(name);
 			}
 		}*/
-		for(int i=0; i<6; i++){
-			if(!(player.hasCard(Names.SUSPECT_NAMES[i]))) {
-				suspectPlayers.add(Names.SUSPECT_NAMES[i]);
-			}
-		}
+
 		//System.out.println(player.getCards());
 		//System.out.println(knownPlayers);
 		//System.out.println(suspectPlayers);
@@ -579,24 +632,34 @@ public class Sherlock implements BotAPI {
 
 	public String getWeapon() {
 		// Add your code here
-
-		if(player.hasCard("Pistol")){
+		for(int i=0; i<6; i++){
+			if(!(player.hasCard(Names.WEAPON_NAMES[i]))) {
+				suspectWeapons.add(Names.WEAPON_NAMES[i]);
+			}
+		}
+		if(player.hasCard("Pistol") || player.hasSeen("Pistol")){
 			knownWeapons.add("Pistol");
+			suspectWeapons.remove("Pistol");
 		}
-		if(player.hasCard("Rope")){
+		if(player.hasCard("Rope") || player.hasSeen("Rope")){
 			knownWeapons.add("Rope");
+			suspectWeapons.remove("Rope");
 		}
-		if(player.hasCard("Dagger")){
+		if(player.hasCard("Dagger") || player.hasSeen("Dagger")){
 			knownWeapons.add("Dagger");
+			suspectWeapons.remove("Dagger");
 		}
-		if(player.hasCard("Wrench")){
+		if(player.hasCard("Wrench") || player.hasSeen("Wrench")){
 			knownWeapons.add("Wrench");
+			suspectWeapons.remove("Wrench");
 		}
-		if(player.hasCard("Candlestick")){
+		if(player.hasCard("Candlestick") || player.hasSeen("Candlestick")){
 			knownWeapons.add("Candlestick");
+			suspectWeapons.remove("Candlestick");
 		}
-		if(player.hasCard("Lead Pipe")){
+		if(player.hasCard("Lead Pipe") || player.hasSeen("Lead Pipe")){
 			knownWeapons.add("Lead Pipe");
+			suspectWeapons.remove("Lead Pipe");
 		}
 		/*
 		for (String name : Names.WEAPON_NAMES) {
@@ -604,11 +667,7 @@ public class Sherlock implements BotAPI {
 				knownWeapons.add(name);
 			}
 		}*/
-		for(int i=0; i<6; i++){
-			if(!(player.hasCard(Names.WEAPON_NAMES[i]))) {
-				suspectWeapons.add(Names.WEAPON_NAMES[i]);
-			}
-		}
+
 		//System.out.println(player.getCards());
 		//System.out.println(knownWeapons);
 		//System.out.println(suspectWeapons);
@@ -619,32 +678,47 @@ public class Sherlock implements BotAPI {
 	public String getRoom() {
 		// Add your code here
 
-		if(player.hasCard("Kitchen")){
+		for(int i=0; i<6; i++){
+			if(!(player.hasCard(Names.ROOM_NAMES[i]))) {
+				suspectRooms.add(Names.ROOM_NAMES[i]);
+			}
+
+		}
+		if(player.hasCard("Kitchen") || player.hasSeen("Kitchen")){
 			knownRooms.add("Kitchen");
+			suspectRooms.remove("Kitchen");
 		}
-		if(player.hasCard("Ballroom")){
+		if(player.hasCard("Ballroom") || player.hasSeen("Ballroom")){
 			knownRooms.add("Ballroom");
+			suspectRooms.remove("Ballroom");
 		}
-		if(player.hasCard("Conservatory")){
+		if(player.hasCard("Conservatory") || player.hasSeen("Conservatory")){
 			knownRooms.add("Conservatory");
+			suspectRooms.remove("Conservatory");
 		}
-		if(player.hasCard("Billiard Room")){
+		if(player.hasCard("Billiard Room") || player.hasSeen("Billiard Room")){
 			knownRooms.add("Billiard Room");
+			suspectRooms.remove("Billiard Room");
 		}
-		if(player.hasCard("Library")){
+		if(player.hasCard("Library") || player.hasSeen("Library")){
 			knownRooms.add("Library");
+			suspectRooms.remove("Library");
 		}
-		if(player.hasCard("Study")){
+		if(player.hasCard("Study") || player.hasSeen("Study")){
 			knownRooms.add("Study");
+			suspectRooms.remove("Study");
 		}
-		if(player.hasCard("Hall")){
+		if(player.hasCard("Hall") || player.hasSeen("Hall")){
 			knownRooms.add("Hall");
+			suspectRooms.remove("Hall");
 		}
-		if(player.hasCard("Lounge")){
+		if(player.hasCard("Lounge") || player.hasSeen("Lounge")){
 			knownRooms.add("Lounge");
+			suspectRooms.remove("Lounge");
 		}
-		if(player.hasCard("Dining Room")){
+		if(player.hasCard("Dining Room") || player.hasSeen("Dining Room")){
 			knownRooms.add("Dining Room");
+			suspectRooms.remove("Dining Room");
 		}
 		/*
 		for (String name : Names.ROOM_NAMES) {
@@ -652,17 +726,12 @@ public class Sherlock implements BotAPI {
 				knownRooms.add(name);
 			}
 		}*/
-		for(int i=0; i<6; i++){
-			if(!(player.hasCard(Names.ROOM_NAMES[i]))) {
-				suspectPlayers.add(Names.ROOM_NAMES[i]);
-			}
 
-		}
 		//System.out.println(player.getCards());
 		//System.out.println(knownRooms);
 		//System.out.println(suspectRooms);
 
-		return suspectRooms.get(0);
+		return suspectRooms.get(suspectRooms.size()-1);
 	}
 
 	public String getDoor() {
