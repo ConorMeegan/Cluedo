@@ -25,7 +25,9 @@ public class Sherlock implements BotAPI {
 	
 	int lastIndex = 0;
 	int cardsEach;
+	Boolean accuseNumber = false;
 	
+	String pathToTravel;
 	
 	private int turnsDone = 0;
 
@@ -43,6 +45,8 @@ public class Sherlock implements BotAPI {
 	private Dice dice;
 	private Log log;
 	private Deck deck;
+	
+	private Boolean release = false;
 	
 	String peacockToConservatory = "llllluu";
 	String peacockToBilliardRoom = "lllllldddr";
@@ -105,6 +109,52 @@ public class Sherlock implements BotAPI {
 	String scarlettToKitchen = "uuuuuuuuruuuuuuuulllluu";
 	String scarlettToConservatory = "uuuuuuuuruuuuuuuurrrrrrrrruuuru";
 	String scarlettToBilliardRoom = "uuuuuuurrrrrrrrruuuuuuuurr";
+	
+	
+	//room paths
+	String kitchenToDiningRoom = "drrrrddddl";
+	String kitchenToBallRoom = "drrrrru";
+	String kitchenToConservatory = "drrrrrrrrrrrrruuuru";
+	String kitchenToBilliardRoom = "drrrrrrrrrrrrrdr";
+	String kitchenToLounge = "drrrrddddddddddlld";
+	String kitchenToHall = "drrrrdddddddddrrrd";
+	String kitchenToStudy = "drrrrdddddddddrrrrrrrdddrrd";
+	String kitchenToLibrary = "drrrrrrrrrrrrddddddddr";
+
+	String ballroomToConservatory = "rrrrrrrruuuru";
+	String ballroomToBilliardRoom = "rrrrrrrrdr";
+	String ballroomToLibrary = "rrrrrrrddddddddr";
+	String ballroomToDiningRoom = "lddddl";
+	String ballroomToLounge = "lddddddddddlld";
+	String ballroomToHall = "ldddddddddrrrd";
+	String ballroomToStudy = "ldddddddddrrrrrrrdddrrd";
+
+	String conservatoryToBilliardRoom = "ddlddr";
+	String conservatoryToLibrary = "ddldddddddlddr";
+	String conservatoryToStudy = "ddldddddddlddddddrd";
+	String conservatoryToHall = "ddldddddddldddllllld";
+	String conservatoryToLounge = "ddldddddddldddlllllllllldd";
+	String conservatoryToDiningRoom = "ddlddllllllllldddl";
+
+	String billardroomToLibrary = "dddddlddr";
+	String billardroomToStudy = "dddddlddddddrd";
+	String billardroomToHall = "dddddldddllllld";
+	String billardroomToLounge = "dddddldddlllllllllldd";
+	String billardroomToDiningRoom = "ullllllllldddl";
+
+	String libraryToStudy = "ddddrd";
+	String libraryToHall = "dllllld";
+	String libraryToLounge = "dlllllllllldd";
+	String libraryToDiningRoom = "dlllllllluuuuul";
+
+	String studyToHall = "uulullllld";
+	String studyToLounge = "uululllllllllldd";
+	String studyToDiningRoom = "uululllllllluuuuul";
+
+	String hallToLounge = "llllldd";
+	String hallToDiningRoom = "llluuuuul";
+
+	String loungeToDiningRoom = "urruuuuul";
 
 	public Sherlock(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
 		this.player = player;
@@ -113,6 +163,8 @@ public class Sherlock implements BotAPI {
 		this.dice = dice;
 		this.log = log;
 		this.deck = deck;
+		
+		
 	}
 	
 	public String getName() {
@@ -120,11 +172,9 @@ public class Sherlock implements BotAPI {
 	}
 
 	public String getCommand() {
-		if(turnsDone == dice.getTotal()) {
-			turnsDone = 0;
-			return "done";
-		}
+		
 		if(player.getToken().isInRoom()) {
+			
 			if(turnsDone == 0){
 				return "done";
 			}
@@ -136,10 +186,14 @@ public class Sherlock implements BotAPI {
 	}
 
 	public String getMove() {
-
 		
-		
-		
+		if(release) {
+			char toReturn = pathToTravel.charAt(lastIndex);
+			lastIndex += 1;
+			turnsDone += 1;
+			return Character.toString(toReturn);
+		}
+	
 
 		if(player.getToken().getName().equals("Mustard")){
 			if(target.equals("Lounge")) {
@@ -613,6 +667,7 @@ public class Sherlock implements BotAPI {
 
 	public String getDoor() {
 		// Add your code here
+		/*
 		String door = "";
 
 		if(player.getToken().isInRoom()){
@@ -620,8 +675,8 @@ public class Sherlock implements BotAPI {
 			Random rand = new Random();
 			door = Integer.toString(rand.nextInt(numberOfDoors)+1);
 		}
-
-		return door;
+		*/
+		return "1";
 	}
 
 	public String getCard(Cards matchingCards) {
@@ -644,10 +699,7 @@ public class Sherlock implements BotAPI {
 		System.out.println(AllCards.size());
 		cardsEach = 18/playersInfo.numPlayers();
 		
-		
-			//System.out.println(player.getCards().contains("Ball Room"));
-			
-		
+	
 		if(cardsEach > 0) {
 			
 		}
