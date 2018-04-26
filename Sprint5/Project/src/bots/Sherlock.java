@@ -1,17 +1,16 @@
 package bots;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Random;
 
 import gameengine.*;
 
 public class Sherlock implements BotAPI {
 
-	String[] allCards = {"Plum", "White", "Scarlett", "Green", "Mustard", "Peacock"
-			,"Rope", "Dagger", "Wrench", "Pistol", "Candlestick", "Lead Pipe","Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library",
-            "Study", "Hall", "Lounge", "Dining Room", "Cellar"};
+	int everyThingReady = 1;
+	ArrayList<String> PlayerCards = new ArrayList<String>();
+	ArrayList<String> WeaponCards = new ArrayList<String>();
+	ArrayList<String> RoomCards = new ArrayList<String>();
 	ArrayList<String> AllCards = new ArrayList<String>();
 	
 	ArrayList<String> knownPlayers = new ArrayList<>();
@@ -29,11 +28,6 @@ public class Sherlock implements BotAPI {
 	
 	String pathToTravel;
 	
-	private int turnsDone = 0;
-
-	private String target = "Dining Room";
-	private String lastCommand = "roll";
-	private Boolean questionDone = false;
 	
 	// The public API of Bot must not change
 	// This is ONLY class that you can edit in the program
@@ -48,9 +42,9 @@ public class Sherlock implements BotAPI {
 	private Log log;
 	private Deck deck;
 	
+	int size = 0;
+	
 	private Boolean release = false;
-	private Boolean enteredRoom = false;
-	private Boolean leaveRoom = false;
 	
 	String peacockToConservatory = "llllluu";
 	String peacockToBilliardRoom = "lllllldddr";
@@ -115,56 +109,40 @@ public class Sherlock implements BotAPI {
 	String scarlettToBilliardRoom = "uuuuuuurrrrrrrrruuuuuuuurr";
 	
 	
+	private int turnsDone = 0;
+
+	private String target = "Dining Room";
+	private String lastCommand = "roll";
 	//room paths
-	String kitchenToDiningRoom = "drrrrddddl";
+	
 	String kitchenToBallRoom = "drrruur"; //done
-	String kitchenToConservatory = "drrrrrrrrrrrrruuuru";
-	String kitchenToBilliardRoom = "drrrrrrrrrrrrrdr";
-	String kitchenToLounge = "drrrrddddddddddlld";
-	String kitchenToHall = "drrrrdddddddddrrrd";
-	String kitchenToStudy = "drrrrdddddddddrrrrrrrdddrrd";
-	String kitchenToLibrary = "drrrrrrrrrrrrddddddddr";
-
 	String ballroomToConservatory = "ldddrrrrrrrrrruuuru"; // done
-	String ballroomToBilliardRoom = "rrrrrrrrdr";
-	String ballroomToLibrary = "rrrrrrrddddddddr";
-	String ballroomToDiningRoom = "lddddl";
-	String ballroomToLounge = "lddddddddddlld";
-	String ballroomToHall = "ldddddddddrrrd";
-	String ballroomToStudy = "ldddddddddrrrrrrrdddrrd";
-
 	String conservatoryToBilliardRoom = "dddlddr";  //done
-	String conservatoryToLibrary = "ddldddddddlddr";
-	String conservatoryToStudy = "ddldddddddlddddddrd";
-	String conservatoryToHall = "ddldddddddldddllllld";
-	String conservatoryToLounge = "ddldddddddldddlllllllllldd";
-	String conservatoryToDiningRoom = "ddlddllllllllldddl";
-
 	String billardroomToLibrary = "ldddddlddr"; // done
-	String billardroomToStudy = "dddddlddddddrd";
-	String billardroomToHall = "dddddldddllllld";
-	String billardroomToLounge = "dddddldddlllllllllldd";
-	String billardroomToDiningRoom = "ullllllllldddl";
-
 	String libraryToStudy = "lddddrd";  //done
-	String libraryToHall = "dllllld";
-	String libraryToLounge = "dlllllllllldd";
-	String libraryToDiningRoom = "dlllllllluuuuul";
-
 	String studyToHall = "luuululllld";  //done
-	String studyToLounge = "uululllllllllldd";
-	String studyToDiningRoom = "uululllllllluuuuul";
-
 	String hallToLounge = "ullllldd"; //done
-	String hallToDiningRoom = "llluuuuul";
-
 	String loungeToDiningRoom = "uuuu"; //done
-
 	String diningRoomToKitchen = "drruuuuuuullluluu";  //done
-
+	
+	//pathToAccusations
+	String conservatoryToAccusation = "dldddddddddldddllllu";
+	String ballroomToAccusation = "lddddrddddddddrrrru";
+	String kitchenToAccusation = "ddrdrrrddddddddrrrru";
+	String diningRoomToAccusation = "ddrrrrrru";
+	String loungeToAccusation = "uurrrrrru";
+	String hallToAccusation = "uru";
+	String studyToAccusation = "uuullulllu";
+	String libraryToAccusation = "lldlllu";
+	String billiardRoomToAccusation = "lllddddddddlllu";
+	
 	private int routeIndex = 0;
 	private String[] masterRoute = new String[] {"drruuuuuuullluluu","drrruur","ldddrrrrrrrrrruuuru","dddlddr","ldddddlddr","lddddrd",
 			"luuululllld","ullllldd","uuuu","ddrrrrrru"};
+	
+	private String[] masterRouteToAccuse = new String[] {"ddrrrrrru","ddrdrrrddddddddrrrru","lddddrddddddddrrrru","dldddddddddldddllllu","lllddddddddlllu",
+			"lldlllu",
+			"uuullulllu","uru","uurrrrrru"};
 
 	/*
 	diningRoomToKitchen,
@@ -172,7 +150,10 @@ public class Sherlock implements BotAPI {
 	billardroomToLibrary, libraryToStudy, studyToHall, hallToLounge, loungeToDiningRoom];
 	 */
 
-
+	
+	private String[] masterRouteNames = new String[] {"Dining Room","Kitchen","Ballroom","Conservatory","Billiard Room","Library",
+			"Study","Hall","Lounge","Accusation"};
+	
 	public Sherlock(Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
 		this.player = player;
 		this.playersInfo = playersInfo;
@@ -180,6 +161,7 @@ public class Sherlock implements BotAPI {
 		this.dice = dice;
 		this.log = log;
 		this.deck = deck;
+		
 		
 		
 	}
@@ -193,29 +175,87 @@ public class Sherlock implements BotAPI {
 			return "accuse";
 		}
 		if(lastCommand.equals("roll") && !(player.getToken().isInRoom())){
-			System.out.println("Done");
+			
 			lastCommand = "done";
 			return "done";
 		}
 		if(lastCommand.equals("question") && turnsDone == dice.getTotal()){
-			System.out.println("Done with question");
+
 			release = false;
 			lastCommand = "done";
 			return "done";
 		}
 		if(lastCommand.equals("roll") && player.getToken().isInRoom()){
-			System.out.println("asking question");
+			
 			lastCommand = "question";
-			questionDone = true;
 			turnsDone = dice.getTotal();
 			return "question";
 		}
 		if(lastCommand.equals("done") && player.getToken().isInRoom()){
-			System.out.println("perform exit");
 			release = true;
-			System.out.println(routeIndex);
-			System.out.println(masterRoute.length);
-
+			
+			if(!(masterRouteNames[routeIndex].equals(player.getToken().getRoom().toString()))) {
+				for(int i=0;i<masterRouteNames.length;i++) {
+					if(masterRouteNames[i].equals(player.getToken().getRoom().toString())) {
+						routeIndex = i;
+					}
+				}
+			}
+			removeViewedCards(PlayerCards);
+			removeViewedCards(WeaponCards);
+			removeViewedCards(RoomCards);
+			
+			if(RoomCards.size() == 1 && PlayerCards.size() == 1 && WeaponCards.size() == 1) {
+				switch(player.getToken().getRoom().toString()) {
+					
+					case "Dining Room":
+						System.out.println("Dining to accuse");
+						pathToTravel = masterRouteToAccuse[0];
+						lastIndex = 0;
+						return "roll";
+					case "Kitchen":
+						System.out.println("Kitchen to accuse");
+						pathToTravel = masterRouteToAccuse[1];
+						lastIndex = 0;
+						return "roll";
+					case "Ballroom":
+						System.out.println("Ballroom to accuse");
+						pathToTravel = masterRouteToAccuse[2];
+						lastIndex = 0;
+						return "roll";
+					case "Conservatory":
+						System.out.println("Conservatory to accuse");
+						pathToTravel = masterRouteToAccuse[3];
+						lastIndex = 0;
+						return "roll";
+					case "Billiard Room":
+						System.out.println("Billiard Room to accuse");
+						pathToTravel = masterRouteToAccuse[4];
+						lastIndex = 0;
+						return "roll";
+					case "Library":
+						System.out.println("Library to accuse");
+						pathToTravel = masterRouteToAccuse[5];
+						lastIndex = 0;
+						return "roll";
+					case "Study":
+						System.out.println("Study to accuse");
+						pathToTravel = masterRouteToAccuse[6];
+						lastIndex = 0;
+						return "roll";
+					case "Hall":
+						System.out.println("Hall to accuse");
+						pathToTravel = masterRouteToAccuse[7];
+						lastIndex = 0;
+						return "roll";
+					case "Lounge":
+						System.out.println("Lounge to accuse");
+						pathToTravel = masterRouteToAccuse[8];
+						lastIndex = 0;
+						return "roll";
+					
+				}
+			}
 			pathToTravel = masterRoute[routeIndex];
 			routeIndex++;
 			lastIndex = 0;
@@ -223,7 +263,6 @@ public class Sherlock implements BotAPI {
 			return "roll";
 		}
 		else{
-			System.out.println("roll not in room");
 			lastCommand ="roll";
 			return "roll";
 		}
@@ -232,14 +271,72 @@ public class Sherlock implements BotAPI {
 
 	public String getMove() {
 
-
+		if(everyThingReady == 1) {
+			PlayerCards.add("Plum");
+			PlayerCards.add("White");
+			PlayerCards.add("Scarlett");
+			PlayerCards.add("Mustard");
+			PlayerCards.add("Peacock");
+			PlayerCards.add("Green");	
+			
+			WeaponCards.add("Rope");
+			WeaponCards.add("Dagger");
+			WeaponCards.add("Wrench");
+			WeaponCards.add("Pistol");
+			WeaponCards.add("Candlestick");
+			WeaponCards.add("Lead Pipe");
+			
+			RoomCards.add("Kitchen");
+			RoomCards.add("Ballroom");
+			RoomCards.add("Conservatory");
+			RoomCards.add("Billiard Room");
+			RoomCards.add("Library");
+			RoomCards.add("Study");
+			RoomCards.add("Hall");
+			RoomCards.add("Lounge");
+			RoomCards.add("Dining Room");
+			
+			
+			//Allcards
+			AllCards.add("Plum");
+			AllCards.add("White");
+			AllCards.add("Scarlett");
+			AllCards.add("Mustard");
+			AllCards.add("Peacock");
+			AllCards.add("Green");	
+			AllCards.add("Rope");
+			AllCards.add("Dagger");
+			AllCards.add("Wrench");
+			AllCards.add("Pistol");
+			AllCards.add("Candlestick");
+			AllCards.add("Lead Pipe");
+			AllCards.add("Kitchen");
+			AllCards.add("Ballroom");
+			AllCards.add("Conservatory");
+			AllCards.add("Billiard Room");
+			AllCards.add("Library");
+			AllCards.add("Study");
+			AllCards.add("Hall");
+			AllCards.add("Lounge");
+			AllCards.add("Dining Room");
+			
+			removeSharedCards(PlayerCards);
+			removeSharedCards(WeaponCards);
+			removeSharedCards(RoomCards);
+			
+			removeOwnCards(PlayerCards);
+			removeOwnCards(WeaponCards);
+			removeOwnCards(RoomCards);
+		
+			everyThingReady = 0;
+		}
 		if(release) {
 			char toReturn = pathToTravel.charAt(lastIndex);
 			lastIndex += 1;
 			turnsDone += 1;
 			return Character.toString(toReturn);
 		}
-
+		
 	
 
 		if(player.getToken().getName().equals("Mustard")){
@@ -584,172 +681,38 @@ public class Sherlock implements BotAPI {
 	}
 
 	public String getSuspect() {
-		// Add your code here
-		for(int i=0; i<6; i++){
-			if(!(player.hasCard(Names.SUSPECT_NAMES[i]))) {
-				suspectPlayers.add(Names.SUSPECT_NAMES[i]);
-			}
+		if(PlayerCards.size() == 1){
+			System.out.println("Accuse Player:" + PlayerCards.get(0));
+			return PlayerCards.get(0);
+		}else {
+			Random rand = new Random();
+			int number = rand.nextInt(PlayerCards.size());
+			return PlayerCards.get(number);
 		}
-
-		if(player.hasCard("Green") || player.hasSeen("Green")){
-			knownPlayers.add("Green");
-			suspectPlayers.remove("Green");
-		}
-		if(player.hasCard("White") || player.hasSeen("White")){
-			knownPlayers.add("White");
-			suspectPlayers.remove("White");
-		}
-		if(player.hasCard("Peacock") || player.hasSeen("Peacock")){
-			knownPlayers.add("Peacock");
-			suspectPlayers.remove("Peacock");
-		}
-		if(player.hasCard("Scarlett") || player.hasSeen("Scarlett")){
-			knownPlayers.add("Scarlett");
-			suspectPlayers.remove("Scarlett");
-		}
-		if(player.hasCard("Plum") || player.hasSeen("Plum")){
-			knownPlayers.add("Plum");
-			suspectPlayers.remove("Plum");
-		}
-		if(player.hasCard("Mustard") || player.hasSeen("Mustard")){
-			knownPlayers.add("Mustard");
-			suspectPlayers.remove("Mustard");
-		}
-		/*
-		for (String name : Names.WEAPON_NAMES) {
-			if (player.hasCard(name)) {
-				knownWeapons.add(name);
-			}
-		}*/
-
-		//System.out.println(player.getCards());
-		//System.out.println(knownPlayers);
-		//System.out.println(suspectPlayers);
-
-
-		return suspectPlayers.get(1);
 	}
 
 	public String getWeapon() {
-		// Add your code here
-		for(int i=0; i<6; i++){
-			if(!(player.hasCard(Names.WEAPON_NAMES[i]))) {
-				suspectWeapons.add(Names.WEAPON_NAMES[i]);
-			}
+		if(WeaponCards.size() == 1){
+			System.out.println("Accuse Weapon:" + WeaponCards.get(0));
+			return WeaponCards.get(0);
+		}else {
+			Random rand = new Random();
+			int number = rand.nextInt(WeaponCards.size());
+			return WeaponCards.get(number);
 		}
-		if(player.hasCard("Pistol") || player.hasSeen("Pistol")){
-			knownWeapons.add("Pistol");
-			suspectWeapons.remove("Pistol");
-		}
-		if(player.hasCard("Rope") || player.hasSeen("Rope")){
-			knownWeapons.add("Rope");
-			suspectWeapons.remove("Rope");
-		}
-		if(player.hasCard("Dagger") || player.hasSeen("Dagger")){
-			knownWeapons.add("Dagger");
-			suspectWeapons.remove("Dagger");
-		}
-		if(player.hasCard("Wrench") || player.hasSeen("Wrench")){
-			knownWeapons.add("Wrench");
-			suspectWeapons.remove("Wrench");
-		}
-		if(player.hasCard("Candlestick") || player.hasSeen("Candlestick")){
-			knownWeapons.add("Candlestick");
-			suspectWeapons.remove("Candlestick");
-		}
-		if(player.hasCard("Lead Pipe") || player.hasSeen("Lead Pipe")){
-			knownWeapons.add("Lead Pipe");
-			suspectWeapons.remove("Lead Pipe");
-		}
-		/*
-		for (String name : Names.WEAPON_NAMES) {
-			if (player.hasCard(name)) {
-				knownWeapons.add(name);
-			}
-		}*/
-
-		//System.out.println(player.getCards());
-		//System.out.println(knownWeapons);
-		//System.out.println(suspectWeapons);
-
-		return suspectWeapons.get(0);
 	}
 
 	public String getRoom() {
-		// Add your code here
-
-		for(int i=0; i<6; i++){
-			if(!(player.hasCard(Names.ROOM_NAMES[i]))) {
-				suspectRooms.add(Names.ROOM_NAMES[i]);
-			}
-
-		}
-		if(player.hasCard("Kitchen") || player.hasSeen("Kitchen")){
-			knownRooms.add("Kitchen");
-			suspectRooms.remove("Kitchen");
-		}
-		if(player.hasCard("Ballroom") || player.hasSeen("Ballroom")){
-			knownRooms.add("Ballroom");
-			suspectRooms.remove("Ballroom");
-		}
-		if(player.hasCard("Conservatory") || player.hasSeen("Conservatory")){
-			knownRooms.add("Conservatory");
-			suspectRooms.remove("Conservatory");
-		}
-		if(player.hasCard("Billiard Room") || player.hasSeen("Billiard Room")){
-			knownRooms.add("Billiard Room");
-			suspectRooms.remove("Billiard Room");
-		}
-		if(player.hasCard("Library") || player.hasSeen("Library")){
-			knownRooms.add("Library");
-			suspectRooms.remove("Library");
-		}
-		if(player.hasCard("Study") || player.hasSeen("Study")){
-			knownRooms.add("Study");
-			suspectRooms.remove("Study");
-		}
-		if(player.hasCard("Hall") || player.hasSeen("Hall")){
-			knownRooms.add("Hall");
-			suspectRooms.remove("Hall");
-		}
-		if(player.hasCard("Lounge") || player.hasSeen("Lounge")){
-			knownRooms.add("Lounge");
-			suspectRooms.remove("Lounge");
-		}
-		if(player.hasCard("Dining Room") || player.hasSeen("Dining Room")){
-			knownRooms.add("Dining Room");
-			suspectRooms.remove("Dining Room");
-		}
-		/*
-		for (String name : Names.ROOM_NAMES) {
-			if (player.hasCard(name)) {
-				knownRooms.add(name);
-			}
-		}*/
-
-		//System.out.println(player.getCards());
-		//System.out.println(knownRooms);
-		//System.out.println(suspectRooms);
-
-		return suspectRooms.get(suspectRooms.size()-1);
+		System.out.println("Accuse Room:" + RoomCards.get(0));
+		return RoomCards.get(0);
 	}
 
 	public String getDoor() {
-		// Add your code here
-		/*
-		String door = "";
-
-		if(player.getToken().isInRoom()){
-			int numberOfDoors =  player.getToken().getRoom().getNumberOfDoors();
-			Random rand = new Random();
-			door = Integer.toString(rand.nextInt(numberOfDoors)+1);
-		}
-		*/
 		return "1";
 	}
 
 	public String getCard(Cards matchingCards) {
-		// Add your code here
+		
 
 		return matchingCards.get().toString();
 	}
@@ -759,18 +722,66 @@ public class Sherlock implements BotAPI {
 
 	}
 	
-	public void Initialize() {
-		
-		for(int i =0;i<AllCards.size();i++) {
-			AllCards.add(allCards[i]);
-			System.out.println(allCards[i]);
-		}
-		System.out.println(AllCards.size());
-		cardsEach = 18/playersInfo.numPlayers();
-		
-	
-		if(cardsEach > 0) {
-			
+	private void removeSharedCards(ArrayList<String> arrayL) {
+		for(int i=0;i<arrayL.size();i++) {
+			if(deck.isSharedCard(arrayL.get(i))) {
+				arrayL.remove(i);
+			}
 		}
 	}
+	
+	private void removeOwnCards(ArrayList<String> arrayL) {
+		for(int i=0;i<arrayL.size();i++) {
+			if(player.getCards().contains(arrayL.get(i))) {
+				arrayL.remove(i);
+			}
+		}
+	}
+	
+	private void removeViewedCards(ArrayList<String> arrayL) {
+		for(int i=0;i<AllCards.size();i++) {
+			if(player.hasSeen(AllCards.get(i))) {
+				if(arrayL.contains(AllCards.get(i))){
+					arrayL.remove(AllCards.get(i));
+					System.out.println(arrayL.toString());
+					System.out.println("Weapons:" + WeaponCards.toString());
+					System.out.println("Rooms:" + RoomCards.toString());
+					System.out.println("Players:" + PlayerCards.toString());
+					
+					size += 1;
+				}
+			}
+		}
+	}
+
+	@Override
+	public String getVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void notifyPlayerName(String playerName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyTurnOver(String playerName, String position) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyQuery(String playerName, String query) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyReply(String playerName, boolean cardShown) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
