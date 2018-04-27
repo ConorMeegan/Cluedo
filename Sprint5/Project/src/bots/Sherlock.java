@@ -5,6 +5,14 @@ import java.util.Random;
 
 import gameengine.*;
 
+
+/*
+ * Sherlock bot by Mason Smith, Conor Meegan, Sam Bates
+ * Student Numbers:
+ * 			Mason Smith:16312606
+ * 			Conor Meegan:16347531
+ * 			Sam Bates:16391673
+*/
 public class Sherlock implements BotAPI {
 
 	int everyThingReady = 1;
@@ -12,15 +20,7 @@ public class Sherlock implements BotAPI {
 	ArrayList<String> WeaponCards = new ArrayList<String>();
 	ArrayList<String> RoomCards = new ArrayList<String>();
 	ArrayList<String> AllCards = new ArrayList<String>();
-	
-	ArrayList<String> knownPlayers = new ArrayList<>();
-	ArrayList<String> suspectPlayers = new ArrayList<>();
-	
-	ArrayList<String> knownWeapons = new ArrayList<>();
-	ArrayList<String> suspectWeapons = new ArrayList<>();
-	
-	ArrayList<String> knownRooms = new ArrayList<>();
-	ArrayList<String> suspectRooms = new ArrayList<>();
+
 	
 	int lastIndex = 0;
 	int cardsEach;
@@ -28,6 +28,9 @@ public class Sherlock implements BotAPI {
 	
 	String pathToTravel;
 	
+	String suspectRoom = "";
+	String suspectPlayer = "";
+	String suspectWeapon = "";
 	
 	// The public API of Bot must not change
 	// This is ONLY class that you can edit in the program
@@ -109,10 +112,7 @@ public class Sherlock implements BotAPI {
 	String scarlettToBilliardRoom = "uuuuuuurrrrrrrrruuuuuuuurr";
 	
 	
-	private int turnsDone = 0;
-
-	private String target = "Dining Room";
-	private String lastCommand = "roll";
+	
 	//room paths
 	
 	String kitchenToBallRoom = "drrruur"; //done
@@ -136,7 +136,15 @@ public class Sherlock implements BotAPI {
 	String libraryToAccusation = "lldlllu";
 	String billiardRoomToAccusation = "lllddddddddlllu";
 	
+	
+	private int turnsDone = 0;
+
+	private String room = "";
+	private String target = "Dining Room";
+	private String lastCommand = "roll";
 	private int routeIndex = 0;
+	//private String[] masterRoute = new String[] {"lddddrddddddddrrrru"};
+	
 	private String[] masterRoute = new String[] {"drruuuuuuullluluu","drrruur","ldddrrrrrrrrrruuuru","dddlddr","ldddddlddr","lddddrd",
 			"luuululllld","ullllldd","uuuu","ddrrrrrru"};
 	
@@ -149,7 +157,7 @@ public class Sherlock implements BotAPI {
 	kitchenToBallRoom, ballroomToConservatory, conservatoryToBilliardRoom,
 	billardroomToLibrary, libraryToStudy, studyToHall, hallToLounge, loungeToDiningRoom];
 	 */
-
+	private int sizeSeen = 0;
 	
 	private String[] masterRouteNames = new String[] {"Dining Room","Kitchen","Ballroom","Conservatory","Billiard Room","Library",
 			"Study","Hall","Lounge","Accusation"};
@@ -171,7 +179,7 @@ public class Sherlock implements BotAPI {
 	}
 
 	public String getCommand() {
-		if(routeIndex == 10 && player.getToken().isInRoom()){
+		if(room.equals("Cellar") && player.getToken().isInRoom()){
 			return "accuse";
 		}
 		if(lastCommand.equals("roll") && !(player.getToken().isInRoom())){
@@ -180,7 +188,7 @@ public class Sherlock implements BotAPI {
 			return "done";
 		}
 		if(lastCommand.equals("question") && turnsDone == dice.getTotal()){
-
+			
 			release = false;
 			lastCommand = "done";
 			return "done";
@@ -205,59 +213,68 @@ public class Sherlock implements BotAPI {
 			removeViewedCards(WeaponCards);
 			removeViewedCards(RoomCards);
 			
-			if(RoomCards.size() == 1 && PlayerCards.size() == 1 && WeaponCards.size() == 1) {
+			if(RoomCards.size() <= 2 && PlayerCards.size() <=2 && WeaponCards.size() <= 2) {
 				switch(player.getToken().getRoom().toString()) {
 					
 					case "Dining Room":
 						System.out.println("Dining to accuse");
 						pathToTravel = masterRouteToAccuse[0];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Kitchen":
 						System.out.println("Kitchen to accuse");
 						pathToTravel = masterRouteToAccuse[1];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Ballroom":
 						System.out.println("Ballroom to accuse");
 						pathToTravel = masterRouteToAccuse[2];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Conservatory":
 						System.out.println("Conservatory to accuse");
 						pathToTravel = masterRouteToAccuse[3];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Billiard Room":
 						System.out.println("Billiard Room to accuse");
 						pathToTravel = masterRouteToAccuse[4];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Library":
 						System.out.println("Library to accuse");
 						pathToTravel = masterRouteToAccuse[5];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Study":
 						System.out.println("Study to accuse");
 						pathToTravel = masterRouteToAccuse[6];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Hall":
 						System.out.println("Hall to accuse");
 						pathToTravel = masterRouteToAccuse[7];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					case "Lounge":
 						System.out.println("Lounge to accuse");
 						pathToTravel = masterRouteToAccuse[8];
 						lastIndex = 0;
+						room = "Cellar";
 						return "roll";
 					
 				}
 			}
 			pathToTravel = masterRoute[routeIndex];
-			routeIndex++;
+			//routeIndex++;
 			lastIndex = 0;
 			lastCommand = "roll";
 			return "roll";
@@ -327,7 +344,7 @@ public class Sherlock implements BotAPI {
 			removeOwnCards(PlayerCards);
 			removeOwnCards(WeaponCards);
 			removeOwnCards(RoomCards);
-		
+			
 			everyThingReady = 0;
 		}
 		if(release) {
@@ -358,7 +375,7 @@ public class Sherlock implements BotAPI {
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
-			}else if(target.equals("Ball Room")) {
+			}else if(target.equals("Ballroom")) {
 				
 				char toReturn =  mustardToBallRoom.charAt(lastIndex);
 				lastIndex += 1;
@@ -414,7 +431,7 @@ public class Sherlock implements BotAPI {
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
-			}else if(target.equals("Ball Room")) {
+			}else if(target.equals("Ballroom")) {
 				
 				char toReturn =  scarlettToBallRoom.charAt(lastIndex);
 				lastIndex += 1;
@@ -470,7 +487,7 @@ public class Sherlock implements BotAPI {
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
-			}else if(target.equals("Ball Room")) {
+			}else if(target.equals("Ballroom")) {
 				
 				char toReturn =  whiteToBallRoom.charAt(lastIndex);
 				lastIndex += 1;
@@ -526,7 +543,7 @@ public class Sherlock implements BotAPI {
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
-			}else if(target.equals("Ball Room")) {
+			}else if(target.equals("Ballroom")) {
 				
 				char toReturn =  greenToBallRoom.charAt(lastIndex);
 				lastIndex += 1;
@@ -582,7 +599,7 @@ public class Sherlock implements BotAPI {
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
-			}else if(target.equals("Ball Room")) {
+			}else if(target.equals("Ballroom")) {
 				
 				char toReturn =  plumToBallRoom.charAt(lastIndex);
 				lastIndex += 1;
@@ -638,7 +655,7 @@ public class Sherlock implements BotAPI {
 				lastIndex += 1;
 				turnsDone += 1;
 				return Character.toString(toReturn);
-			}else if(target.equals("Ball Room")) {
+			}else if(target.equals("Ballroom")) {
 				
 				char toReturn =  peacockToBallRoom.charAt(lastIndex);
 				lastIndex += 1;
@@ -683,10 +700,12 @@ public class Sherlock implements BotAPI {
 	public String getSuspect() {
 		if(PlayerCards.size() == 1){
 			System.out.println("Accuse Player:" + PlayerCards.get(0));
+			suspectPlayer = PlayerCards.get(0);
 			return PlayerCards.get(0);
 		}else {
 			Random rand = new Random();
 			int number = rand.nextInt(PlayerCards.size());
+			suspectPlayer = PlayerCards.get(number);
 			return PlayerCards.get(number);
 		}
 	}
@@ -694,10 +713,14 @@ public class Sherlock implements BotAPI {
 	public String getWeapon() {
 		if(WeaponCards.size() == 1){
 			System.out.println("Accuse Weapon:" + WeaponCards.get(0));
+			suspectWeapon = WeaponCards.get(0);
+			suspectRoom = player.getToken().getRoom().toString();
 			return WeaponCards.get(0);
 		}else {
 			Random rand = new Random();
 			int number = rand.nextInt(WeaponCards.size());
+			suspectPlayer = WeaponCards.get(number);
+			suspectRoom = player.getToken().getRoom().toString();
 			return WeaponCards.get(number);
 		}
 	}
@@ -743,15 +766,16 @@ public class Sherlock implements BotAPI {
 			if(player.hasSeen(AllCards.get(i))) {
 				if(arrayL.contains(AllCards.get(i))){
 					arrayL.remove(AllCards.get(i));
-					System.out.println(arrayL.toString());
+					System.out.println(player.getToken().getName());
 					System.out.println("Weapons:" + WeaponCards.toString());
 					System.out.println("Rooms:" + RoomCards.toString());
 					System.out.println("Players:" + PlayerCards.toString());
+					size++;
 					
-					size += 1;
 				}
 			}
 		}
+		
 	}
 
 	@Override

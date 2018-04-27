@@ -11,8 +11,8 @@ public class Cluedo {
 
 
     private static final String[] ALL_BOT_NAMES = {"Bot"};
-    private static final int NUM_PLAYERS = 4;
-    private static final int DELAY = 100;  // in milliseconds
+    private static final int NUM_PLAYERS = 3;
+    private static final int DELAY = 10;  // in milliseconds
 
     private final Tokens tokens  = new Tokens();
     private final Players players = new Players();
@@ -40,7 +40,7 @@ public class Cluedo {
             botNames[0] = "Sherlock";
             botNames[1] = "Sherlock";
             botNames[2] = "Sherlock";
-            botNames[3] = "Sherlock";
+            //botNames[3] = "Sherlock";
   
         } else {
             for (int i=0; i<NUM_PLAYERS; i++) {
